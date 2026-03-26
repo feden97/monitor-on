@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ── MODO CLARO ── */
+    /* Fondos */
+    --bg-base: 249 250 251;
+    /* #F9FAFB */
+    --bg-panel: 255 255 255;
+    /* #FFFFFF */
+    --bg-surface: 243 244 246;
+    /* #F3F4F6 */
+    /* Bordes */
+    --border-subtle: 229 231 235;
+    /* #E5E7EB */
+    /* Textos */
+    --text-primary: 17 24 39;
+    /* #111827 */
+    --text-muted: 107 114 128;
+    /* #6B7280 */
+    /* Acentos - Vivos para modo claro */
+    --color-up: 22 163 74;
+    /* #16A34A Verde clásico */
+    --color-down: 220 38 38;
+    /* #DC2626 Rojo clásico */
+    --color-flat: 107 114 128;
+    /* #6B7280 */
+    --bg-up-light: 220 252 231;
+    /* #DCFCE7 Fino verde bg */
+    --bg-down-light: 254 226 226;
+    /* #FEE2E2 Fino rojo bg */
+    --bg-flat-light: 243 244 246;
+    /* #F3F4F6 */
+    /* Highlights */
+    --color-accent: 30 41 59;
+    /* #1E293B Gris pizarra profundo (Alto contraste, muy elegante) */
+    --color-highlight: 71 85 105;
+    /* #475569 Gris pizarra medio */
+  }
+
+  .dark {
+    /* ── MODO OSCURO PRO (DeFi/Terminal) ── */
+    /* Fondos */
+    --bg-base: 15 15 19;
+    /* #0F0F13 Base muy profunda */
+    --bg-panel: 22 22 26;
+    /* #16161A Paneles / Tarjetas */
+    --bg-surface: 31 31 34;
+    /* #1F1F22 Hover y headers */
+    /* Bordes sutiles */
+    --border-subtle: 39 39 42;
+    /* #27272A Líneas divisorias */
+    /* Textos */
+    --text-primary: 244 244 245;
+    /* #F4F4F5 Blanco elegante */
+    --text-muted: 161 161 170;
+    /* #A1A1AA Gris neutro/azulado */
+    /* Acentos - Neón */
+    --color-up: 74 222 128;
+    /* #4ADE80 Verde brillante de UI Crypto */
+    --color-down: 248 113 113;
+    /* #F87171 Rojo vivo */
+    --color-flat: 161 161 170;
+    /* #A1A1AA */
+    --bg-up-light: 20 40 26;
+    /* Fondo tenue verde */
+    --bg-down-light: 45 20 20;
+    /* Fondo tenue rojo */
+    --bg-flat-light: 39 39 42;
+    /* #27272A */
+    /* Highlights */
+    --color-accent: 251 191 36;
+    /* #FBBF24 Ámbar brillante (Modo Oscuro) */
+    --color-highlight: 251 191 36;
+    /* #FBBF24 Texto amarillo claro */
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-terminal-bg text-terminal-text font-sans;
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+
+  /* ── Table header cells ── */
+  .th-cell {
+    @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-terminal-muted border-b border-terminal-border select-none whitespace-nowrap;
+  }
+
+  .th-cell.sortable {
+    @apply cursor-pointer hover:text-terminal-text;
+  }
+
+  /* ── Table body rows ── */
+  .td-cell {
+    @apply px-4 py-2.5 text-sm font-mono whitespace-nowrap border-b border-terminal-border/50;
+  }
+
+  .tr-row {
+    @apply hover:bg-terminal-surface;
+  }
+
+  /* ── Ticker badge ── */
+  .ticker-badge {
+    @apply inline-block font-mono font-semibold text-xs tracking-wider bg-terminal-accent text-terminal-bg px-2 py-0.5 rounded-sm;
+  }
+
+  /* ── Change pill ── */
+  .change-up {
+    @apply inline-flex items-center gap-1 text-up font-mono font-medium bg-up-light px-2 py-0.5 rounded-sm text-xs;
+  }
+
+  .change-down {
+    @apply inline-flex items-center gap-1 text-down font-mono font-medium bg-down-light px-2 py-0.5 rounded-sm text-xs;
+  }
+
+  .change-flat {
+    @apply inline-flex items-center gap-1 text-flat font-mono font-medium bg-flat-light px-2 py-0.5 rounded-sm text-xs;
+  }
+}
+
+/* ── Scrollbar styling ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d8d4c8;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9b9688;
+}
+
+/* ── Pulse animation for live indicator ── */
+@keyframes pulse-dot {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+}
+
+.live-dot {
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+/* ── Skeleton shimmer ── */
+@keyframes shimmer {
+  0% {
+    background-position: -600px 0;
+  }
+
+  100% {
+    background-position: 600px 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg,
+      #EFEDE6 25%,
+      #E5E2D9 50%,
+      #EFEDE6 75%);
+  background-size: 600px 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: 3px;
+}
