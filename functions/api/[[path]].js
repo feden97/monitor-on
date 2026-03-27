@@ -31,15 +31,35 @@ export async function onRequest(context) {
   proxyRequest.headers.set('Host', 'data912.com');
 
   try {
-    const response = await fetch(proxyRequest);
+    // Try to find a cached response first
+    const cacheUrl = new URL(request.url);
+    const cacheKey = new Request(cacheUrl.toString(), request);
+    const cache = caches.default;
+    let response = await cache.match(cacheKey);
 
-    // Clone the response so we can modify headers if needed (e.g. CORS)
+    if (!response) {
+      // If not in cache, fetch from origin
+      response = await fetch(proxyRequest);
+
+      // We only cache successful responses
+      if (response.ok) {
+        // Create a new response with Cache-Control headers to tell Cloudflare to cache it
+        response = new Response(response.body, response);
+        response.headers.set('Cache-Control', 'public, s-maxage=10');
+        
+        // Store in cache
+        context.waitUntil(cache.put(cacheKey, response.clone()));
+      }
+    }
+
+    // Clone the response so we can modify headers for the client
     const newResponse = new Response(response.body, response);
     
-    // Add permissive CORS for the current domain just in case
+    // Standard CORS and security headers
     newResponse.headers.set('Access-Control-Allow-Origin', '*');
     newResponse.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     newResponse.headers.set('Access-Control-Allow-Headers', '*');
+    newResponse.headers.set('X-Proxy-Cache', response.headers.has('CF-Cache-Status') ? 'HIT' : 'MISS');
 
     return newResponse;
   } catch (error) {
