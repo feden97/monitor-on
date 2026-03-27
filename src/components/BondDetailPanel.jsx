@@ -17,15 +17,15 @@ import { formatPrice, formatPct } from '../utils/formatters'
  * BondDetailPanel — Expanded detail view for a bond.
  * Shows Emission Data, Market Metrics, and Cash Flow.
  */
-export default function BondDetailPanel({ bond, metadata, prospecto, dolarMEP }) {
+export default function BondDetailPanel({ bond, prospecto, dolarMEP }) {
   // ── 1. Parse Fundamental Data ─────────────────────────────────────
   const interest = useMemo(() => 
-    metadata ? parseInterestString(metadata.interes) : (prospecto?.coupon_rate ? { rate: prospecto.coupon_rate } : null)
-  , [metadata, prospecto])
+    prospecto?.coupon_rate ? { rate: prospecto.coupon_rate } : null
+  , [prospecto])
   
   const amort = useMemo(() => 
-    metadata ? parseAmortString(metadata.formaAmortizacion) : (prospecto?.amortization ? { type: prospecto.amortization.type } : null)
-  , [metadata, prospecto])
+    prospecto?.amort_type ? { type: prospecto.amort_type } : null
+  , [prospecto])
 
   // ── 2. Calculate Financial Metrics ────────────────────────────────
   const metrics = useMemo(() => {
@@ -34,8 +34,8 @@ export default function BondDetailPanel({ bond, metadata, prospecto, dolarMEP })
     const settlementDate = new Date() // Today
     const dirtyPrice = bond.c
     
-    // Use prospecto cash flows if available, otherwise generated ones
-    const flows = prospecto?.cash_flows || (metadata ? generateCashFlows(metadata) : [])
+    // Use prospecto cash flows if available
+    const flows = prospecto?.cash_flows || []
     if (flows.length === 0) return null
 
     const accrued = calcCouponAccrued(flows, settlementDate)
@@ -56,7 +56,7 @@ export default function BondDetailPanel({ bond, metadata, prospecto, dolarMEP })
       modDuration,
       flows
     }
-  }, [bond, metadata, prospecto, interest])
+  }, [bond, prospecto, interest])
 
   // ── 3. Render Helper ──────────────────────────────────────────────
   const DataRow = ({ label, value, subValue, highlight = false }) => (
@@ -82,16 +82,16 @@ export default function BondDetailPanel({ bond, metadata, prospecto, dolarMEP })
             Datos de Emisión
           </h4>
           <div className="bg-terminal-panel rounded-lg p-4 border border-terminal-border shadow-sm">
-            <DataRow label="Emisora" value={metadata?.emisor || prospecto?.name} />
-            <DataRow label="ISIN" value={metadata?.isin || prospecto?.isin} />
-            <DataRow label="Fecha Emisión" value={metadata?.fechaEmision || prospecto?.issue_date} />
-            <DataRow label="Fecha Vencimiento" value={metadata?.fechaVencimiento || prospecto?.maturity_date} />
-            <DataRow label="Ley" value={prospecto?.law || metadata?.ley} />
+            <DataRow label="Emisora" value={prospecto?.name} />
+            <DataRow label="ISIN" value={prospecto?.isin || '—'} />
+            <DataRow label="Fecha Emisión" value={prospecto?.emission_date || '—'} />
+            <DataRow label="Fecha Vencimiento" value={prospecto?.maturity_date || '—'} />
+            <DataRow label="Ley" value={prospecto?.law} />
             <DataRow label="Dólar de Pago" value={prospecto?.currency_type || '—'} />
             <DataRow label="Cupón TNA" value={interest ? `${interest.rate}%` : '—'} subValue={`${prospecto?.frequency || 2} pagos/año`} />
-            <DataRow label="Calificación" value={prospecto?.rating || metadata?.rating} />
+            <DataRow label="Calificación" value={prospecto?.rating} />
             <DataRow label="Mínimo Nom." value={prospecto?.min_investment ? `${prospecto.min_investment} VN` : '1 VN'} />
-            <DataRow label="Amortización" value={amort?.type === 'bullet' ? 'Bullet (100% al vto)' : 'Amortizable'} />
+            <DataRow label="Amortización" value={amort?.type === 'Bullet' ? 'Bullet (100% al vto)' : (amort?.type || '—')} />
           </div>
         </div>
 

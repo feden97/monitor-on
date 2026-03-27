@@ -20,11 +20,13 @@
     "callable": false,
     "ticker_o": "CS47O",
     "name": "CRESUD C47",
-    "coupon_rate": 7.0,
+    "coupon_rate": 7,
     "frequency": 2,
     "min_investment": 1,
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2027-11-15",
+    "amort_type": "Bullet"
   },
   "CS48D": {
     "couponsPerYear": 2,
@@ -38,11 +40,13 @@
     "callable": false,
     "ticker_o": "CS48O",
     "name": "CRESUD C48",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 2,
     "min_investment": 1,
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2028-07-11",
+    "amort_type": "Bullet"
   },
   "GN49D": {
     "couponsPerYear": 2,
@@ -72,8 +76,10 @@
     "coupon_rate": 7.75,
     "frequency": 2,
     "min_investment": 1000,
-    "currency_type": "CCL",
-    "rating": "A+"
+    "currency_type": "Cable",
+    "rating": "A+",
+    "maturity_date": "2033-12-02",
+    "amort_type": "Amort."
   },
   "LMS7D": {
     "couponsPerYear": 4,
@@ -134,11 +140,13 @@
     "callable": false,
     "ticker_o": "LMS7O",
     "name": "ALUAR ALUMINIO ARG.S7",
-    "coupon_rate": 7.0,
+    "coupon_rate": 7,
     "frequency": 4,
     "min_investment": 1,
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2028-10-12",
+    "amort_type": "Amort."
   },
   "MR39D": {
     "couponsPerYear": 2,
@@ -161,7 +169,7 @@
       },
       {
         "date": "2027-11-01",
-        "pct": 5.0
+        "pct": 5
       },
       {
         "date": "2028-05-01",
@@ -173,27 +181,27 @@
       },
       {
         "date": "2029-05-01",
-        "pct": 11.0
+        "pct": 11
       },
       {
         "date": "2029-11-01",
-        "pct": 11.0
+        "pct": 11
       },
       {
         "date": "2030-05-01",
-        "pct": 11.0
+        "pct": 11
       },
       {
         "date": "2030-11-01",
-        "pct": 11.0
+        "pct": 11
       },
       {
         "date": "2031-05-01",
-        "pct": 11.0
+        "pct": 11
       },
       {
         "date": "2031-11-01",
-        "pct": 22.0
+        "pct": 22
       }
     ],
     "dayConvention": 360,
@@ -201,11 +209,13 @@
     "callable": false,
     "ticker_o": "MR39O",
     "name": "GEN.MEDITERRANEA C39 S.B",
-    "coupon_rate": 11.0,
+    "coupon_rate": 11,
     "frequency": 2,
     "min_investment": 1,
-    "currency_type": "CCL",
-    "rating": "D"
+    "currency_type": "Cable",
+    "rating": "D",
+    "maturity_date": "2031-11-01",
+    "amort_type": "Amort."
   },
   "ARC1D": {
     "ticker_o": "ARC1O",
@@ -214,38 +224,46 @@
     "frequency": 4,
     "min_investment": 1000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AA"
+    "currency_type": "Cable",
+    "rating": "AA",
+    "maturity_date": "2031-08-01",
+    "amort_type": "Amort."
   },
   "BACGD": {
     "ticker_o": "BACGO",
     "name": "MACRO C.G.",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 2,
     "min_investment": 1000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2029-06-23",
+    "amort_type": "Bullet"
   },
   "BACHD": {
     "ticker_o": "BACHO",
     "name": "MACRO C.H.",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 2,
     "min_investment": 1000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2031-01-28",
+    "amort_type": "Bullet"
   },
   "BVCOD": {
     "ticker_o": "BVCOO",
     "name": "BANCO DE SERVICIOS Y TRANS.C23",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 4,
     "min_investment": 850,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A-"
+    "rating": "A-",
+    "maturity_date": "2026-07-15",
+    "amort_type": "Bullet"
   },
   "BYCHD": {
     "ticker_o": "BYCHO",
@@ -254,8 +272,10 @@
     "frequency": 2,
     "min_investment": 1,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AA"
+    "currency_type": "Cable",
+    "rating": "AA",
+    "maturity_date": "2028-10-10",
+    "amort_type": "Bullet"
   },
   "CAC5D": {
     "ticker_o": "CAC5O",
@@ -264,8 +284,10 @@
     "frequency": 2,
     "min_investment": 1,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AA"
+    "currency_type": "Cable",
+    "rating": "AA",
+    "maturity_date": "2028-08-25",
+    "amort_type": "Amort."
   },
   "CACDD": {
     "ticker_o": "CACDO",
@@ -275,7 +297,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2029-06-04",
+    "amort_type": "Amort."
   },
   "CIC8D": {
     "ticker_o": "CIC8O",
@@ -285,7 +309,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2028-11-12",
+    "amort_type": "Bullet"
   },
   "CIC9D": {
     "ticker_o": "CIC9O",
@@ -295,17 +321,21 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2027-05-21",
+    "amort_type": "Bullet"
   },
   "CICAD": {
     "ticker_o": "CICAO",
     "name": "CNH IND.CAPITAL ARGENTINA C10",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2028-06-03",
+    "amort_type": "Bullet"
   },
   "CICBD": {
     "ticker_o": "CICBO",
@@ -315,17 +345,21 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2029-02-09",
+    "amort_type": "Bullet"
   },
   "CLI1D": {
     "ticker_o": "CLI1O",
     "name": "CLISA COMP. LAT. INF. SERV. 2034",
-    "coupon_rate": 7.0,
+    "coupon_rate": 7,
     "frequency": 2,
     "min_investment": 1,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "B"
+    "currency_type": "Cable",
+    "rating": "B",
+    "maturity_date": "2034-12-10",
+    "amort_type": "Bullet"
   },
   "CLSID": {
     "ticker_o": "CLSIO",
@@ -334,18 +368,22 @@
     "frequency": 2,
     "min_investment": 1,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "B"
+    "currency_type": "Cable",
+    "rating": "B",
+    "maturity_date": "2027-07-25",
+    "amort_type": "Bullet"
   },
   "CP37D": {
     "ticker_o": "CP37O",
     "name": "COMP. GRAL DE COMB. C37",
-    "coupon_rate": 7.0,
+    "coupon_rate": 7,
     "frequency": 4,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A"
+    "rating": "A",
+    "maturity_date": "2027-03-10",
+    "amort_type": "Bullet"
   },
   "CP38D": {
     "ticker_o": "CP38O",
@@ -354,8 +392,10 @@
     "frequency": 2,
     "min_investment": 1,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "A"
+    "currency_type": "Cable",
+    "rating": "A",
+    "maturity_date": "2030-11-28",
+    "amort_type": "Bullet"
   },
   "CP40D": {
     "ticker_o": "CP40O",
@@ -365,7 +405,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A"
+    "rating": "A",
+    "maturity_date": "2028-03-09",
+    "amort_type": "Bullet"
   },
   "CRCJD": {
     "ticker_o": "CRCJO",
@@ -375,27 +417,33 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "D"
+    "rating": "D",
+    "maturity_date": "2028-05-16",
+    "amort_type": "Amort."
   },
   "CS44D": {
     "ticker_o": "CS44O",
     "name": "CRESUD C44",
-    "coupon_rate": 6.0,
+    "coupon_rate": 6,
     "frequency": 2,
     "min_investment": 10000,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2027-01-17",
+    "amort_type": "Bullet"
   },
   "CS45D": {
     "ticker_o": "CS45O",
     "name": "CRESUD C45",
-    "coupon_rate": 6.0,
+    "coupon_rate": 6,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2026-08-22",
+    "amort_type": "Bullet"
   },
   "CS49D": {
     "ticker_o": "CS49O",
@@ -405,7 +453,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2027-09-02",
+    "amort_type": "Bullet"
   },
   "CS50D": {
     "ticker_o": "CS50O",
@@ -415,7 +465,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2029-03-10",
+    "amort_type": "Bullet"
   },
   "DEC2D": {
     "ticker_o": "DEC2O",
@@ -425,7 +477,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A-"
+    "rating": "A-",
+    "maturity_date": "2027-02-24",
+    "amort_type": "Bullet"
   },
   "DNC3D": {
     "ticker_o": "DNC3O",
@@ -435,7 +489,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A+"
+    "rating": "A+",
+    "maturity_date": "2026-11-22",
+    "amort_type": "Bullet"
   },
   "DNC5D": {
     "ticker_o": "DNC5O",
@@ -445,7 +501,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A+"
+    "rating": "A+",
+    "maturity_date": "2028-08-05",
+    "amort_type": "Bullet"
   },
   "DNC7D": {
     "ticker_o": "DNC7O",
@@ -454,8 +512,10 @@
     "frequency": 2,
     "min_investment": 1,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "A+"
+    "currency_type": "Cable",
+    "rating": "A+",
+    "maturity_date": "2030-10-24",
+    "amort_type": "Amort."
   },
   "DNC8D": {
     "ticker_o": "DNC8O",
@@ -465,7 +525,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A+"
+    "rating": "A+",
+    "maturity_date": "2026-08-07",
+    "amort_type": "Amort."
   },
   "EAC3D": {
     "ticker_o": "EAC3O",
@@ -475,7 +537,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A"
+    "rating": "A",
+    "maturity_date": "2028-12-20",
+    "amort_type": "Bullet"
   },
   "FO4AD": {
     "ticker_o": "FO4AO",
@@ -485,17 +549,21 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA-"
+    "rating": "AA-",
+    "maturity_date": "2027-07-20",
+    "amort_type": "Bullet"
   },
   "GN47D": {
     "ticker_o": "GN47O",
     "name": "GENNEIA S.A. C47",
-    "coupon_rate": 6.0,
+    "coupon_rate": 6,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A+"
+    "rating": "A+",
+    "maturity_date": "2028-10-17",
+    "amort_type": "Bullet"
   },
   "GN48D": {
     "ticker_o": "GN48O",
@@ -505,7 +573,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A+"
+    "rating": "A+",
+    "maturity_date": "2028-03-05",
+    "amort_type": "Bullet"
   },
   "GNCXD": {
     "ticker_o": "GNCXO",
@@ -514,18 +584,22 @@
     "frequency": 2,
     "min_investment": 1000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "A+"
+    "currency_type": "Cable",
+    "rating": "A+",
+    "maturity_date": "2027-09-02",
+    "amort_type": "Amort."
   },
   "GYC4D": {
     "ticker_o": "GYC4O",
     "name": "ENERGY SOLAR 360 C4",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A"
+    "rating": "A",
+    "maturity_date": "2027-10-30",
+    "amort_type": "Bullet"
   },
   "GYC5D": {
     "ticker_o": "GYC5O",
@@ -535,7 +609,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A"
+    "rating": "A",
+    "maturity_date": "2027-09-05",
+    "amort_type": "Bullet"
   },
   "HJCGD": {
     "ticker_o": "HJCGO",
@@ -545,17 +621,21 @@
     "min_investment": 1200,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2028-10-21",
+    "amort_type": "Bullet"
   },
   "HJCHD": {
     "ticker_o": "HJCHO",
     "name": "JOHN DEERE CREDIT C16",
-    "coupon_rate": 7.0,
+    "coupon_rate": 7,
     "frequency": 2,
     "min_investment": 1200,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2028-01-17",
+    "amort_type": "Bullet"
   },
   "HJCID": {
     "ticker_o": "HJCIO",
@@ -565,7 +645,9 @@
     "min_investment": 1200,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2027-05-26",
+    "amort_type": "Bullet"
   },
   "HJCKD": {
     "ticker_o": "HJCKO",
@@ -575,7 +657,9 @@
     "min_investment": 1000,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2029-01-16",
+    "amort_type": "Bullet"
   },
   "IRCFD": {
     "ticker_o": "IRCFO",
@@ -584,18 +668,22 @@
     "frequency": 2,
     "min_investment": 1,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2028-06-22",
+    "amort_type": "Amort."
   },
   "IRCJD": {
     "ticker_o": "IRCJO",
     "name": "IRSA C18",
-    "coupon_rate": 7.0,
+    "coupon_rate": 7,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2027-02-28",
+    "amort_type": "Bullet"
   },
   "IRCOD": {
     "ticker_o": "IRCOO",
@@ -605,47 +693,57 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2029-10-23",
+    "amort_type": "Bullet"
   },
   "IRCPD": {
     "ticker_o": "IRCPO",
     "name": "IRSA C24",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 2,
     "min_investment": 1,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2035-03-31",
+    "amort_type": "Amort."
   },
   "JNC6D": {
     "ticker_o": "JNC6O",
     "name": "INVERSORA JURAMENTO SA C6",
-    "coupon_rate": 9.0,
+    "coupon_rate": 9,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A-"
+    "rating": "A-",
+    "maturity_date": "2027-10-03",
+    "amort_type": "Bullet"
   },
   "LDCGD": {
     "ticker_o": "LDCGO",
     "name": "LEDESMA C15",
-    "coupon_rate": 7.0,
+    "coupon_rate": 7,
     "frequency": 4,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA-"
+    "rating": "AA-",
+    "maturity_date": "2027-10-04",
+    "amort_type": "Bullet"
   },
   "LECED": {
     "ticker_o": "LECEO",
     "name": "ALBANESI ENERGIA C13",
-    "coupon_rate": 9.0,
+    "coupon_rate": 9,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "D"
+    "rating": "D",
+    "maturity_date": "2026-08-14",
+    "amort_type": "Bullet"
   },
   "LECGD": {
     "ticker_o": "LECGO",
@@ -655,17 +753,21 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "D"
+    "rating": "D",
+    "maturity_date": "2027-08-28",
+    "amort_type": "Bullet"
   },
   "LIC6D": {
     "ticker_o": "LIC6O",
     "name": "LIPSA C.6",
-    "coupon_rate": 9.0,
+    "coupon_rate": 9,
     "frequency": 4,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "BBB+"
+    "rating": "BBB+",
+    "maturity_date": "2026-07-02",
+    "amort_type": "Amort."
   },
   "LMS8D": {
     "ticker_o": "LMS8O",
@@ -675,37 +777,45 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2027-09-21",
+    "amort_type": "Amort."
   },
   "LMS9D": {
     "ticker_o": "LMS9O",
     "name": "ALUAR ALUMINIO ARG.S9",
-    "coupon_rate": 6.0,
+    "coupon_rate": 6,
     "frequency": 4,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2026-06-13",
+    "amort_type": "Bullet"
   },
   "LOC4D": {
     "ticker_o": "LOC4O",
     "name": "LOMA NEGRA C4",
-    "coupon_rate": 6.0,
+    "coupon_rate": 6,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2026-05-02",
+    "amort_type": "Bullet"
   },
   "LOC5D": {
     "ticker_o": "LOC5O",
     "name": "LOMA NEGRA C5",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2027-07-24",
+    "amort_type": "Bullet"
   },
   "LOC6D": {
     "ticker_o": "LOC6O",
@@ -715,27 +825,33 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2029-01-23",
+    "amort_type": "Bullet"
   },
   "LR7BD": {
     "ticker_o": "LR7BO",
     "name": "LAB.RICHMOND S7 C.B",
-    "coupon_rate": 9.0,
+    "coupon_rate": 9,
     "frequency": 4,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A"
+    "rating": "A",
+    "maturity_date": "2026-12-10",
+    "amort_type": "Bullet"
   },
   "LUC5D": {
     "ticker_o": "LUC5O",
     "name": "LUZ TRES PICOS SA C5",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2029-02-26",
+    "amort_type": "Bullet"
   },
   "MCC1D": {
     "ticker_o": "MCC1O",
@@ -745,7 +861,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA-"
+    "rating": "AA-",
+    "maturity_date": "2029-03-10",
+    "amort_type": "Amort."
   },
   "MGC9D": {
     "ticker_o": "MGC9O",
@@ -754,8 +872,10 @@
     "frequency": 2,
     "min_investment": 1,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2026-12-08",
+    "amort_type": "Amort."
   },
   "MGCMD": {
     "ticker_o": "MGCMO",
@@ -764,8 +884,10 @@
     "frequency": 2,
     "min_investment": 10000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2031-09-10",
+    "amort_type": "Bullet"
   },
   "MGCOD": {
     "ticker_o": "MGCOO",
@@ -774,8 +896,10 @@
     "frequency": 2,
     "min_investment": 10000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2034-12-16",
+    "amort_type": "Bullet"
   },
   "MGCRD": {
     "ticker_o": "MGCRO",
@@ -784,8 +908,10 @@
     "frequency": 2,
     "min_investment": 10000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2037-11-14",
+    "amort_type": "Bullet"
   },
   "MIC4D": {
     "ticker_o": "MIC4O",
@@ -795,17 +921,21 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A+"
+    "rating": "A+",
+    "maturity_date": "2027-07-29",
+    "amort_type": "Bullet"
   },
   "MJC1D": {
     "ticker_o": "MJC1D",
     "name": "MINAS ARG. S.A. C1",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A+"
+    "rating": "A+",
+    "maturity_date": "2027-02-19",
+    "amort_type": "Bullet"
   },
   "MR35D": {
     "ticker_o": "MR35O",
@@ -815,17 +945,21 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "D"
+    "rating": "D",
+    "maturity_date": "2027-09-01",
+    "amort_type": "Bullet"
   },
   "MR40D": {
     "ticker_o": "MR40O",
     "name": "GEN.MEDITERRANEA C40",
-    "coupon_rate": 11.0,
+    "coupon_rate": 11,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "D"
+    "rating": "D",
+    "maturity_date": "2031-11-01",
+    "amort_type": "Amort."
   },
   "MRCAD": {
     "ticker_o": "MRCAO",
@@ -834,8 +968,10 @@
     "frequency": 2,
     "min_investment": 1,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "D"
+    "currency_type": "Cable",
+    "rating": "D",
+    "maturity_date": "2027-12-01",
+    "amort_type": "Amort."
   },
   "MRCQD": {
     "ticker_o": "MRCQO",
@@ -845,7 +981,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "D"
+    "rating": "D",
+    "maturity_date": "2026-04-18",
+    "amort_type": "Bullet"
   },
   "MRCYD": {
     "ticker_o": "MRCYO",
@@ -855,7 +993,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "D"
+    "rating": "D",
+    "maturity_date": "2026-05-30",
+    "amort_type": "Bullet"
   },
   "MSSED": {
     "ticker_o": "MSSEO",
@@ -865,7 +1005,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A+"
+    "rating": "A+",
+    "maturity_date": "2026-07-17",
+    "amort_type": "Bullet"
   },
   "MSSFD": {
     "ticker_o": "MSSFO",
@@ -875,7 +1017,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A+"
+    "rating": "A+",
+    "maturity_date": "2027-07-23",
+    "amort_type": "Bullet"
   },
   "MSSGD": {
     "ticker_o": "MSSGO",
@@ -885,7 +1029,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A+"
+    "rating": "A+",
+    "maturity_date": "2029-04-16",
+    "amort_type": "Bullet"
   },
   "MTCGD": {
     "ticker_o": "MTCGO",
@@ -894,18 +1040,22 @@
     "frequency": 4,
     "min_investment": 1,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "A"
+    "currency_type": "Cable",
+    "rating": "A",
+    "maturity_date": "2026-06-30",
+    "amort_type": "Bullet"
   },
   "NPCCD": {
     "ticker_o": "NPCCO",
     "name": "CENTRAL PUERTO S.A. Clase C",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2029-08-25",
+    "amort_type": "Bullet"
   },
   "OLC6D": {
     "ticker_o": "OLC6O",
@@ -915,7 +1065,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2029-06-05",
+    "amort_type": "Bullet"
   },
   "OLC7D": {
     "ticker_o": "OLC7O",
@@ -925,47 +1077,57 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2030-02-23",
+    "amort_type": "Bullet"
   },
   "OT41D": {
     "ticker_o": "OT41O",
     "name": "OILTANKING EBYTEM S4 C1",
-    "coupon_rate": 7.0,
+    "coupon_rate": 7,
     "frequency": 4,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2028-01-17",
+    "amort_type": "Bullet"
   },
   "OT42D": {
     "ticker_o": "OT42O",
     "name": "OILTANKING EBYTEM S4 C2",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 4,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2030-01-17",
+    "amort_type": "Bullet"
   },
   "OTS2D": {
     "ticker_o": "OTS2O",
     "name": "OILTANKING EBYTEM S2",
-    "coupon_rate": 7.0,
+    "coupon_rate": 7,
     "frequency": 4,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2027-04-24",
+    "amort_type": "Bullet"
   },
   "OTS3D": {
     "ticker_o": "OTS3O",
     "name": "OILTANKING EBYTEM S3",
-    "coupon_rate": 7.0,
+    "coupon_rate": 7,
     "frequency": 4,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2028-11-01",
+    "amort_type": "Bullet"
   },
   "OTS6D": {
     "ticker_o": "OTS6O",
@@ -975,17 +1137,21 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2029-07-29",
+    "amort_type": "Bullet"
   },
   "OZC3D": {
     "ticker_o": "OZC3O",
     "name": "EDEMSA ENERGIA MENDOCINA C3",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2027-11-29",
+    "amort_type": "Bullet"
   },
   "PECAD": {
     "ticker_o": "PECAO",
@@ -995,7 +1161,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "D"
+    "rating": "D",
+    "maturity_date": "2027-02-28",
+    "amort_type": "Bullet"
   },
   "PECBD": {
     "ticker_o": "PECBO",
@@ -1005,27 +1173,33 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "D"
+    "rating": "D",
+    "maturity_date": "2028-02-29",
+    "amort_type": "Amort."
   },
   "PECGD": {
     "ticker_o": "PECGO",
     "name": "PET. ACONCAGUA ENERGIA C15",
-    "coupon_rate": 9.0,
+    "coupon_rate": 9,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "D"
+    "rating": "D",
+    "maturity_date": "2027-10-28",
+    "amort_type": "Bullet"
   },
   "PLC1D": {
     "ticker_o": "PLC1O",
     "name": "PLUSPETROL SA C1",
-    "coupon_rate": 6.0,
+    "coupon_rate": 6,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2028-01-27",
+    "amort_type": "Bullet"
   },
   "PLC2D": {
     "ticker_o": "PLC2O",
@@ -1035,7 +1209,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2030-01-27",
+    "amort_type": "Bullet"
   },
   "PLC3D": {
     "ticker_o": "PLC3O",
@@ -1045,7 +1221,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2028-04-30",
+    "amort_type": "Bullet"
   },
   "PLC4D": {
     "ticker_o": "PLC4O",
@@ -1054,8 +1232,10 @@
     "frequency": 2,
     "min_investment": 1000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2032-05-30",
+    "amort_type": "Bullet"
   },
   "PLC5D": {
     "ticker_o": "PLC5O",
@@ -1064,8 +1244,10 @@
     "frequency": 2,
     "min_investment": 1000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2031-05-18",
+    "amort_type": "Bullet"
   },
   "PLC6D": {
     "ticker_o": "PLC6O",
@@ -1075,17 +1257,21 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2029-02-27",
+    "amort_type": "Bullet"
   },
   "PN35D": {
     "ticker_o": "PN35O",
     "name": "PAN AMERICAN ENERGY C35",
-    "coupon_rate": 7.0,
+    "coupon_rate": 7,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2029-09-27",
+    "amort_type": "Bullet"
   },
   "PN36D": {
     "ticker_o": "PN36O",
@@ -1095,7 +1281,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2031-11-13",
+    "amort_type": "Bullet"
   },
   "PN38D": {
     "ticker_o": "PN38O",
@@ -1105,7 +1293,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2027-08-11",
+    "amort_type": "Bullet"
   },
   "PN41D": {
     "ticker_o": "PN41O",
@@ -1115,7 +1305,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2029-08-27",
+    "amort_type": "Amort."
   },
   "PN43D": {
     "ticker_o": "PN43O",
@@ -1124,8 +1316,10 @@
     "frequency": 2,
     "min_investment": 1000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2037-01-15",
+    "amort_type": "Amort."
   },
   "PNDCD": {
     "ticker_o": "PNDCO",
@@ -1134,8 +1328,10 @@
     "frequency": 2,
     "min_investment": 1000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2027-04-30",
+    "amort_type": "Amort."
   },
   "PNXCD": {
     "ticker_o": "PNXCO",
@@ -1144,18 +1340,22 @@
     "frequency": 2,
     "min_investment": 1000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2032-04-30",
+    "amort_type": "Amort."
   },
   "PQCSD": {
     "ticker_o": "PQCSO",
     "name": "PETROQ. COMODORO RIV. C.S.",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2031-02-17",
+    "amort_type": "Bullet"
   },
   "PQCTD": {
     "ticker_o": "PQCTO",
@@ -1165,7 +1365,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2028-07-21",
+    "amort_type": "Bullet"
   },
   "PUC2D": {
     "ticker_o": "PUC2O",
@@ -1175,7 +1377,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A-"
+    "rating": "A-",
+    "maturity_date": "2027-08-28",
+    "amort_type": "Bullet"
   },
   "RAC4D": {
     "ticker_o": "RAC4O",
@@ -1184,8 +1388,10 @@
     "frequency": 2,
     "min_investment": 1000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AA-"
+    "currency_type": "Cable",
+    "rating": "AA-",
+    "maturity_date": "2027-05-11",
+    "amort_type": "Bullet"
   },
   "RAC5D": {
     "ticker_o": "RAC5O",
@@ -1194,8 +1400,10 @@
     "frequency": 2,
     "min_investment": 1000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AA-"
+    "currency_type": "Cable",
+    "rating": "AA-",
+    "maturity_date": "2030-04-24",
+    "amort_type": "Bullet"
   },
   "RAC6D": {
     "ticker_o": "RAC6O",
@@ -1205,7 +1413,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA-"
+    "rating": "AA-",
+    "maturity_date": "2026-04-11",
+    "amort_type": "Amort."
   },
   "RC1CD": {
     "ticker_o": "RC1CO",
@@ -1214,8 +1424,10 @@
     "frequency": 2,
     "min_investment": 1000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2033-07-31",
+    "amort_type": "Amort."
   },
   "RCCJD": {
     "ticker_o": "RCCJO",
@@ -1224,8 +1436,10 @@
     "frequency": 2,
     "min_investment": 1000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2027-10-09",
+    "amort_type": "Amort."
   },
   "RCCRD": {
     "ticker_o": "RCCRO",
@@ -1235,7 +1449,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2027-05-09",
+    "amort_type": "Bullet"
   },
   "RUCDD": {
     "ticker_o": "RUCDO",
@@ -1245,7 +1461,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "A"
+    "rating": "A",
+    "maturity_date": "2030-12-05",
+    "amort_type": "Amort."
   },
   "RUCED": {
     "ticker_o": "RUCEO",
@@ -1255,7 +1473,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA-"
+    "rating": "AA-",
+    "maturity_date": "2027-10-30",
+    "amort_type": "Amort."
   },
   "RZ9BD": {
     "ticker_o": "RZ9BO",
@@ -1265,17 +1485,21 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "BBB"
+    "rating": "BBB",
+    "maturity_date": "2026-06-28",
+    "amort_type": "Bullet"
   },
   "RZABD": {
     "ticker_o": "RZABO",
     "name": "RIZOBACTER ARG.SX C.A.",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 4,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "BBB"
+    "rating": "BBB",
+    "maturity_date": "2027-11-28",
+    "amort_type": "Bullet"
   },
   "SBC1D": {
     "ticker_o": "SBC1O",
@@ -1285,7 +1509,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2027-09-05",
+    "amort_type": "Amort."
   },
   "SBC2D": {
     "ticker_o": "SBC2O",
@@ -1295,27 +1521,33 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2029-01-16",
+    "amort_type": "Amort."
   },
   "SNABD": {
     "ticker_o": "SNABO",
     "name": "SAN MIGUEL S.X C.B",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "BBB-"
+    "rating": "BBB-",
+    "maturity_date": "2029-07-14",
+    "amort_type": "Amort."
   },
   "SNEBD": {
     "ticker_o": "SNEBO",
     "name": "SAN MIGUEL S.XIII C.B",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "BBB-"
+    "rating": "BBB-",
+    "maturity_date": "2029-07-14",
+    "amort_type": "Amort."
   },
   "SNSBD": {
     "ticker_o": "SNSBO",
@@ -1325,7 +1557,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "BBB-"
+    "rating": "BBB-",
+    "maturity_date": "2026-10-14",
+    "amort_type": "Bullet"
   },
   "SNSDD": {
     "ticker_o": "SNSDO",
@@ -1335,17 +1569,21 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "BBB-"
+    "rating": "BBB-",
+    "maturity_date": "2027-02-06",
+    "amort_type": "Bullet"
   },
   "TLC1D": {
     "ticker_o": "TLC1O",
     "name": "TELECOM 2026",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 2,
     "min_investment": 1000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AA+"
+    "currency_type": "Cable",
+    "rating": "AA+",
+    "maturity_date": "2026-07-18",
+    "amort_type": "Bullet"
   },
   "TLCMD": {
     "ticker_o": "TLCMO",
@@ -1354,18 +1592,22 @@
     "frequency": 2,
     "min_investment": 1000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AA+"
+    "currency_type": "Cable",
+    "rating": "AA+",
+    "maturity_date": "2031-07-18",
+    "amort_type": "Amort."
   },
   "TLCOD": {
     "ticker_o": "TLCOO",
     "name": "TELECOM C23 2028",
-    "coupon_rate": 7.0,
+    "coupon_rate": 7,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA+"
+    "rating": "AA+",
+    "maturity_date": "2028-11-28",
+    "amort_type": "Bullet"
   },
   "TLCPD": {
     "ticker_o": "TLCPO",
@@ -1374,8 +1616,10 @@
     "frequency": 2,
     "min_investment": 1,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AA+"
+    "currency_type": "Cable",
+    "rating": "AA+",
+    "maturity_date": "2033-05-28",
+    "amort_type": "Amort."
   },
   "TLCTD": {
     "ticker_o": "TLCTO",
@@ -1384,8 +1628,10 @@
     "frequency": 2,
     "min_investment": 1,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AA+"
+    "currency_type": "Cable",
+    "rating": "AA+",
+    "maturity_date": "2036-01-20",
+    "amort_type": "Amort."
   },
   "TLCUD": {
     "ticker_o": "TLCUO",
@@ -1395,7 +1641,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA+"
+    "rating": "AA+",
+    "maturity_date": "2029-03-05",
+    "amort_type": "Bullet"
   },
   "TSC3D": {
     "ticker_o": "TSC3O",
@@ -1404,8 +1652,10 @@
     "frequency": 2,
     "min_investment": 10000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2031-07-24",
+    "amort_type": "Bullet"
   },
   "TSC4D": {
     "ticker_o": "TSC4O",
@@ -1414,8 +1664,10 @@
     "frequency": 2,
     "min_investment": 1000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2035-11-20",
+    "amort_type": "Bullet"
   },
   "TTC7D": {
     "ticker_o": "TTC7O",
@@ -1425,7 +1677,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2026-04-22",
+    "amort_type": "Amort."
   },
   "TTC9D": {
     "ticker_o": "TTC9O",
@@ -1435,7 +1689,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2029-10-24",
+    "amort_type": "Bullet"
   },
   "TTCAD": {
     "ticker_o": "TTCAO",
@@ -1444,8 +1700,10 @@
     "frequency": 2,
     "min_investment": 10000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2033-01-22",
+    "amort_type": "Amort."
   },
   "TTCDD": {
     "ticker_o": "TTCDO",
@@ -1454,8 +1712,10 @@
     "frequency": 2,
     "min_investment": 1000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2030-11-03",
+    "amort_type": "Bullet"
   },
   "VBC1D": {
     "ticker_o": "VBC1O",
@@ -1464,7 +1724,9 @@
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
-    "currency_type": "MEP"
+    "currency_type": "MEP",
+    "maturity_date": "2027-03-11",
+    "amort_type": "Bullet"
   },
   "VSCOD": {
     "ticker_o": "VSCOO",
@@ -1474,17 +1736,21 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2027-03-06",
+    "amort_type": "Bullet"
   },
   "VSCPD": {
     "ticker_o": "VSCPO",
     "name": "VISTA ENERGY C24",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 2,
     "min_investment": 100,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2029-05-03",
+    "amort_type": "Amort."
   },
   "VSCRD": {
     "ticker_o": "VSCRO",
@@ -1494,7 +1760,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2031-10-10",
+    "amort_type": "Amort."
   },
   "VSCTD": {
     "ticker_o": "VSCTO",
@@ -1503,8 +1771,10 @@
     "frequency": 2,
     "min_investment": 10000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2035-12-10",
+    "amort_type": "Amort."
   },
   "VSCVD": {
     "ticker_o": "VSCVO",
@@ -1513,28 +1783,34 @@
     "frequency": 2,
     "min_investment": 1000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2033-06-10",
+    "amort_type": "Amort."
   },
   "XMC1D": {
     "ticker_o": "XMC1O",
     "name": "MINERA EXAR C1",
-    "coupon_rate": 8.0,
+    "coupon_rate": 8,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA"
+    "rating": "AA",
+    "maturity_date": "2027-11-11",
+    "amort_type": "Amort."
   },
   "YFCGD": {
     "ticker_o": "YFCGO",
     "name": "YPF ENERGIA ELECTRICA C15",
-    "coupon_rate": 6.0,
+    "coupon_rate": 6,
     "frequency": 4,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2027-02-27",
+    "amort_type": "Bullet"
   },
   "YFCJD": {
     "ticker_o": "YFCJO",
@@ -1543,8 +1819,10 @@
     "frequency": 2,
     "min_investment": 1000,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2032-10-16",
+    "amort_type": "Amort."
   },
   "YFCLD": {
     "ticker_o": "YFCLO",
@@ -1554,7 +1832,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2029-11-22",
+    "amort_type": "Bullet"
   },
   "YFCMD": {
     "ticker_o": "YFCMO",
@@ -1564,7 +1844,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2027-05-20",
+    "amort_type": "Bullet"
   },
   "YFCOD": {
     "ticker_o": "YFCOO",
@@ -1574,7 +1856,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2028-12-15",
+    "amort_type": "Bullet"
   },
   "YM34D": {
     "ticker_o": "YM34O",
@@ -1583,8 +1867,10 @@
     "frequency": 2,
     "min_investment": 1,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2034-01-17",
+    "amort_type": "Amort."
   },
   "YM35D": {
     "ticker_o": "YM35O",
@@ -1594,17 +1880,21 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2027-02-27",
+    "amort_type": "Bullet"
   },
   "YM37D": {
     "ticker_o": "YM37O",
     "name": "YPF S.A. C37",
-    "coupon_rate": 7.0,
+    "coupon_rate": 7,
     "frequency": 4,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2027-05-07",
+    "amort_type": "Bullet"
   },
   "YM39D": {
     "ticker_o": "YM39O",
@@ -1614,7 +1904,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2030-07-22",
+    "amort_type": "Bullet"
   },
   "YM40D": {
     "ticker_o": "YM40O",
@@ -1624,47 +1916,57 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2028-08-28",
+    "amort_type": "Bullet"
   },
   "YM42D": {
     "ticker_o": "YM42O",
     "name": "YPF S.A. C42",
-    "coupon_rate": 7.0,
+    "coupon_rate": 7,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2029-03-02",
+    "amort_type": "Bullet"
   },
   "YMCID": {
     "ticker_o": "YMCIO",
     "name": "YPF S.A.",
-    "coupon_rate": 9.0,
+    "coupon_rate": 9,
     "frequency": 2,
     "min_investment": 1,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2029-06-30",
+    "amort_type": "Amort."
   },
   "YMCJD": {
     "ticker_o": "YMCJO",
     "name": "YPF S.A.",
-    "coupon_rate": 7.0,
+    "coupon_rate": 7,
     "frequency": 2,
     "min_investment": 1,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2033-09-30",
+    "amort_type": "Amort."
   },
   "YMCVD": {
     "ticker_o": "YMCVO",
     "name": "YPF S.A. C29",
-    "coupon_rate": 6.0,
+    "coupon_rate": 6,
     "frequency": 4,
     "min_investment": 50,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2026-05-27",
+    "amort_type": "Bullet"
   },
   "YMCXD": {
     "ticker_o": "YMCXO",
@@ -1673,18 +1975,22 @@
     "frequency": 2,
     "min_investment": 1,
     "law": "NY",
-    "currency_type": "CCL",
-    "rating": "AAA"
+    "currency_type": "Cable",
+    "rating": "AAA",
+    "maturity_date": "2031-09-11",
+    "amort_type": "Amort."
   },
   "YMCZD": {
     "ticker_o": "YMCZO",
     "name": "YPF S.A. C33",
-    "coupon_rate": 7.0,
+    "coupon_rate": 7,
     "frequency": 2,
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AAA"
+    "rating": "AAA",
+    "maturity_date": "2028-10-10",
+    "amort_type": "Bullet"
   },
   "ZZC1D": {
     "ticker_o": "ZZC1O",
@@ -1694,7 +2000,9 @@
     "min_investment": 1,
     "law": "ARG",
     "currency_type": "MEP",
-    "rating": "AA-"
+    "rating": "AA-",
+    "maturity_date": "2027-02-21",
+    "amort_type": "Bullet"
   },
   "BA7DD": {
     "ticker_o": "BA37D",
@@ -1790,25 +2098,25 @@
   "BACAO": {
     "ticker_o": "",
     "name": "BCO MACRO 2026",
-    "coupon_rate": 675.0,
+    "coupon_rate": 675,
     "min_investment": 150000
   },
   "BYC2P": {
     "ticker_o": "",
     "name": "BCO GALICIA",
-    "coupon_rate": 825.0,
+    "coupon_rate": 825,
     "min_investment": 200000
   },
   "MGC1O": {
     "ticker_o": "",
     "name": "PAMPA ENERGIA 2027",
-    "coupon_rate": 750.0,
+    "coupon_rate": 750,
     "min_investment": 150000
   },
   "TSC2O": {
     "ticker_o": "",
     "name": "TRANSPORTADORA 2025",
-    "coupon_rate": 675.0,
+    "coupon_rate": 675,
     "min_investment": 150000
   }
 }

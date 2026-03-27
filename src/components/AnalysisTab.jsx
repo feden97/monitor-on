@@ -7,11 +7,6 @@ import { parseInterestString, parseAmortString, daysToDate } from '../utils/bond
 import { formatPct } from '../utils/formatters'
 import bondProspectos from '../data/bondProspectos.json'
 
-import bondsMetadata from '../data/bondsMetadata.json'
-
-// ── Static metadata (pre-fetched via scripts/fetch-bond-metadata.py) ──
-const staticMetadata = bondsMetadata.bonds || {}
-
 /**
  * AnalysisTab — Enriched bond data table.
  * Static-first approach for performance.
@@ -24,49 +19,12 @@ export default function AnalysisTab() {
   const [filter, setFilter] = useState('')
   const [sortKey, setSortKey] = useState('symbol')
   const [sortDir, setSortDir] = useState('asc')
-  const [metadataMap, setMetadataMap] = useState(staticMetadata)
 
   const dTickers = useMemo(() => {
     return data.filter(row => row.symbol && row.symbol.endsWith('D'))
   }, [data])
 
-  // Lazy-fetch for missing metadata
-  useEffect(() => {
-    if (!expandedTicker || metadataMap[expandedTicker]) return
-
-    const fetchMeta = async () => {
-      const BYMA_URL = '/byma/fichatecnica/especies/general'
-      try {
-        const res = await fetch(BYMA_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ symbol: expandedTicker, 'Content-Type': 'application/json' }),
-        })
-        if (!res.ok) return
-        const result = await res.json()
-        if (result.data && result.data.length > 0) {
-          const raw = result.data[0]
-          const meta = {
-            emisor: raw.emisor || '',
-            isin: raw.codigoIsin || '',
-            fechaEmision: raw.fechaEmision ? raw.fechaEmision.split(' ')[0] : '',
-            fechaVencimiento: raw.fechaVencimiento ? raw.fechaVencimiento.split(' ')[0] : '',
-            moneda: raw.moneda || '',
-            interes: raw.interes || '',
-            formaAmortizacion: raw.formaAmortizacion || '',
-            denominacionMinima: raw.denominacionMinima || 1,
-            montoResidual: raw.montoResidual || 0,
-            montoNominal: raw.montoNominal || 0,
-            tipoGarantia: raw.tipoGarantia || '',
-            denominacion: raw.denominacion || '',
-            ley: raw.paisLey || raw.ley || '',
-          }
-          setMetadataMap(prev => ({ ...prev, [expandedTicker]: meta }))
-        }
-      } catch (err) { }
-    }
-    fetchMeta()
-  }, [expandedTicker, metadataMap])
+  // Metadata fetching removed as all data is now static in bondProspectos.json
 
   const filteredData = useMemo(() => {
     let filtered = [...dTickers]
@@ -74,32 +32,28 @@ export default function AnalysisTab() {
     if (filter) {
       const q = filter.toLowerCase()
       filtered = filtered.filter(row => {
-        const meta = metadataMap[row.symbol]
         const prospecto = bondProspectos[row.symbol]
-        const emisor = meta?.emisor?.toLowerCase() || ''
         const name = prospecto?.name?.toLowerCase() || ''
-        return row.symbol.toLowerCase().includes(q) || emisor.includes(q) || name.includes(q)
+        return row.symbol.toLowerCase().includes(q) || name.includes(q)
       })
     }
 
     filtered.sort((a, b) => {
       let va, vb
-      const metaA = metadataMap[a.symbol]
-      const metaB = metadataMap[b.symbol]
       const prosA = bondProspectos[a.symbol]
       const prosB = bondProspectos[b.symbol]
 
       if (sortKey === 'symbol') {
         va = a.symbol; vb = b.symbol
       } else if (sortKey === 'emisor') {
-        va = metaA?.emisor || prosA?.name || ''; vb = metaB?.emisor || prosB?.name || ''
+        va = prosA?.name || ''; vb = prosB?.name || ''
       } else if (sortKey === 'precio') {
         va = a.c || 0; vb = b.c || 0
       } else if (sortKey === 'pct_change') {
         va = a.pct_change || 0; vb = b.pct_change || 0
       } else if (sortKey === 'dias') {
-        va = metaA?.fechaVencimiento ? daysToDate(metaA.fechaVencimiento) : (prosA?.days_to_maturity || 99999)
-        vb = metaB?.fechaVencimiento ? daysToDate(metaB.fechaVencimiento) : (prosB?.days_to_maturity || 99999)
+        va = prosA?.maturity_date ? daysToDate(prosA.maturity_date) : 99999
+        vb = prosB?.maturity_date ? daysToDate(prosB.maturity_date) : 99999
       } else if (sortKey === 'ley') {
         va = prosA?.law || ''; vb = prosB?.law || ''
       } else if (sortKey === 'calif') {
@@ -115,7 +69,7 @@ export default function AnalysisTab() {
     })
 
     return filtered
-  }, [dTickers, filter, sortKey, sortDir, metadataMap])
+  }, [dTickers, filter, sortKey, sortDir])
 
   const toggleExpand = useCallback((ticker) => {
     setExpandedTicker(prev => prev === ticker ? null : ticker)
@@ -201,10 +155,9 @@ export default function AnalysisTab() {
           </thead>
           <tbody className="divide-y divide-terminal-border/40">
             {filteredData.map(row => {
-              const meta = metadataMap[row.symbol]
               const prospecto = bondProspectos[row.symbol]
-              const interest = meta ? parseInterestString(meta.interes) : (prospecto?.coupon_rate ? { rate: prospecto.coupon_rate } : null)
-              const dias = meta?.fechaVencimiento ? daysToDate(meta.fechaVencimiento) : (prospecto?.days_to_maturity)
+              const interest = prospecto?.coupon_rate ? { rate: prospecto.coupon_rate } : null
+              const dias = prospecto?.maturity_date ? daysToDate(prospecto.maturity_date) : null
               const isExpanded = expandedTicker === row.symbol
 
               return (
@@ -219,8 +172,8 @@ export default function AnalysisTab() {
                     <td className="px-4 py-3">
                       <span className="ticker-badge px-2 py-0.5 rounded text-[11px] font-bold">{row.symbol}</span>
                     </td>
-                    <td className="px-4 py-3 font-medium text-terminal-text truncate max-w-[180px]" title={meta?.emisor || prospecto?.name}>
-                      {meta?.emisor || prospecto?.name || <span className="text-terminal-muted opacity-50">—</span>}
+                    <td className="px-4 py-3 font-medium text-terminal-text truncate max-w-[180px]" title={prospecto?.name}>
+                      {prospecto?.name || <span className="text-terminal-muted opacity-50">—</span>}
                     </td>
                     <td className="px-4 py-3 font-mono text-center">
                       {dias != null ? (
@@ -263,7 +216,6 @@ export default function AnalysisTab() {
                       <td colSpan={columns.length} className="bg-terminal-bg/50 p-0">
                         <BondDetailPanel
                           bond={row}
-                          metadata={meta}
                           prospecto={prospecto}
                           dolarMEP={mep}
                         />

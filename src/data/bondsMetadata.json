@@ -1,7 +1,0 @@
-{
-  "_generatedAt": "pending — run: python3 scripts/fetch-bond-metadata.py",
-  "_totalTickers": 0,
-  "_successCount": 0,
-  "_failedCount": 0,
-  "bonds": {}
-}
