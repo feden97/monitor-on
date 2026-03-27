@@ -1,82 +1,95 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", Menlo, Monaco, Consolas, monospace;
+
+  /* Theme colors using the CSS variables below */
+  --color-terminal-bg: var(--bg-base);
+  --color-terminal-panel: var(--bg-panel);
+  --color-terminal-surface: var(--bg-surface);
+  --color-terminal-border: var(--border-subtle);
+  --color-terminal-text: var(--text-primary);
+  --color-terminal-muted: var(--text-muted);
+  --color-terminal-accent: var(--color-accent);
+
+  --color-up: var(--color-up);
+  --color-up-light: var(--bg-up-light);
+
+  --color-down: var(--color-down);
+  --color-down-light: var(--bg-down-light);
+
+  --color-flat: var(--color-flat);
+  --color-flat-light: var(--bg-flat-light);
+
+  --color-highlight: var(--color-highlight);
+
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-card-hover: 0 4px 12px rgba(0,0,0,0.10);
+
+  /* Animations */
+  --animate-pulse-dot: pulse-dot 1.8s ease-in-out infinite;
+  --animate-shimmer: shimmer 1.4s infinite linear;
+
+  @keyframes pulse-dot {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.4;
+      transform: scale(0.85);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -600px 0;
+    }
+    100% {
+      background-position: 600px 0;
+    }
+  }
+}
+
+:root {
+  /* ── MODO CLARO ── */
+  --bg-base: #F9FAFB;
+  --bg-panel: #FFFFFF;
+  --bg-surface: #F3F4F6;
+  --border-subtle: #E5E7EB;
+  --text-primary: #111827;
+  --text-muted: #6B7280;
+  --color-up: #16A34A;
+  --color-down: #DC2626;
+  --color-flat: #6B7280;
+  --bg-up-light: #DCFCE7;
+  --bg-down-light: #FEE2E2;
+  --bg-flat-light: #F3F4F6;
+  --color-accent: #1E293B;
+  --color-highlight: #475569;
+}
+
+.dark {
+  /* ── MODO OSCURO PRO ── */
+  --bg-base: #0F0F13;
+  --bg-panel: #16161A;
+  --bg-surface: #1F1F22;
+  --border-subtle: #27272A;
+  --text-primary: #F4F4F5;
+  --text-muted: #A1A1AA;
+  --color-up: #4ADE80;
+  --color-down: #F87171;
+  --color-flat: #A1A1AA;
+  --bg-up-light: #14281A;
+  --bg-down-light: #2D1414;
+  --bg-flat-light: #27272A;
+  --color-accent: #FBBF24;
+  --color-highlight: #FBBF24;
+}
+
 
 @layer base {
-  :root {
-    /* ── MODO CLARO ── */
-    /* Fondos */
-    --bg-base: 249 250 251;
-    /* #F9FAFB */
-    --bg-panel: 255 255 255;
-    /* #FFFFFF */
-    --bg-surface: 243 244 246;
-    /* #F3F4F6 */
-    /* Bordes */
-    --border-subtle: 229 231 235;
-    /* #E5E7EB */
-    /* Textos */
-    --text-primary: 17 24 39;
-    /* #111827 */
-    --text-muted: 107 114 128;
-    /* #6B7280 */
-    /* Acentos - Vivos para modo claro */
-    --color-up: 22 163 74;
-    /* #16A34A Verde clásico */
-    --color-down: 220 38 38;
-    /* #DC2626 Rojo clásico */
-    --color-flat: 107 114 128;
-    /* #6B7280 */
-    --bg-up-light: 220 252 231;
-    /* #DCFCE7 Fino verde bg */
-    --bg-down-light: 254 226 226;
-    /* #FEE2E2 Fino rojo bg */
-    --bg-flat-light: 243 244 246;
-    /* #F3F4F6 */
-    /* Highlights */
-    --color-accent: 30 41 59;
-    /* #1E293B Gris pizarra profundo (Alto contraste, muy elegante) */
-    --color-highlight: 71 85 105;
-    /* #475569 Gris pizarra medio */
-  }
-
-  .dark {
-    /* ── MODO OSCURO PRO (DeFi/Terminal) ── */
-    /* Fondos */
-    --bg-base: 15 15 19;
-    /* #0F0F13 Base muy profunda */
-    --bg-panel: 22 22 26;
-    /* #16161A Paneles / Tarjetas */
-    --bg-surface: 31 31 34;
-    /* #1F1F22 Hover y headers */
-    /* Bordes sutiles */
-    --border-subtle: 39 39 42;
-    /* #27272A Líneas divisorias */
-    /* Textos */
-    --text-primary: 244 244 245;
-    /* #F4F4F5 Blanco elegante */
-    --text-muted: 161 161 170;
-    /* #A1A1AA Gris neutro/azulado */
-    /* Acentos - Neón */
-    --color-up: 74 222 128;
-    /* #4ADE80 Verde brillante de UI Crypto */
-    --color-down: 248 113 113;
-    /* #F87171 Rojo vivo */
-    --color-flat: 161 161 170;
-    /* #A1A1AA */
-    --bg-up-light: 20 40 26;
-    /* Fondo tenue verde */
-    --bg-down-light: 45 20 20;
-    /* Fondo tenue rojo */
-    --bg-flat-light: 39 39 42;
-    /* #27272A */
-    /* Highlights */
-    --color-accent: 251 191 36;
-    /* #FBBF24 Ámbar brillante (Modo Oscuro) */
-    --color-highlight: 251 191 36;
-    /* #FBBF24 Texto amarillo claro */
-  }
-
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -89,7 +102,6 @@
 }
 
 @layer components {
-
   /* ── Table header cells ── */
   .th-cell {
     @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-terminal-muted border-b border-terminal-border select-none whitespace-nowrap;
@@ -125,6 +137,17 @@
   .change-flat {
     @apply inline-flex items-center gap-1 text-flat font-mono font-medium bg-flat-light px-2 py-0.5 rounded-sm text-xs;
   }
+
+  .live-dot {
+    @apply animate-pulse-dot;
+  }
+
+  .skeleton {
+    @apply animate-shimmer;
+    background: linear-gradient(90deg, #EFEDE6 25%, #E5E2D9 50%, #EFEDE6 75%);
+    background-size: 600px 100%;
+    border-radius: 3px;
+  }
 }
 
 /* ── Scrollbar styling ── */
@@ -144,44 +167,4 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #9b9688;
-}
-
-/* ── Pulse animation for live indicator ── */
-@keyframes pulse-dot {
-
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 0.4;
-    transform: scale(0.85);
-  }
-}
-
-.live-dot {
-  animation: pulse-dot 1.8s ease-in-out infinite;
-}
-
-/* ── Skeleton shimmer ── */
-@keyframes shimmer {
-  0% {
-    background-position: -600px 0;
-  }
-
-  100% {
-    background-position: 600px 0;
-  }
-}
-
-.skeleton {
-  background: linear-gradient(90deg,
-      #EFEDE6 25%,
-      #E5E2D9 50%,
-      #EFEDE6 75%);
-  background-size: 600px 100%;
-  animation: shimmer 1.4s infinite linear;
-  border-radius: 3px;
 }

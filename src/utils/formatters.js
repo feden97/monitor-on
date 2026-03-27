@@ -9,6 +9,22 @@ const PCT_FORMAT = new Intl.NumberFormat('es-AR', {
   signDisplay: 'always',
 })
 
+// Cached Intl.NumberFormat instances to avoid re-creating them on every render.
+// With ~487 instruments × 3 price columns, this saves thousands of allocations per cycle.
+const PRICE_FORMAT_0 = new Intl.NumberFormat('es-AR', {
+  style: 'currency',
+  currency: 'ARS',
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0,
+})
+
+const PRICE_FORMAT_2 = new Intl.NumberFormat('es-AR', {
+  style: 'currency',
+  currency: 'ARS',
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+})
+
 /**
  * Format a price value as ARS/USD currency with dynamic decimals.
  * - 'O' tickers >= 1000: 0 decimals
@@ -18,14 +34,9 @@ export function formatPrice(value, symbol = '') {
   if (value == null || isNaN(value)) return '—'
   
   const isPesos = symbol.endsWith('O')
-  const decimals = (isPesos && value >= 1000) ? 0 : 2
+  const useZeroDecimals = isPesos && value >= 1000
 
-  return new Intl.NumberFormat('es-AR', {
-    style: 'currency',
-    currency: 'ARS', // The symbol is used even if it's USD because the app is themed in ARS for now
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  }).format(value)
+  return (useZeroDecimals ? PRICE_FORMAT_0 : PRICE_FORMAT_2).format(value)
 }
 
 /**
