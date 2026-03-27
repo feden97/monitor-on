@@ -168,3 +168,16 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #9b9688;
 }
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
+}
+
+.dark .skeleton {
+  background: linear-gradient(90deg, #1F1F22 25%, #27272A 50%, #1F1F22 75%);
+  background-size: 600px 100%;
+}

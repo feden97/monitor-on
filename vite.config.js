@@ -18,6 +18,24 @@ export default defineConfig({
         secure: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
+      // Proxy BYMA Open Data API calls (for bond metadata / ficha técnica)
+      '/byma': {
+        target: 'https://open.bymadata.com.ar/vanoms-be-core/rest/api/bymadata/free',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/byma/, ''),
+        headers: {
+          'Origin': 'https://open.bymadata.com.ar',
+          'Referer': 'https://open.bymadata.com.ar/',
+        },
+      },
+      // Proxy CriptoYa calls to bypass CORS
+      '/cripto': {
+        target: 'https://criptoya.com',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path.replace(/^\/cripto/, ''),
+      },
     },
   },
-})
+});

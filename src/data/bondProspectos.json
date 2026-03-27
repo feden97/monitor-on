@@ -1,0 +1,1814 @@
+{
+  "_comment": "Complementary bond prospectus data not available from BYMA API. Add entries as needed.",
+  "_format": {
+    "couponDates": "Array of 'MM-DD' strings representing coupon payment months/days",
+    "amortSchedule": "Array of { date: 'YYYY-MM-DD', pct: number } for each amortization payment",
+    "couponsPerYear": "Number of coupon payments per year (1, 2, 4)",
+    "dayConvention": "Day count convention: 360 or 365",
+    "law": "Applicable law: 'NY' or 'ARG'",
+    "callable": "Whether the bond is callable: true/false"
+  },
+  "CS47D": {
+    "couponsPerYear": 2,
+    "couponDates": [
+      "05-15",
+      "11-15"
+    ],
+    "amortSchedule": [],
+    "dayConvention": 360,
+    "law": "ARG",
+    "callable": false,
+    "ticker_o": "CS47O",
+    "name": "CRESUD C47",
+    "coupon_rate": 7.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "CS48D": {
+    "couponsPerYear": 2,
+    "couponDates": [
+      "01-11",
+      "07-11"
+    ],
+    "amortSchedule": [],
+    "dayConvention": 365,
+    "law": "ARG",
+    "callable": false,
+    "ticker_o": "CS48O",
+    "name": "CRESUD C48",
+    "coupon_rate": 8.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "GN49D": {
+    "couponsPerYear": 2,
+    "couponDates": [
+      "06-02",
+      "12-02"
+    ],
+    "amortSchedule": [
+      {
+        "date": "2031-12-02",
+        "pct": 33
+      },
+      {
+        "date": "2032-12-02",
+        "pct": 33
+      },
+      {
+        "date": "2033-12-02",
+        "pct": 34
+      }
+    ],
+    "dayConvention": 360,
+    "law": "NY",
+    "callable": false,
+    "ticker_o": "GN49O",
+    "name": "GENNEIA S.A. C49",
+    "coupon_rate": 7.75,
+    "frequency": 2,
+    "min_investment": 1000,
+    "currency_type": "CCL",
+    "rating": "A+"
+  },
+  "LMS7D": {
+    "couponsPerYear": 4,
+    "couponDates": [
+      "01-12",
+      "04-12",
+      "07-12",
+      "10-12"
+    ],
+    "amortSchedule": [
+      {
+        "date": "2026-04-12",
+        "pct": 8.33
+      },
+      {
+        "date": "2026-07-12",
+        "pct": 8.33
+      },
+      {
+        "date": "2026-10-12",
+        "pct": 8.33
+      },
+      {
+        "date": "2027-01-12",
+        "pct": 8.33
+      },
+      {
+        "date": "2027-04-12",
+        "pct": 8.33
+      },
+      {
+        "date": "2027-07-12",
+        "pct": 8.33
+      },
+      {
+        "date": "2027-10-12",
+        "pct": 8.33
+      },
+      {
+        "date": "2028-01-12",
+        "pct": 8.33
+      },
+      {
+        "date": "2028-04-12",
+        "pct": 8.33
+      },
+      {
+        "date": "2028-07-12",
+        "pct": 8.34
+      },
+      {
+        "date": "2028-10-12",
+        "pct": 8.33
+      }
+    ],
+    "dayConvention": 360,
+    "law": "ARG",
+    "callable": false,
+    "ticker_o": "LMS7O",
+    "name": "ALUAR ALUMINIO ARG.S7",
+    "coupon_rate": 7.0,
+    "frequency": 4,
+    "min_investment": 1,
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "MR39D": {
+    "couponsPerYear": 2,
+    "couponDates": [
+      "05-01",
+      "11-01"
+    ],
+    "amortSchedule": [
+      {
+        "date": "2026-05-01",
+        "pct": 1.5
+      },
+      {
+        "date": "2026-11-01",
+        "pct": 2.5
+      },
+      {
+        "date": "2027-05-01",
+        "pct": 2.5
+      },
+      {
+        "date": "2027-11-01",
+        "pct": 5.0
+      },
+      {
+        "date": "2028-05-01",
+        "pct": 7.5
+      },
+      {
+        "date": "2028-11-01",
+        "pct": 7.5
+      },
+      {
+        "date": "2029-05-01",
+        "pct": 11.0
+      },
+      {
+        "date": "2029-11-01",
+        "pct": 11.0
+      },
+      {
+        "date": "2030-05-01",
+        "pct": 11.0
+      },
+      {
+        "date": "2030-11-01",
+        "pct": 11.0
+      },
+      {
+        "date": "2031-05-01",
+        "pct": 11.0
+      },
+      {
+        "date": "2031-11-01",
+        "pct": 22.0
+      }
+    ],
+    "dayConvention": 360,
+    "law": "NY",
+    "callable": false,
+    "ticker_o": "MR39O",
+    "name": "GEN.MEDITERRANEA C39 S.B",
+    "coupon_rate": 11.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "currency_type": "CCL",
+    "rating": "D"
+  },
+  "ARC1D": {
+    "ticker_o": "ARC1O",
+    "name": "Aeropuertos Arg. 2000 C1",
+    "coupon_rate": 8.5,
+    "frequency": 4,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AA"
+  },
+  "BACGD": {
+    "ticker_o": "BACGO",
+    "name": "MACRO C.G.",
+    "coupon_rate": 8.0,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "BACHD": {
+    "ticker_o": "BACHO",
+    "name": "MACRO C.H.",
+    "coupon_rate": 8.0,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "BVCOD": {
+    "ticker_o": "BVCOO",
+    "name": "BANCO DE SERVICIOS Y TRANS.C23",
+    "coupon_rate": 8.0,
+    "frequency": 4,
+    "min_investment": 850,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A-"
+  },
+  "BYCHD": {
+    "ticker_o": "BYCHO",
+    "name": "GALICIA C16",
+    "coupon_rate": 7.75,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AA"
+  },
+  "CAC5D": {
+    "ticker_o": "CAC5O",
+    "name": "CAPEX S.A. 2028 C5",
+    "coupon_rate": 9.25,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AA"
+  },
+  "CACDD": {
+    "ticker_o": "CACDO",
+    "name": "CAPEX S.A. 2029 C12",
+    "coupon_rate": 8.25,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "CIC8D": {
+    "ticker_o": "CIC8O",
+    "name": "CNH IND.CAPITAL ARGENTINA C8",
+    "coupon_rate": 7.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "CIC9D": {
+    "ticker_o": "CIC9O",
+    "name": "CNH IND.CAPITAL ARGENTINA C9",
+    "coupon_rate": 8.25,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "CICAD": {
+    "ticker_o": "CICAO",
+    "name": "CNH IND.CAPITAL ARGENTINA C10",
+    "coupon_rate": 8.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "CICBD": {
+    "ticker_o": "CICBO",
+    "name": "CNH IND.CAPITAL ARGENTINA C11",
+    "coupon_rate": 7.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "CLI1D": {
+    "ticker_o": "CLI1O",
+    "name": "CLISA COMP. LAT. INF. SERV. 2034",
+    "coupon_rate": 7.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "B"
+  },
+  "CLSID": {
+    "ticker_o": "CLSIO",
+    "name": "CLISA COMP. LAT. INF. SERV. 2027",
+    "coupon_rate": 10.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "B"
+  },
+  "CP37D": {
+    "ticker_o": "CP37O",
+    "name": "COMP. GRAL DE COMB. C37",
+    "coupon_rate": 7.0,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A"
+  },
+  "CP38D": {
+    "ticker_o": "CP38O",
+    "name": "COMP. GRAL DE COMB. C38",
+    "coupon_rate": 11.88,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "A"
+  },
+  "CP40D": {
+    "ticker_o": "CP40O",
+    "name": "COMP. GRAL DE COMB. C40",
+    "coupon_rate": 9.5,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A"
+  },
+  "CRCJD": {
+    "ticker_o": "CRCJO",
+    "name": "CELULOSA 2028 C18",
+    "coupon_rate": 9.25,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "D"
+  },
+  "CS44D": {
+    "ticker_o": "CS44O",
+    "name": "CRESUD C44",
+    "coupon_rate": 6.0,
+    "frequency": 2,
+    "min_investment": 10000,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "CS45D": {
+    "ticker_o": "CS45O",
+    "name": "CRESUD C45",
+    "coupon_rate": 6.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "CS49D": {
+    "ticker_o": "CS49O",
+    "name": "CRESUD C49",
+    "coupon_rate": 7.25,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "CS50D": {
+    "ticker_o": "CS50O",
+    "name": "CRESUD C50",
+    "coupon_rate": 7.25,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "DEC2D": {
+    "ticker_o": "DEC2O",
+    "name": "EDESA C.2",
+    "coupon_rate": 8.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A-"
+  },
+  "DNC3D": {
+    "ticker_o": "DNC3O",
+    "name": "EDENOR C3",
+    "coupon_rate": 9.75,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A+"
+  },
+  "DNC5D": {
+    "ticker_o": "DNC5O",
+    "name": "EDENOR C5",
+    "coupon_rate": 9.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A+"
+  },
+  "DNC7D": {
+    "ticker_o": "DNC7O",
+    "name": "EDENOR C7",
+    "coupon_rate": 9.75,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "A+"
+  },
+  "DNC8D": {
+    "ticker_o": "DNC8O",
+    "name": "EDENOR C8",
+    "coupon_rate": 8.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A+"
+  },
+  "EAC3D": {
+    "ticker_o": "EAC3O",
+    "name": "MSU GREEN ENERGY C3",
+    "coupon_rate": 8.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A"
+  },
+  "FO4AD": {
+    "ticker_o": "FO4AO",
+    "name": "FUTUROS Y OPCIONES S4 C.A",
+    "coupon_rate": 7.9,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA-"
+  },
+  "GN47D": {
+    "ticker_o": "GN47O",
+    "name": "GENNEIA S.A. C47",
+    "coupon_rate": 6.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A+"
+  },
+  "GN48D": {
+    "ticker_o": "GN48O",
+    "name": "GENNEIA S.A. C48",
+    "coupon_rate": 6.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A+"
+  },
+  "GNCXD": {
+    "ticker_o": "GNCXO",
+    "name": "GENNEIA S.A. C31",
+    "coupon_rate": 8.75,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "A+"
+  },
+  "GYC4D": {
+    "ticker_o": "GYC4O",
+    "name": "ENERGY SOLAR 360 C4",
+    "coupon_rate": 8.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A"
+  },
+  "GYC5D": {
+    "ticker_o": "GYC5O",
+    "name": "ENERGY SOLAR 360 C5",
+    "coupon_rate": 8.75,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A"
+  },
+  "HJCGD": {
+    "ticker_o": "HJCGO",
+    "name": "JOHN DEERE CREDIT C15",
+    "coupon_rate": 6.5,
+    "frequency": 2,
+    "min_investment": 1200,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "HJCHD": {
+    "ticker_o": "HJCHO",
+    "name": "JOHN DEERE CREDIT C16",
+    "coupon_rate": 7.0,
+    "frequency": 2,
+    "min_investment": 1200,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "HJCID": {
+    "ticker_o": "HJCIO",
+    "name": "JOHN DEERE CREDIT C17",
+    "coupon_rate": 7.5,
+    "frequency": 2,
+    "min_investment": 1200,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "HJCKD": {
+    "ticker_o": "HJCKO",
+    "name": "JOHN DEERE CREDIT C19",
+    "coupon_rate": 7.75,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "IRCFD": {
+    "ticker_o": "IRCFO",
+    "name": "IRSA C13 (Canje RPC2O)",
+    "coupon_rate": 8.75,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "IRCJD": {
+    "ticker_o": "IRCJO",
+    "name": "IRSA C18",
+    "coupon_rate": 7.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "IRCOD": {
+    "ticker_o": "IRCOO",
+    "name": "IRSA C23",
+    "coupon_rate": 7.25,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "IRCPD": {
+    "ticker_o": "IRCPO",
+    "name": "IRSA C24",
+    "coupon_rate": 8.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "JNC6D": {
+    "ticker_o": "JNC6O",
+    "name": "INVERSORA JURAMENTO SA C6",
+    "coupon_rate": 9.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A-"
+  },
+  "LDCGD": {
+    "ticker_o": "LDCGO",
+    "name": "LEDESMA C15",
+    "coupon_rate": 7.0,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA-"
+  },
+  "LECED": {
+    "ticker_o": "LECEO",
+    "name": "ALBANESI ENERGIA C13",
+    "coupon_rate": 9.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "D"
+  },
+  "LECGD": {
+    "ticker_o": "LECGO",
+    "name": "ALBANESI ENERGIA C15",
+    "coupon_rate": 9.75,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "D"
+  },
+  "LIC6D": {
+    "ticker_o": "LIC6O",
+    "name": "LIPSA C.6",
+    "coupon_rate": 9.0,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "BBB+"
+  },
+  "LMS8D": {
+    "ticker_o": "LMS8O",
+    "name": "ALUAR ALUMINIO ARG.S8",
+    "coupon_rate": 6.25,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "LMS9D": {
+    "ticker_o": "LMS9O",
+    "name": "ALUAR ALUMINIO ARG.S9",
+    "coupon_rate": 6.0,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "LOC4D": {
+    "ticker_o": "LOC4O",
+    "name": "LOMA NEGRA C4",
+    "coupon_rate": 6.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "LOC5D": {
+    "ticker_o": "LOC5O",
+    "name": "LOMA NEGRA C5",
+    "coupon_rate": 8.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "LOC6D": {
+    "ticker_o": "LOC6O",
+    "name": "LOMA NEGRA C6",
+    "coupon_rate": 6.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "LR7BD": {
+    "ticker_o": "LR7BO",
+    "name": "LAB.RICHMOND S7 C.B",
+    "coupon_rate": 9.0,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A"
+  },
+  "LUC5D": {
+    "ticker_o": "LUC5O",
+    "name": "LUZ TRES PICOS SA C5",
+    "coupon_rate": 8.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "MCC1D": {
+    "ticker_o": "MCC1O",
+    "name": "PECOM Servicios Energia C1",
+    "coupon_rate": 7.9,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA-"
+  },
+  "MGC9D": {
+    "ticker_o": "MGC9O",
+    "name": "PAMPA ENERGIA S.A C9",
+    "coupon_rate": 9.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "MGCMD": {
+    "ticker_o": "MGCMO",
+    "name": "PAMPA ENERGIA C21 2031",
+    "coupon_rate": 7.95,
+    "frequency": 2,
+    "min_investment": 10000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "MGCOD": {
+    "ticker_o": "MGCOO",
+    "name": "PAMPA ENERGIA C23 2034",
+    "coupon_rate": 7.88,
+    "frequency": 2,
+    "min_investment": 10000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "MGCRD": {
+    "ticker_o": "MGCRO",
+    "name": "PAMPA ENERGIA C26 2037",
+    "coupon_rate": 7.75,
+    "frequency": 2,
+    "min_investment": 10000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "MIC4D": {
+    "ticker_o": "MIC4O",
+    "name": "MIRGOR C4",
+    "coupon_rate": 8.25,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A+"
+  },
+  "MJC1D": {
+    "ticker_o": "MJC1D",
+    "name": "MINAS ARG. S.A. C1",
+    "coupon_rate": 8.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A+"
+  },
+  "MR35D": {
+    "ticker_o": "MR35O",
+    "name": "GEN.MEDITERRANEA C35",
+    "coupon_rate": 9.75,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "D"
+  },
+  "MR40D": {
+    "ticker_o": "MR40O",
+    "name": "GEN.MEDITERRANEA C40",
+    "coupon_rate": 11.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "D"
+  },
+  "MRCAD": {
+    "ticker_o": "MRCAO",
+    "name": "GEN.MEDITERRANEA/ROCA C10",
+    "coupon_rate": 9.63,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "D"
+  },
+  "MRCQD": {
+    "ticker_o": "MRCQO",
+    "name": "GEN.MEDITERRANEA C25",
+    "coupon_rate": 9.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "D"
+  },
+  "MRCYD": {
+    "ticker_o": "MRCYO",
+    "name": "GEN.MEDITERRANEA C32",
+    "coupon_rate": 9.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "D"
+  },
+  "MSSED": {
+    "ticker_o": "MSSEO",
+    "name": "MSU S.A. C13",
+    "coupon_rate": 6.5,
+    "frequency": 1,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A+"
+  },
+  "MSSFD": {
+    "ticker_o": "MSSFO",
+    "name": "MSU S.A. C14",
+    "coupon_rate": 7.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A+"
+  },
+  "MSSGD": {
+    "ticker_o": "MSSGO",
+    "name": "MSU S.A. C15",
+    "coupon_rate": 8.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A+"
+  },
+  "MTCGD": {
+    "ticker_o": "MTCGO",
+    "name": "MASTELLONE HERMANOS SA",
+    "coupon_rate": 10.95,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "A"
+  },
+  "NPCCD": {
+    "ticker_o": "NPCCO",
+    "name": "CENTRAL PUERTO S.A. Clase C",
+    "coupon_rate": 8.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "OLC6D": {
+    "ticker_o": "OLC6O",
+    "name": "OLEODUCTOS DEL VALLE C6",
+    "coupon_rate": 7.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "OLC7D": {
+    "ticker_o": "OLC7O",
+    "name": "OLEODUCTOS DEL VALLE C7",
+    "coupon_rate": 6.9,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "OT41D": {
+    "ticker_o": "OT41O",
+    "name": "OILTANKING EBYTEM S4 C1",
+    "coupon_rate": 7.0,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "OT42D": {
+    "ticker_o": "OT42O",
+    "name": "OILTANKING EBYTEM S4 C2",
+    "coupon_rate": 8.0,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "OTS2D": {
+    "ticker_o": "OTS2O",
+    "name": "OILTANKING EBYTEM S2",
+    "coupon_rate": 7.0,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "OTS3D": {
+    "ticker_o": "OTS3O",
+    "name": "OILTANKING EBYTEM S3",
+    "coupon_rate": 7.0,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "OTS6D": {
+    "ticker_o": "OTS6O",
+    "name": "OTAMERICA EBYTEM S6",
+    "coupon_rate": 6.74,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "OZC3D": {
+    "ticker_o": "OZC3O",
+    "name": "EDEMSA ENERGIA MENDOCINA C3",
+    "coupon_rate": 8.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "PECAD": {
+    "ticker_o": "PECAO",
+    "name": "PET. ACONCAGUA ENERGIA C10",
+    "coupon_rate": 8.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "D"
+  },
+  "PECBD": {
+    "ticker_o": "PECBO",
+    "name": "PET. ACONCAGUA ENERGIA C11",
+    "coupon_rate": 9.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "D"
+  },
+  "PECGD": {
+    "ticker_o": "PECGO",
+    "name": "PET. ACONCAGUA ENERGIA C15",
+    "coupon_rate": 9.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "D"
+  },
+  "PLC1D": {
+    "ticker_o": "PLC1O",
+    "name": "PLUSPETROL SA C1",
+    "coupon_rate": 6.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "PLC2D": {
+    "ticker_o": "PLC2O",
+    "name": "PLUSPETROL SA C2",
+    "coupon_rate": 7.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "PLC3D": {
+    "ticker_o": "PLC3O",
+    "name": "PLUSPETROL SA C3",
+    "coupon_rate": 7.25,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "PLC4D": {
+    "ticker_o": "PLC4O",
+    "name": "PLUSPETROL SA C4",
+    "coupon_rate": 8.5,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "PLC5D": {
+    "ticker_o": "PLC5O",
+    "name": "PLUSPETROL SA C5",
+    "coupon_rate": 8.125,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "PLC6D": {
+    "ticker_o": "PLC6O",
+    "name": "PLUSPETROL SA C6",
+    "coupon_rate": 6.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "PN35D": {
+    "ticker_o": "PN35O",
+    "name": "PAN AMERICAN ENERGY C35",
+    "coupon_rate": 7.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "PN36D": {
+    "ticker_o": "PN36O",
+    "name": "PAN AMERICAN ENERGY C36",
+    "coupon_rate": 7.25,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "PN38D": {
+    "ticker_o": "PN38O",
+    "name": "PAN AMERICAN ENERGY C38",
+    "coupon_rate": 6.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "PN41D": {
+    "ticker_o": "PN41O",
+    "name": "PAN AMERICAN ENERGY C42",
+    "coupon_rate": 7.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "PN43D": {
+    "ticker_o": "PN43O",
+    "name": "PAN AMERICAN ENERGY C43",
+    "coupon_rate": 7.75,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "PNDCD": {
+    "ticker_o": "PNDCO",
+    "name": "PAN AMERICAN ENERGY C12",
+    "coupon_rate": 9.13,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "PNXCD": {
+    "ticker_o": "PNXCO",
+    "name": "PAN AMERICAN ENERGY C31",
+    "coupon_rate": 8.5,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "PQCSD": {
+    "ticker_o": "PQCSO",
+    "name": "PETROQ. COMODORO RIV. C.S.",
+    "coupon_rate": 8.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "PQCTD": {
+    "ticker_o": "PQCTO",
+    "name": "PETROQ. COMODORO RIV. C.T.",
+    "coupon_rate": 8.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "PUC2D": {
+    "ticker_o": "PUC2O",
+    "name": "PETROLEOS SUDAMERICANOS C2",
+    "coupon_rate": 8.75,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A-"
+  },
+  "RAC4D": {
+    "ticker_o": "RAC4O",
+    "name": "RAGHSA 2027 C4",
+    "coupon_rate": 8.5,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AA-"
+  },
+  "RAC5D": {
+    "ticker_o": "RAC5O",
+    "name": "RAGHSA 2030 C5",
+    "coupon_rate": 8.25,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AA-"
+  },
+  "RAC6D": {
+    "ticker_o": "RAC6O",
+    "name": "RAGHSA 2026 C6",
+    "coupon_rate": 5.98,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA-"
+  },
+  "RC1CD": {
+    "ticker_o": "RC1CO",
+    "name": "ARCOR 2033 C1",
+    "coupon_rate": 7.6,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "RCCJD": {
+    "ticker_o": "RCCJO",
+    "name": "ARCOR 2027 C18",
+    "coupon_rate": 8.25,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "RCCRD": {
+    "ticker_o": "RCCRO",
+    "name": "ARCOR 2027 C26",
+    "coupon_rate": 6.75,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "RUCDD": {
+    "ticker_o": "RUCDO",
+    "name": "MSU ENERGY S.A. C12",
+    "coupon_rate": 9.75,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "A"
+  },
+  "RUCED": {
+    "ticker_o": "RUCEO",
+    "name": "MSU ENERGY S.A. C13",
+    "coupon_rate": 7.5,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA-"
+  },
+  "RZ9BD": {
+    "ticker_o": "RZ9BO",
+    "name": "RIZOBACTER ARG.S9 C.B.",
+    "coupon_rate": 7.5,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "BBB"
+  },
+  "RZABD": {
+    "ticker_o": "RZABO",
+    "name": "RIZOBACTER ARG.SX C.A.",
+    "coupon_rate": 8.0,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "BBB"
+  },
+  "SBC1D": {
+    "ticker_o": "SBC1O",
+    "name": "SCANIA CREDIT ARG. C1",
+    "coupon_rate": 8.75,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "SBC2D": {
+    "ticker_o": "SBC2O",
+    "name": "SCANIA CREDIT ARG. C2",
+    "coupon_rate": 7.49,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "SNABD": {
+    "ticker_o": "SNABO",
+    "name": "SAN MIGUEL S.X C.B",
+    "coupon_rate": 8.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "BBB-"
+  },
+  "SNEBD": {
+    "ticker_o": "SNEBO",
+    "name": "SAN MIGUEL S.XIII C.B",
+    "coupon_rate": 8.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "BBB-"
+  },
+  "SNSBD": {
+    "ticker_o": "SNSBO",
+    "name": "SAN MIGUEL  C11",
+    "coupon_rate": 9.5,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "BBB-"
+  },
+  "SNSDD": {
+    "ticker_o": "SNSDO",
+    "name": "SAN MIGUEL  S.12",
+    "coupon_rate": 9.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "BBB-"
+  },
+  "TLC1D": {
+    "ticker_o": "TLC1O",
+    "name": "TELECOM 2026",
+    "coupon_rate": 8.0,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AA+"
+  },
+  "TLCMD": {
+    "ticker_o": "TLCMO",
+    "name": "TELECOM C21 2031",
+    "coupon_rate": 9.5,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AA+"
+  },
+  "TLCOD": {
+    "ticker_o": "TLCOO",
+    "name": "TELECOM C23 2028",
+    "coupon_rate": 7.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA+"
+  },
+  "TLCPD": {
+    "ticker_o": "TLCPO",
+    "name": "TELECOM C.24 2033",
+    "coupon_rate": 9.25,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AA+"
+  },
+  "TLCTD": {
+    "ticker_o": "TLCTO",
+    "name": "TELECOM C.27 2036",
+    "coupon_rate": 8.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AA+"
+  },
+  "TLCUD": {
+    "ticker_o": "TLCUO",
+    "name": "TELECOM C.28 2029",
+    "coupon_rate": 6.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA+"
+  },
+  "TSC3D": {
+    "ticker_o": "TSC3O",
+    "name": "TRANS. GAS DEL SUR 2031",
+    "coupon_rate": 8.5,
+    "frequency": 2,
+    "min_investment": 10000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "TSC4D": {
+    "ticker_o": "TSC4O",
+    "name": "TRANS. GAS DEL SUR 2035",
+    "coupon_rate": 7.75,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "TTC7D": {
+    "ticker_o": "TTC7O",
+    "name": "TECPETROL S.A. C.7",
+    "coupon_rate": 5.98,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "TTC9D": {
+    "ticker_o": "TTC9O",
+    "name": "TECPETROL S.A. C.9",
+    "coupon_rate": 6.8,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "TTCAD": {
+    "ticker_o": "TTCAO",
+    "name": "TECPETROL S.A. C.10",
+    "coupon_rate": 7.63,
+    "frequency": 2,
+    "min_investment": 10000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "TTCDD": {
+    "ticker_o": "TTCDO",
+    "name": "TECPETROL S.A. C.12",
+    "coupon_rate": 7.63,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "VBC1D": {
+    "ticker_o": "VBC1O",
+    "name": "BANCO DE VALORES C1",
+    "coupon_rate": 7.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP"
+  },
+  "VSCOD": {
+    "ticker_o": "VSCOO",
+    "name": "VISTA ENERGY C23",
+    "coupon_rate": 6.5,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "VSCPD": {
+    "ticker_o": "VSCPO",
+    "name": "VISTA ENERGY C24",
+    "coupon_rate": 8.0,
+    "frequency": 2,
+    "min_investment": 100,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "VSCRD": {
+    "ticker_o": "VSCRO",
+    "name": "VISTA ENERGY C26",
+    "coupon_rate": 7.65,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "VSCTD": {
+    "ticker_o": "VSCTO",
+    "name": "VISTA ENERGY C27",
+    "coupon_rate": 7.63,
+    "frequency": 2,
+    "min_investment": 10000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "VSCVD": {
+    "ticker_o": "VSCVO",
+    "name": "VISTA ENERGY C29",
+    "coupon_rate": 8.5,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "XMC1D": {
+    "ticker_o": "XMC1O",
+    "name": "MINERA EXAR C1",
+    "coupon_rate": 8.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "YFCGD": {
+    "ticker_o": "YFCGO",
+    "name": "YPF ENERGIA ELECTRICA C15",
+    "coupon_rate": 6.0,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "YFCJD": {
+    "ticker_o": "YFCJO",
+    "name": "YPF ENERGIA ELECTRICA C18",
+    "coupon_rate": 7.87,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "YFCLD": {
+    "ticker_o": "YFCLO",
+    "name": "YPF ENERGIA ELECTRICA C20",
+    "coupon_rate": 6.75,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "YFCMD": {
+    "ticker_o": "YFCMO",
+    "name": "YPF ENERGIA ELECTRICA C21",
+    "coupon_rate": 6.5,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "YFCOD": {
+    "ticker_o": "YFCOO",
+    "name": "YPF ENERGIA ELECTRICA C23",
+    "coupon_rate": 6.75,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "YM34D": {
+    "ticker_o": "YM34O",
+    "name": "YPF S.A. C34",
+    "coupon_rate": 8.25,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "YM35D": {
+    "ticker_o": "YM35O",
+    "name": "YPF S.A. C35",
+    "coupon_rate": 6.25,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "YM37D": {
+    "ticker_o": "YM37O",
+    "name": "YPF S.A. C37",
+    "coupon_rate": 7.0,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "YM39D": {
+    "ticker_o": "YM39O",
+    "name": "YPF S.A. C39",
+    "coupon_rate": 8.75,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "YM40D": {
+    "ticker_o": "YM40O",
+    "name": "YPF S.A. C40",
+    "coupon_rate": 7.5,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "YM42D": {
+    "ticker_o": "YM42O",
+    "name": "YPF S.A. C42",
+    "coupon_rate": 7.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "YMCID": {
+    "ticker_o": "YMCIO",
+    "name": "YPF S.A.",
+    "coupon_rate": 9.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "YMCJD": {
+    "ticker_o": "YMCJO",
+    "name": "YPF S.A.",
+    "coupon_rate": 7.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "YMCVD": {
+    "ticker_o": "YMCVO",
+    "name": "YPF S.A. C29",
+    "coupon_rate": 6.0,
+    "frequency": 4,
+    "min_investment": 50,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "YMCXD": {
+    "ticker_o": "YMCXO",
+    "name": "YPF S.A. C31",
+    "coupon_rate": 8.75,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "YMCZD": {
+    "ticker_o": "YMCZO",
+    "name": "YPF S.A. C33",
+    "coupon_rate": 7.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AAA"
+  },
+  "ZZC1D": {
+    "ticker_o": "ZZC1O",
+    "name": "CAMUZZI GAS PAMPEANA C1",
+    "coupon_rate": 7.95,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA-"
+  },
+  "BA7DD": {
+    "ticker_o": "BA37D",
+    "name": "PBA 2037",
+    "coupon_rate": 6.63,
+    "frequency": 2,
+    "min_investment": 1,
+    "law": "NY",
+    "currency_type": "CCL"
+  },
+  "BC33D": {
+    "ticker_o": "BDC33",
+    "name": "CIUDAD DE BS AS S13",
+    "coupon_rate": 7.8,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AAA"
+  },
+  "BNA6D": {
+    "ticker_o": "BNA26",
+    "name": "LETRA NEUQUEN 2026",
+    "coupon_rate": 9.45,
+    "frequency": 4,
+    "min_investment": 1,
+    "law": "ARG",
+    "currency_type": "MEP"
+  },
+  "CO26D": {
+    "ticker_o": "CO26",
+    "name": "CORDOBA 2026",
+    "coupon_rate": 7.13,
+    "frequency": 4,
+    "min_investment": 1000,
+    "law": "ARG",
+    "currency_type": "MEP",
+    "rating": "AA"
+  },
+  "CO32D": {
+    "ticker_o": "CO32",
+    "name": "CORDOBA 2032",
+    "coupon_rate": 9.75,
+    "frequency": 2,
+    "min_investment": 10000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AA"
+  },
+  "NDT5D": {
+    "ticker_o": "NDT25",
+    "name": "NEUQUEN 2030 (EX2025)",
+    "coupon_rate": 6.88,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL"
+  },
+  "PM29D": {
+    "ticker_o": "PMM29",
+    "name": "MENDOZA 2029",
+    "coupon_rate": 5.75,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL"
+  },
+  "S24DD": {
+    "ticker_o": "SA24D",
+    "name": "SALTA 2027",
+    "coupon_rate": 8.5,
+    "frequency": 2,
+    "min_investment": 150,
+    "law": "NY",
+    "currency_type": "CCL"
+  },
+  "SFD4D": {
+    "ticker_o": "SFD34",
+    "name": "SANTA FE 34",
+    "coupon_rate": 8.1,
+    "frequency": 2,
+    "min_investment": 1000,
+    "law": "NY",
+    "currency_type": "CCL",
+    "rating": "AA-"
+  },
+  "AERAO": {
+    "ticker_o": "",
+    "name": "AEROP. ARG. 2027",
+    "coupon_rate": 687.5,
+    "min_investment": 150000
+  },
+  "BACAO": {
+    "ticker_o": "",
+    "name": "BCO MACRO 2026",
+    "coupon_rate": 675.0,
+    "min_investment": 150000
+  },
+  "BYC2P": {
+    "ticker_o": "",
+    "name": "BCO GALICIA",
+    "coupon_rate": 825.0,
+    "min_investment": 200000
+  },
+  "MGC1O": {
+    "ticker_o": "",
+    "name": "PAMPA ENERGIA 2027",
+    "coupon_rate": 750.0,
+    "min_investment": 150000
+  },
+  "TSC2O": {
+    "ticker_o": "",
+    "name": "TRANSPORTADORA 2025",
+    "coupon_rate": 675.0,
+    "min_investment": 150000
+  }
+}
