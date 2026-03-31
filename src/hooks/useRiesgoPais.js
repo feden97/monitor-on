@@ -1,50 +1,32 @@
-import { useState, useEffect, useCallback } from 'react'
+import { usePollingResource } from './usePollingResource'
 
-const RP_API_URL = 'https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/ultimo'
-// Only fetch once or rarely since it updates once a day
-const REFRESH_INTERVAL = 300_000 // 5 minutes
+const RP_API_URL = '/argdata/v1/finanzas/indices/riesgo-pais/ultimo'
+const REFRESH_INTERVAL = 300_000
 
 export function useRiesgoPais() {
-  const [riesgoPais, setRiesgoPais] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-
-  const fetchRP = useCallback(async () => {
-    try {
-      const response = await fetch(RP_API_URL, {
-        headers: { Accept: 'application/json' },
-      })
-
-      if (!response.ok) {
-        throw new Error(`API error: ${response.status}`)
+  const resource = usePollingResource({
+    url: RP_API_URL,
+    intervalMs: REFRESH_INTERVAL,
+    areEqual: (previous, next) =>
+      previous?.value === next?.value && previous?.timestamp === next?.timestamp,
+    transformData: (data) => {
+      if (!data?.valor) {
+        return null
       }
 
-      const data = await response.json()
-
-      if (data && data.valor) {
-        setRiesgoPais({
-          value: data.valor,
-          // The API returns "YYYY-MM-DD", we convert it roughly to timestamp to format it later
-          timestamp: data.fecha, 
-        })
+      return {
+        value: data.valor,
+        timestamp: data.fecha,
       }
-      setError(null)
-    } catch (err) {
-      console.warn('Riesgo Pais fetch error:', err.message)
-      setError(err.message)
-    } finally {
-      setLoading(false)
-    }
-  }, [])
+    },
+    getErrorMessage: (err) => err?.message || 'No se pudo obtener el riesgo país.',
+  })
 
-  useEffect(() => {
-    fetchRP()
-  }, [fetchRP])
-
-  useEffect(() => {
-    const id = setInterval(fetchRP, REFRESH_INTERVAL)
-    return () => clearInterval(id)
-  }, [fetchRP])
-
-  return { riesgoPais, loading, error, refresh: fetchRP }
+  return {
+    riesgoPais: resource.data,
+    loading: resource.loading,
+    error: resource.error,
+    lastUpdated: resource.lastUpdated,
+    refresh: resource.refresh,
+  }
 }

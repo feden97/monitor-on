@@ -35,7 +35,7 @@ export function daysToDate(target) {
  * @param {number} dayConvention - Day count convention (360 or 365)
  * @returns {number} Accrued interest per 100 VN
  */
-export function calcCouponAccrued(flows, settlementDate, dayConvention = 360) {
+export function calcCouponAccrued(flows, settlementDate, _dayConvention = 360) {
   if (!flows || flows.length === 0) return 0
   
   // Find the most recent coupon date before settlementDate

@@ -116,7 +116,6 @@ export function calcAccruedInterest(processedFlows, prospecto, settlementDate) {
   sDate.setHours(0, 0, 0, 0)
 
   // Use the theoretical raw dates to find the exact accrual boundaries
-  const nextDateObj = nextFlows[0].rawDateObj
   const pastFlows = processedFlows.filter(f => f.rawDays < 0 && f.totalAmt > 0)
 
   // Get Annual Rate and Convention from Prospecto

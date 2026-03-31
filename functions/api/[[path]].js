@@ -3,7 +3,7 @@
  * Handles GET/POST requests and bypasses CORS.
  */
 export async function onRequest(context) {
-  const { request, env } = context;
+  const { request } = context;
   const url = new URL(request.url);
   
   // Extract the relative path after /api/

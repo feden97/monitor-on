@@ -1,58 +1,41 @@
-import { useState, useEffect, useCallback } from 'react'
-
-/**
- * Hook to fetch and periodically refresh Dólar MEP from CriptoYa API.
- * Endpoint: https://criptoya.com/api/dolar
- * Rate limit: 120 RPM, updates every 1 minute.
- */
+import { usePollingResource } from './usePollingResource'
 
 const DOLAR_API_URL = '/cripto/api/dolar'
-const REFRESH_INTERVAL = 60_000 // 60 seconds
+const REFRESH_INTERVAL = 60_000
 
 export function useDolarMEP() {
-  const [mep, setMep] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-
-  const fetchDolar = useCallback(async () => {
-    try {
-      const response = await fetch(DOLAR_API_URL, {
-        headers: { Accept: 'application/json' },
-      })
-
-      if (!response.ok) {
-        throw new Error(`CriptoYa error: ${response.status}`)
+  const resource = usePollingResource({
+    url: DOLAR_API_URL,
+    intervalMs: REFRESH_INTERVAL,
+    areEqual: (previous, next) =>
+      previous?.value === next?.value && previous?.timestamp === next?.timestamp,
+    transformData: (data) => {
+      if (!data?.mep) {
+        return null
       }
 
-      const data = await response.json()
+      const rawMep = data.mep.al30?.['24hs']
+      const value = typeof rawMep === 'object'
+        ? rawMep.price
+        : (rawMep || data.mep.al30?.price || null)
 
-      if (data && data.mep) {
-        // Obtenemos el precio directamente, asegurándote de que sea un número
-        const rawMep = data.mep.al30?.['24hs']
-        const value = typeof rawMep === 'object' ? rawMep.price : (rawMep || data.mep.al30?.price || null)
-        
-        setMep({
-          value: value,
-          timestamp: data.time ? data.time * 1000 : Date.now(),
-        })
+      if (!value) {
+        return null
       }
-      setError(null)
-    } catch (err) {
-      console.warn('Dólar MEP fetch error:', err.message)
-      setError(err.message)
-    } finally {
-      setLoading(false)
-    }
-  }, [])
 
-  useEffect(() => {
-    fetchDolar()
-  }, [fetchDolar])
+      return {
+        value,
+        timestamp: data.time ? data.time * 1000 : Date.now(),
+      }
+    },
+    getErrorMessage: (err) => err?.message || 'No se pudo obtener el dólar MEP.',
+  })
 
-  useEffect(() => {
-    const id = setInterval(fetchDolar, REFRESH_INTERVAL)
-    return () => clearInterval(id)
-  }, [fetchDolar])
-
-  return { mep, loading, error, refresh: fetchDolar }
+  return {
+    mep: resource.data,
+    loading: resource.loading,
+    error: resource.error,
+    lastUpdated: resource.lastUpdated,
+    refresh: resource.refresh,
+  }
 }

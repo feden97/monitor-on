@@ -1,16 +1,15 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import { RefreshCw, Search, Activity, Sun, Moon, BarChart3, LineChart } from 'lucide-react'
-import { useBondsData } from './hooks/useBondsData'
-import { useDolarMEP } from './hooks/useDolarMEP'
-import { useRiesgoPais } from './hooks/useRiesgoPais'
+import { useEffect, useMemo, useState } from 'react'
+import { Activity, LineChart, Moon, RefreshCw, Sun } from 'lucide-react'
 import Home from './components/Home'
 import ErrorBanner from './components/ErrorBanner'
 import AnalysisTab from './components/AnalysisTab'
-
-// ── Helpers ─────────────────────────────────────────────────────────────────
+import { useBondsData } from './hooks/useBondsData'
+import { useDolarMEP } from './hooks/useDolarMEP'
+import { useRiesgoPais } from './hooks/useRiesgoPais'
 
 function formatTimestamp(date) {
   if (!date) return null
+
   return date.toLocaleTimeString('es-AR', {
     hour: '2-digit',
     minute: '2-digit',
@@ -18,135 +17,155 @@ function formatTimestamp(date) {
   })
 }
 
-// ── Tab definitions ─────────────────────────────────────────────────────────
-
 const TABS = [
   { id: 'home', label: 'Inicio', icon: Activity },
-  { id: 'analysis', label: 'Análisis', icon: LineChart },
+  { id: 'analysis', label: 'Analisis', icon: LineChart },
 ]
-
-// ── App ──────────────────────────────────────────────────────────────────────
 
 export default function App() {
   const { data, loading, error, lastUpdated, refresh } = useBondsData()
-  const { mep } = useDolarMEP()
-  const { riesgoPais } = useRiesgoPais()
-  const [isRefreshing, setIsRefreshing] = useState(false)
+  const { mep, refresh: refreshMep } = useDolarMEP()
+  const { riesgoPais, refresh: refreshRiesgoPais } = useRiesgoPais()
   const [activeTab, setActiveTab] = useState('home')
-
-  // Dark mode: read from localStorage, default to TRUE (dark) for that Pro-Terminal look
+  const [isRefreshing, setIsRefreshing] = useState(false)
   const [isDark, setIsDark] = useState(() => {
     try {
       const stored = localStorage.getItem('ons-theme-v2')
-      if (stored !== null) return stored === 'dark'
-      // Default to true
-      return true
+      return stored ? stored === 'dark' : true
     } catch {
       return true
     }
   })
 
-  // Apply the dark class on <html> whenever isDark changes
+  useEffect(() => {
+    document.title = activeTab === 'analysis'
+      ? 'ONs Terminal | Analisis'
+      : 'ONs Terminal | Dashboard'
+  }, [activeTab])
+
   useEffect(() => {
     const html = document.documentElement
-    if (isDark) {
-      html.classList.add('dark')
-    } else {
-      html.classList.remove('dark')
-    }
+    html.classList.toggle('dark', isDark)
+
     try {
       localStorage.setItem('ons-theme-v2', isDark ? 'dark' : 'light')
-    } catch {}
+    } catch {
+      // Ignore storage issues and keep the in-memory preference.
+    }
   }, [isDark])
 
-  const toggleTheme = useCallback(() => {
-    setIsDark(prev => !prev)
-  }, [])
+  const marketSummary = useMemo(() => {
+    if (!data.length) {
+      return null
+    }
+
+    const usdCount = data.filter((bond) => bond.symbol?.endsWith('D')).length
+    const arsCount = data.filter((bond) => bond.symbol?.endsWith('O')).length
+
+    return { usdCount, arsCount }
+  }, [data])
+
+  const hasData = data.length > 0
 
   async function handleRefresh() {
     setIsRefreshing(true)
-    refresh()
-    // Give the spinner at least 600ms so it's visible
-    setTimeout(() => setIsRefreshing(false), 600)
+    const start = Date.now()
+
+    try {
+      await Promise.allSettled([refresh(), refreshMep(), refreshRiesgoPais()])
+      const elapsed = Date.now() - start
+
+      if (elapsed < 600) {
+        await new Promise((resolve) => setTimeout(resolve, 600 - elapsed))
+      }
+    } finally {
+      setIsRefreshing(false)
+    }
   }
 
   return (
     <div className="min-h-screen bg-terminal-bg text-terminal-text">
-      {/* ── Top bar ── */}
-      <header className="border-b border-terminal-border bg-terminal-panel shadow-sm sticky top-0 z-10">
-        <div className="max-w-screen-xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
-          {/* Brand */}
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2.5">
-              {/* Live dot */}
-              <span className="live-dot block w-2 h-2 rounded-full bg-up flex-shrink-0" />
-              <span className="font-mono font-bold text-sm tracking-tight text-terminal-text">
-                ONs <span className="text-terminal-accent font-medium ml-1">Terminal</span>
-              </span>
+      <header className="sticky top-0 z-20 border-b border-terminal-border bg-terminal-panel/95 backdrop-blur">
+        <div className="mx-auto flex max-w-screen-xl flex-col gap-4 px-6 py-4 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex items-start justify-between gap-4">
+            <div className="space-y-2">
+              <div className="flex items-center gap-3">
+                <span className="live-dot block h-2.5 w-2.5 rounded-full bg-up" />
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-sm font-bold tracking-tight text-terminal-text">
+                    ONs Terminal
+                  </span>
+                  <span className="rounded-full border border-terminal-border bg-terminal-surface px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-terminal-muted">
+                    Argentina
+                  </span>
+                </div>
+              </div>
+              <p className="max-w-2xl text-sm leading-relaxed text-terminal-muted">
+                Monitor de obligaciones negociables con foco en oportunidades, metricas de rendimiento y lectura rapida del mercado.
+              </p>
             </div>
-            <div className="hidden sm:block w-px h-4 bg-terminal-border" />
-            <span className="hidden sm:inline text-terminal-muted text-xs font-sans font-medium tracking-wide">
-              Mercado Argentino
-            </span>
+
+            <button
+              onClick={() => setIsDark((prev) => !prev)}
+              className="flex h-9 w-9 items-center justify-center rounded-md border border-terminal-border bg-terminal-panel text-terminal-muted transition hover:bg-terminal-surface hover:text-terminal-text"
+              title={isDark ? 'Modo claro' : 'Modo oscuro'}
+              aria-label={isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+            >
+              {isDark ? <Sun size={15} /> : <Moon size={15} />}
+            </button>
           </div>
 
-          {/* Right controls */}
-          <div className="flex items-center gap-3">
-            {/* Timestamp */}
-            {lastUpdated && (
-              <span className="hidden sm:inline font-mono text-[11px] font-medium tracking-wider text-terminal-muted bg-terminal-surface px-2 py-1 rounded-full border border-terminal-border">
-                {formatTimestamp(lastUpdated)}
-              </span>
-            )}
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+              <div className="rounded-xl border border-terminal-border bg-terminal-surface/60 px-3 py-2">
+                <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-terminal-muted">Ultima carga</div>
+                <div className="mt-1 font-mono text-sm font-bold tabular-nums text-terminal-text">
+                  {formatTimestamp(lastUpdated) || 'Sin datos'}
+                </div>
+              </div>
+              <div className="rounded-xl border border-terminal-border bg-terminal-surface/60 px-3 py-2">
+                <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-terminal-muted">Bonos USD</div>
+                <div className="mt-1 font-mono text-sm font-bold tabular-nums text-terminal-text">
+                  {marketSummary?.usdCount ?? '—'}
+                </div>
+              </div>
+              <div className="rounded-xl border border-terminal-border bg-terminal-surface/60 px-3 py-2">
+                <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-terminal-muted">Bonos ARS</div>
+                <div className="mt-1 font-mono text-sm font-bold tabular-nums text-terminal-text">
+                  {marketSummary?.arsCount ?? '—'}
+                </div>
+              </div>
+            </div>
 
-            {/* Refresh button */}
             <button
               onClick={handleRefresh}
               disabled={loading || isRefreshing}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-terminal-border
-                         text-xs font-semibold text-terminal-text bg-terminal-panel
-                         hover:bg-terminal-surface active:scale-95
-                         disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center justify-center gap-2 rounded-md border border-terminal-border bg-terminal-panel px-4 py-2 text-xs font-semibold text-terminal-text transition hover:bg-terminal-surface disabled:cursor-not-allowed disabled:opacity-50"
               title="Actualizar datos"
             >
-              <RefreshCw
-                size={13}
-                className={isRefreshing || loading ? 'animate-spin text-terminal-muted' : 'text-terminal-muted'}
-              />
-              <span className="hidden sm:inline">Act</span>
-            </button>
-
-            {/* Dark mode toggle */}
-            <button
-              onClick={toggleTheme}
-              className="flex items-center justify-center w-8 h-8 rounded-md border border-terminal-border
-                         text-terminal-muted bg-terminal-panel hover:text-terminal-text hover:bg-terminal-surface
-                         active:scale-95"
-              title={isDark ? 'Modo claro' : 'Modo oscuro'}
-            >
-              {isDark ? <Sun size={14} /> : <Moon size={14} />}
+              <RefreshCw size={14} className={loading || isRefreshing ? 'animate-spin text-terminal-muted' : 'text-terminal-muted'} />
+              Actualizar
             </button>
           </div>
         </div>
       </header>
 
-      {/* ── Main content ── */}
-      <main className="max-w-screen-xl mx-auto px-6 py-6">
-        {/* ── Tab Navigation ── */}
-        <div className="flex items-center gap-1 mb-6 border-b border-terminal-border">
-          {TABS.map(tab => {
+      <main className="mx-auto max-w-screen-xl px-6 py-6">
+        <div className="mb-6 flex flex-wrap items-center gap-2 border-b border-terminal-border pb-2">
+          {TABS.map((tab) => {
             const Icon = tab.icon
             const isActive = activeTab === tab.id
+
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-4 py-2.5 text-sm font-semibold font-sans
-                           border-b-2 -mb-px
-                           ${isActive
-                             ? 'border-terminal-accent text-terminal-accent'
-                             : 'border-transparent text-terminal-muted hover:text-terminal-text hover:border-terminal-border'
-                           }`}
+                className={`flex items-center gap-2 rounded-t-md border-b-2 px-4 py-2.5 text-sm font-semibold transition ${
+                  isActive
+                    ? 'border-terminal-accent text-terminal-accent'
+                    : 'border-transparent text-terminal-muted hover:border-terminal-border hover:text-terminal-text'
+                }`}
+                aria-pressed={isActive}
               >
                 <Icon size={15} />
                 {tab.label}
@@ -155,53 +174,56 @@ export default function App() {
           })}
         </div>
 
-        {/* ── Home Tab ── */}
-        {activeTab === 'home' && (
-          <>
-            <div className="mb-6 flex justify-between items-end">
-              <div>
-                <h1 className="font-sans font-bold text-lg text-terminal-text tracking-tight flex items-center gap-2">
-                  <Activity size={18} className="text-terminal-accent" />
-                  Terminal Dashboard
-                </h1>
-                <p className="text-xs text-terminal-muted mt-1 max-w-lg leading-relaxed">
-                  Monitoreo algorítmico global. Oportunidades y cotizaciones en tiempo real para Obligaciones Negociables argentinas.
-                </p>
-              </div>
-            </div>
-
-            {error && <ErrorBanner message={error} onRetry={handleRefresh} />}
-            
-            {!loading && !error && data.length > 0 && (
-               <Home bonds={data} dolarMEP={mep} riesgoPais={riesgoPais} />
-            )}
-          </>
+        {error && !hasData && <ErrorBanner message={error} onRetry={handleRefresh} />}
+        {error && hasData && (
+          <div className="mb-4 rounded-lg border border-terminal-border bg-terminal-surface/60 px-4 py-2 text-xs text-terminal-muted">
+            Se mantuvieron los últimos datos válidos mientras se reintenta la actualización.
+          </div>
         )}
 
-        {/* ── Analysis Tab ── */}
-        {activeTab === 'analysis' && (
-          <>
-            <div className="mb-6">
-              <h1 className="font-sans font-bold text-lg text-terminal-text tracking-tight flex items-center gap-2">
-                <LineChart size={18} className="text-terminal-accent" />
-                Análisis de ONs
+        {activeTab === 'home' && (
+          <section className="space-y-6">
+            <div className="flex flex-col gap-2">
+              <h1 className="flex items-center gap-2 text-lg font-bold tracking-tight text-terminal-text">
+                <Activity size={18} className="text-terminal-accent" />
+                Dashboard de mercado
               </h1>
-              <p className="text-xs text-terminal-muted mt-1 max-w-lg leading-relaxed">
-                Análisis fundamental de Obligaciones Negociables en dólares. Click en un instrumento para ver datos de emisión, métricas y flujo de fondos.
+              <p className="max-w-2xl text-sm leading-relaxed text-terminal-muted">
+                Lectura ejecutiva del universo de ONs para detectar rendimiento, movimiento diario y proximidad de pagos.
               </p>
             </div>
-            <AnalysisTab />
-          </>
+
+            {hasData && (
+              <Home bonds={data} dolarMEP={mep} riesgoPais={riesgoPais} />
+            )}
+          </section>
         )}
 
-        {/* Footer note */}
-        <div className="mt-8 pt-4 border-t border-terminal-border/50 text-center">
-          <p className="text-xs text-terminal-muted font-sans flex items-center justify-center gap-2">
-            <span>Market Data: data912.com</span>
-            <span className="w-1 h-1 rounded-full bg-terminal-border"></span>
-            <span>Intención Off-chain / Informativo</span>
-          </p>
-        </div>
+        {activeTab === 'analysis' && (
+          <section className="space-y-6">
+            <div className="flex flex-col gap-2">
+              <h1 className="flex items-center gap-2 text-lg font-bold tracking-tight text-terminal-text">
+                <LineChart size={18} className="text-terminal-accent" />
+                Analisis de ONs
+              </h1>
+              <p className="max-w-2xl text-sm leading-relaxed text-terminal-muted">
+                Vista detallada por instrumento con datos de emision, metricas financieras y flujo futuro de fondos.
+              </p>
+            </div>
+
+            <AnalysisTab
+              bonds={data}
+              loading={loading}
+              error={error}
+              dolarMEP={mep}
+              lastUpdated={lastUpdated}
+            />
+          </section>
+        )}
+
+        <footer className="mt-10 border-t border-terminal-border/60 pt-4 text-center text-xs text-terminal-muted">
+          Market Data: data912.com · Referencias macro: CriptoYa y ArgentinaDatos · Uso informativo
+        </footer>
       </main>
     </div>
   )
