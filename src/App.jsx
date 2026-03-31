@@ -140,7 +140,7 @@ export default function App() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-4 py-2.5 text-sm font-semibold font-sans
-                           border-b-2 -mb-px transition-colors
+                           border-b-2 -mb-px
                            ${isActive
                              ? 'border-terminal-accent text-terminal-accent'
                              : 'border-transparent text-terminal-muted hover:text-terminal-text hover:border-terminal-border'

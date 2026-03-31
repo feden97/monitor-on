@@ -149,7 +149,7 @@ export default function AnalysisTab() {
                 <th
                   key={col.key}
                   className={`px-4 py-3.5 text-left text-[10px] font-bold uppercase tracking-widest text-terminal-muted 
-                             ${col.sortable ? 'cursor-pointer hover:text-terminal-text transition-colors' : ''}`}
+                             ${col.sortable ? 'cursor-pointer hover:text-terminal-text' : ''}`}
                   onClick={col.sortable ? () => handleSort(col.key) : undefined}
                 >
                   <div className="flex items-center gap-1.5">
@@ -172,7 +172,7 @@ export default function AnalysisTab() {
               return (
                 <React.Fragment key={row.symbol}>
                   <tr
-                    className={`tr-row cursor-pointer transition-colors ${isExpanded ? 'bg-terminal-surface' : 'hover:bg-terminal-surface/30'}`}
+                    className={`tr-row cursor-pointer ${isExpanded ? 'bg-terminal-surface' : 'hover:bg-terminal-surface/30'}`}
                     onClick={() => toggleExpand(row.symbol)}
                   >
                     <td className="px-4 py-3 text-center">
