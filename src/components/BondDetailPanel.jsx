@@ -8,13 +8,13 @@ import { formatPrice, formatPct } from '../utils/formatters'
  */
 export default function BondDetailPanel({ bond, prospecto, dolarMEP }) {
   // ── 1. Parse Fundamental Data ─────────────────────────────────────
-  const interest = useMemo(() => 
+  const interest = useMemo(() =>
     prospecto?.coupon_rate ? { rate: prospecto.coupon_rate } : null
-  , [prospecto])
-  
-  const amort = useMemo(() => 
+    , [prospecto])
+
+  const amort = useMemo(() =>
     prospecto?.amort_type ? { type: prospecto.amort_type } : null
-  , [prospecto])
+    , [prospecto])
 
   // ── 2. Calculate Financial Metrics ────────────────────────────────
   const metrics = useMemo(() => {
@@ -24,12 +24,12 @@ export default function BondDetailPanel({ bond, prospecto, dolarMEP }) {
     const today = new Date()
     const tomorrow = new Date(today)
     tomorrow.setDate(today.getDate() + 1)
-    
+
     // getNextBusinessDay takes a 'YYYY-MM-DD' and rolls forward over weekends/holidays
     const settlementDate = getNextBusinessDay(tomorrow.toISOString().split('T')[0])
-    
+
     const dirtyPrice = bond.c
-    
+
     // Use prospecto cash flows if available
     const rawFlows = prospecto?.cashflows || prospecto?.cash_flows || []
     if (rawFlows.length === 0) return null
@@ -53,7 +53,7 @@ export default function BondDetailPanel({ bond, prospecto, dolarMEP }) {
   return (
     <div className="p-6 bg-terminal-surface/40 border-t border-terminal-border animate-in slide-in-from-top-4 duration-300">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        
+
         {/* ── Col 1: Datos de Emisión ── */}
         <div className="space-y-4">
           <h4 className="text-[10px] font-bold uppercase tracking-widest text-terminal-accent flex items-center gap-2">
@@ -114,20 +114,20 @@ export default function BondDetailPanel({ bond, prospecto, dolarMEP }) {
                 </thead>
                 <tbody className="divide-y divide-terminal-border/20">
                   {metrics.futureFlows.map((f, i) => (
-                      <tr key={i} className="hover:bg-terminal-surface/10">
-                        <td className="px-3 py-2">{f.date}</td>
-                        <td className="px-3 py-2 text-right text-up">{f.intAmt.toFixed(2)}%</td>
-                        <td className="px-3 py-2 text-right text-terminal-accent">{f.amortAmt.toFixed(2)}%</td>
-                        <td className="px-3 py-2 text-right font-bold">${f.totalAmt.toFixed(2)}</td>
-                      </tr>
-                    ))}
+                    <tr key={i} className="hover:bg-terminal-surface/10">
+                      <td className="px-3 py-2">{f.date}</td>
+                      <td className="px-3 py-2 text-right text-up">{f.intAmt.toFixed(2)}%</td>
+                      <td className="px-3 py-2 text-right text-terminal-accent">{f.amortAmt.toFixed(2)}%</td>
+                      <td className="px-3 py-2 text-right font-bold">${f.totalAmt.toFixed(2)}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             ) : metrics?.isMatured ? (
-               <div className="p-8 text-center">
-                 <div className="text-terminal-muted text-xs mb-2 italic">Este bono ya ha vencido (Matured).</div>
-                 <div className="text-[10px] text-terminal-muted/60">No hay pagos futuros.</div>
-               </div>
+              <div className="p-8 text-center">
+                <div className="text-terminal-muted text-xs mb-2 italic">Este bono ya ha vencido (Matured).</div>
+                <div className="text-[10px] text-terminal-muted/60">No hay pagos futuros.</div>
+              </div>
             ) : (
               <div className="p-8 text-center">
                 <div className="text-terminal-muted text-xs mb-2 italic">No hay datos de flujo disponibles para este ticker.</div>

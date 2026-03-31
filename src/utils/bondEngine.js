@@ -22,7 +22,7 @@ export function isHolidayOrWeekend(dateObj) {
 export function getNextBusinessDay(dateStr) {
   const d = new Date(dateStr + "T00:00:00") // Force local timezone at midnight
   if (isNaN(d.getTime())) return null
-  
+
   while (isHolidayOrWeekend(d)) {
     d.setDate(d.getDate() + 1)
   }
@@ -45,15 +45,15 @@ export function calcDays360EU(d1, d2) {
   let day1 = d1.getDate()
   let m1 = d1.getMonth() + 1
   let y1 = d1.getFullYear()
-  
+
   let day2 = d2.getDate()
   let m2 = d2.getMonth() + 1
   let y2 = d2.getFullYear()
-  
+
   // European rule: If 31st, change to 30th
   if (day1 === 31) day1 = 30
   if (day2 === 31) day2 = 30
-  
+
   return (y2 - y1) * 360 + (m2 - m1) * 30 + (day2 - day1)
 }
 
@@ -78,15 +78,15 @@ export function processCashflows(rawCashflows, settlementDate = new Date(), dayC
     const rawDateStr = cf.date
     const rawDateObj = new Date(rawDateStr + "T00:00:00")
     const bizDate = getNextBusinessDay(rawDateStr)
-    
+
     // Elapsed days against business date (for UI + Payment scheduling)
     const daysFromSettlementBiz = daysBetween(sDate, bizDate)
-    
+
     // Elapsed days against theoretical raw date (for purely financial accrual/YTM math)
-    const daysFromSettlementRaw = dayConvention === 360 
-      ? calcDays360EU(sDate, rawDateObj) 
+    const daysFromSettlementRaw = dayConvention === 360
+      ? calcDays360EU(sDate, rawDateObj)
       : daysBetween(sDate, rawDateObj)
-    
+
     return {
       rawDate: rawDateStr,
       rawDateObj,
@@ -121,8 +121,8 @@ export function calcAccruedInterest(processedFlows, prospecto, settlementDate) {
 
   // Get Annual Rate and Convention from Prospecto
   const annualRate = prospecto?.coupon_rate || 0
-  const convention = prospecto?.dayConvention || 365 
-  
+  const convention = prospecto?.dayConvention || 365
+
   // Calculate Current Residual Value before this upcoming payment
   const residualValuePct = nextFlows.reduce((sum, f) => sum + f.amortAmt, 0) / 100
 
@@ -132,21 +132,21 @@ export function calcAccruedInterest(processedFlows, prospecto, settlementDate) {
     lastDateObj = pastFlows[pastFlows.length - 1].rawDateObj
   } else if (prospecto?.emission_date) {
     lastDateObj = new Date(prospecto.emission_date + "T00:00:00")
-  } 
+  }
 
   // If no last date is known, we fall back to assuming 0 accrued or we infer it
   if (!lastDateObj) return 0
 
   // Calculate days passed strictly between theoretical unadjusted dates
-  let daysAccrued = convention === 360 
-    ? calcDays360EU(lastDateObj, sDate) 
+  let daysAccrued = convention === 360
+    ? calcDays360EU(lastDateObj, sDate)
     : daysBetween(lastDateObj, sDate)
-  
+
   // Formula B: (Tasa Anual% / Convención) * DiasTranscurridos * ValorResidual
   // Como 'annualRate' está en formato entero (ej. 7, no 0.07), ya representa $ por cada 100 nominales.
   // Valor residual va de 0 a 1.
   const accrued = (annualRate / convention) * daysAccrued * residualValuePct
-  
+
   return accrued > 0 ? accrued : 0
 }
 
@@ -158,7 +158,7 @@ export function calcTechnicalValue(processedFlows, accruedInterest) {
   const futureAmort = processedFlows
     .filter(f => f.days >= 0)
     .reduce((sum, f) => sum + f.amortAmt, 0)
-    
+
   return futureAmort + accruedInterest
 }
 
@@ -217,19 +217,19 @@ export function analyzeBond(dirtyPrice, prospecto, settlementDate = new Date()) 
   // Process timeline passing the convention if it exists (defaults to 365 for YTM math)
   const convention = prospecto?.dayConvention || 365
   const processed = processCashflows(rawCashflows, settlementDate, convention)
-  
+
   // Future flows (unpaid) to show in the UI (filtered by business days)
   const futureFlows = processed.filter(f => f.days >= 0 && f.totalAmt > 0)
-  
+
   if (futureFlows.length === 0) return { isMatured: true }
 
   // 1. Accrued Interest using strict Formula B logic
   const accrued = calcAccruedInterest(processed, prospecto, settlementDate)
   const cleanPrice = dirtyPrice - accrued
-  
+
   const techValue = calcTechnicalValue(processed, accrued)
   const paridad = techValue > 0 ? (dirtyPrice / techValue) : null
-  
+
   // Current Yield: Next 365 Days of coupons / Clean Price
   // Or simpler: annual coupon rate (sum of interest over 1 year) / clean
   const oneYearFromNow = new Date(settlementDate)
@@ -237,12 +237,12 @@ export function analyzeBond(dirtyPrice, prospecto, settlementDate = new Date()) 
   const annualInterest = processed
     .filter(f => f.days > 0 && f.bizDate <= oneYearFromNow)
     .reduce((sum, f) => sum + f.intAmt, 0)
-    
+
   const currentYield = cleanPrice > 0 ? annualInterest / cleanPrice : null
 
   const ytmDecimal = calcYTM(dirtyPrice, processed)
   const duration = calcMacaulayDuration(dirtyPrice, processed, ytmDecimal)
-  
+
   // Transform TEA (ytmDecimal) into TNA (APR) to calculate Institutional Modified Duration
   const frequency = prospecto?.frequency || 2
   let tnaDecimal = null
