@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { RefreshCw, Search, Activity, Sun, Moon, BarChart3, LineChart } from 'lucide-react'
 import { useBondsData } from './hooks/useBondsData'
-import BondsTable from './components/BondsTable'
-import StatsBar from './components/StatsBar'
+import { useDolarMEP } from './hooks/useDolarMEP'
+import { useRiesgoPais } from './hooks/useRiesgoPais'
+import Home from './components/Home'
 import ErrorBanner from './components/ErrorBanner'
 import AnalysisTab from './components/AnalysisTab'
 
@@ -20,7 +21,7 @@ function formatTimestamp(date) {
 // ── Tab definitions ─────────────────────────────────────────────────────────
 
 const TABS = [
-  { id: 'market', label: 'Mercado', icon: Activity },
+  { id: 'home', label: 'Inicio', icon: Activity },
   { id: 'analysis', label: 'Análisis', icon: LineChart },
 ]
 
@@ -28,9 +29,10 @@ const TABS = [
 
 export default function App() {
   const { data, loading, error, lastUpdated, refresh } = useBondsData()
-  const [globalFilter, setGlobalFilter] = useState('')
+  const { mep } = useDolarMEP()
+  const { riesgoPais } = useRiesgoPais()
   const [isRefreshing, setIsRefreshing] = useState(false)
-  const [activeTab, setActiveTab] = useState('market')
+  const [activeTab, setActiveTab] = useState('home')
 
   // Dark mode: read from localStorage, default to TRUE (dark) for that Pro-Terminal look
   const [isDark, setIsDark] = useState(() => {
@@ -153,53 +155,26 @@ export default function App() {
           })}
         </div>
 
-        {/* ── Market Tab ── */}
-        {activeTab === 'market' && (
+        {/* ── Home Tab ── */}
+        {activeTab === 'home' && (
           <>
-            {/* Page title */}
             <div className="mb-6 flex justify-between items-end">
               <div>
                 <h1 className="font-sans font-bold text-lg text-terminal-text tracking-tight flex items-center gap-2">
                   <Activity size={18} className="text-terminal-accent" />
-                  Estado del Mercado
+                  Terminal Dashboard
                 </h1>
                 <p className="text-xs text-terminal-muted mt-1 max-w-lg leading-relaxed">
-                  Datos en tiempo real de Obligaciones Negociables. Precios en ARS. Actualización automática configurada cada 10s.
+                  Monitoreo algorítmico global. Oportunidades y cotizaciones en tiempo real para Obligaciones Negociables argentinas.
                 </p>
               </div>
             </div>
 
-            {/* Error banner */}
             {error && <ErrorBanner message={error} onRetry={handleRefresh} />}
-
-            {/* Stats summary */}
-            {!loading && !error && data.length > 0 && <StatsBar data={data} />}
-
-            {/* Search bar */}
-            <div className="relative mb-5 max-w-sm">
-              <Search
-                size={14}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-terminal-muted pointer-events-none"
-              />
-              <input
-                type="text"
-                placeholder="Buscar por ticker o empresa…"
-                value={globalFilter}
-                onChange={(e) => setGlobalFilter(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 text-sm font-mono
-                           bg-terminal-panel border border-terminal-border rounded-md text-terminal-text
-                           placeholder:text-terminal-muted/60
-                           focus:outline-none focus:ring-1 focus:ring-terminal-accent/50 focus:border-terminal-accent/50"
-              />
-            </div>
-
-            {/* Data table */}
-            <BondsTable
-              data={data}
-              loading={loading}
-              globalFilter={globalFilter}
-              setGlobalFilter={setGlobalFilter}
-            />
+            
+            {!loading && !error && data.length > 0 && (
+               <Home bonds={data} dolarMEP={mep} riesgoPais={riesgoPais} />
+            )}
           </>
         )}
 

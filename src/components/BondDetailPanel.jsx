@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { analyzeBond, getNextBusinessDay } from '../utils/bondEngine'
-import { formatPrice, formatPct } from '../utils/formatters'
+import { formatPrice, formatPct, formatPctSimple, formatDate } from '../utils/formatters'
 
 /**
  * BondDetailPanel — Expanded detail view for a bond.
@@ -63,11 +63,17 @@ export default function BondDetailPanel({ bond, prospecto, dolarMEP }) {
           <div className="bg-terminal-panel rounded-lg p-4 border border-terminal-border shadow-sm">
             <DataRow label="Emisora" value={prospecto?.name} />
             <DataRow label="ISIN" value={prospecto?.isin || '—'} />
-            <DataRow label="Fecha Emisión" value={prospecto?.emission_date || '—'} />
-            <DataRow label="Fecha Vencimiento" value={prospecto?.maturity_date || '—'} />
+            <DataRow label="Fecha Emisión" value={formatDate(prospecto?.emission_date)} />
+            <DataRow label="Fecha Vencimiento" value={formatDate(prospecto?.maturity_date)} />
             <DataRow label="Ley" value={prospecto?.law} />
             <DataRow label="Dólar de Pago" value={prospecto?.currency_type || '—'} />
             <DataRow label="Cupón TNA" value={interest ? `${interest.rate}%` : '—'} subValue={`${prospecto?.frequency || 2} pagos/año`} />
+            <DataRow 
+              label="Próximo Pago" 
+              value={formatDate(metrics?.futureFlows?.[0]?.date)} 
+              subValue={metrics?.futureFlows?.[0] ? `$${metrics.futureFlows[0].totalAmt.toFixed(2)} c/100` : null} 
+              highlight 
+            />
             <DataRow label="Calificación" value={prospecto?.rating} />
             <DataRow label="Mínimo Nom." value={prospecto?.min_investment ? `${prospecto.min_investment} VN` : '1 VN'} />
             <DataRow label="Amortización" value={amort?.type === 'Bullet' ? 'Bullet (100% al vto)' : (amort?.type || '—')} />
@@ -83,9 +89,9 @@ export default function BondDetailPanel({ bond, prospecto, dolarMEP }) {
           <div className="bg-terminal-panel rounded-lg p-4 border border-terminal-border shadow-sm">
             <DataRow label="Precio Dirty (u$s)" value={bond.c ? `$${bond.c.toFixed(2)}` : '—'} highlight />
             <DataRow label="Precio Clean (u$s)" value={metrics ? `$${metrics.cleanPrice.toFixed(2)}` : '—'} />
-            <DataRow label="TIR (Efectiva)" value={metrics?.ytm != null ? formatPct(metrics.ytm) : '—'} highlight />
-            <DataRow label="Current Yield" value={metrics ? formatPct(metrics.currentYield) : '—'} />
-            <DataRow label="Paridad" value={metrics ? formatPct(metrics.paridad) : '—'} />
+            <DataRow label="TIR (Efectiva)" value={metrics?.ytm != null ? formatPctSimple(metrics.ytm) : '—'} highlight />
+            <DataRow label="Current Yield" value={metrics ? formatPctSimple(metrics.currentYield) : '—'} />
+            <DataRow label="Paridad" value={metrics ? formatPctSimple(metrics.paridad) : '—'} />
             <DataRow label="Duration" value={metrics?.duration ? metrics.duration.toFixed(2) : '—'} subValue="en años" />
             <DataRow label="Mod. Duration" value={metrics?.modDuration ? metrics.modDuration.toFixed(2) : '—'} />
             <DataRow label="Cupón Corrido" value={metrics ? `$${metrics.accrued.toFixed(4)}` : '—'} />
@@ -115,7 +121,7 @@ export default function BondDetailPanel({ bond, prospecto, dolarMEP }) {
                 <tbody className="divide-y divide-terminal-border/20">
                   {metrics.futureFlows.map((f, i) => (
                     <tr key={i} className="hover:bg-terminal-surface/10">
-                      <td className="px-3 py-2">{f.date}</td>
+                      <td className="px-3 py-2">{formatDate(f.date)}</td>
                       <td className="px-3 py-2 text-right text-up">{f.intAmt.toFixed(2)}%</td>
                       <td className="px-3 py-2 text-right text-terminal-accent">{f.amortAmt.toFixed(2)}%</td>
                       <td className="px-3 py-2 text-right font-bold">${f.totalAmt.toFixed(2)}</td>

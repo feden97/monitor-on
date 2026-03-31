@@ -27,11 +27,13 @@ export function useDolarMEP() {
       const data = await response.json()
 
       if (data && data.mep) {
+        // Obtenemos el precio directamente, asegurándote de que sea un número
+        const rawMep = data.mep.al30?.['24hs']
+        const value = typeof rawMep === 'object' ? rawMep.price : (rawMep || data.mep.al30?.price || null)
+        
         setMep({
-          buy: data.mep.ci?.bid ?? data.mep.al30?.bid ?? null,
-          sell: data.mep.ci?.ask ?? data.mep.al30?.ask ?? null,
-          // Fallback: use the first available MEP value
-          value: data.mep.ci?.price ?? data.mep.al30?.price ?? null,
+          value: value,
+          timestamp: data.time ? data.time * 1000 : Date.now(),
         })
       }
       setError(null)

@@ -12411,6 +12411,7 @@
     "dayConvention": 360
   },
   "AERBD": {
+    "coupon_rate": 5.5,
     "cashflows": [
       {
         "date": "2026-04-01",

@@ -9,6 +9,11 @@ const PCT_FORMAT = new Intl.NumberFormat('es-AR', {
   signDisplay: 'always',
 })
 
+const PCT_SIMPLE_FORMAT = new Intl.NumberFormat('es-AR', {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+})
+
 // Cached Intl.NumberFormat instances to avoid re-creating them on every render.
 // With ~487 instruments × 3 price columns, this saves thousands of allocations per cycle.
 const PRICE_FORMAT_0 = new Intl.NumberFormat('es-AR', {
@@ -61,10 +66,29 @@ export function formatPct(value) {
 }
 
 /**
+ * Format a percentage without forcing the '+' sign.
+ * Uses a normal minus sign for negative numbers.
+ */
+export function formatPctSimple(value) {
+  if (value == null || isNaN(value)) return '—'
+  return PCT_SIMPLE_FORMAT.format(value) + '%'
+}
+
+/**
  * Classify a pct_change value.
  * @returns {'up' | 'down' | 'flat'}
  */
 export function getChangeDirection(value) {
   if (value == null || isNaN(value) || value === 0) return 'flat'
   return value > 0 ? 'up' : 'down'
+}
+
+/**
+ * Format a 'YYYY-MM-DD' date string into 'DD/MM/YYYY'
+ */
+export function formatDate(dateStr) {
+  if (!dateStr || typeof dateStr !== 'string') return '—'
+  const parts = dateStr.split('T')[0].split('-')
+  if (parts.length !== 3) return dateStr
+  return `${parts[2]}/${parts[1]}/${parts[0]}`
 }
