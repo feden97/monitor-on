@@ -3,7 +3,8 @@ import { ChevronDown, ChevronRight, Search, ArrowUpDown } from 'lucide-react'
 import { useBondsData } from '../hooks/useBondsData'
 import { useDolarMEP } from '../hooks/useDolarMEP'
 import BondDetailPanel from './BondDetailPanel'
-import { parseInterestString, parseAmortString, daysToDate } from '../utils/bondMath'
+import { parseInterestString, parseAmortString } from '../utils/bondMath'
+import { getNextBusinessDay, daysBetween } from '../utils/bondEngine'
 import { formatPct } from '../utils/formatters'
 import bondProspectos from '../data/bondProspectos.json'
 
@@ -23,6 +24,13 @@ export default function AnalysisTab() {
   const dTickers = useMemo(() => {
     return data.filter(row => row.symbol && row.symbol.endsWith('D'))
   }, [data])
+
+  const globalSettlementDate = useMemo(() => {
+    const today = new Date()
+    const tomorrow = new Date(today)
+    tomorrow.setDate(today.getDate() + 1)
+    return getNextBusinessDay(tomorrow.toISOString().split('T')[0])
+  }, [])
 
   // Metadata fetching removed as all data is now static in bondProspectos.json
 
@@ -52,8 +60,9 @@ export default function AnalysisTab() {
       } else if (sortKey === 'pct_change') {
         va = a.pct_change || 0; vb = b.pct_change || 0
       } else if (sortKey === 'dias') {
-        va = prosA?.maturity_date ? daysToDate(prosA.maturity_date) : 99999
-        vb = prosB?.maturity_date ? daysToDate(prosB.maturity_date) : 99999
+        const d1 = prosA?.maturity_date ? daysBetween(globalSettlementDate, new Date(prosA.maturity_date + 'T00:00:00')) : 99999
+        const d2 = prosB?.maturity_date ? daysBetween(globalSettlementDate, new Date(prosB.maturity_date + 'T00:00:00')) : 99999
+        va = d1; vb = d2;
       } else if (sortKey === 'ley') {
         va = prosA?.law || ''; vb = prosB?.law || ''
       } else if (sortKey === 'calif') {
@@ -157,7 +166,7 @@ export default function AnalysisTab() {
             {filteredData.map(row => {
               const prospecto = bondProspectos[row.symbol]
               const interest = prospecto?.coupon_rate ? { rate: prospecto.coupon_rate } : null
-              const dias = prospecto?.maturity_date ? daysToDate(prospecto.maturity_date) : null
+              const dias = prospecto?.maturity_date ? daysBetween(globalSettlementDate, new Date(prospecto.maturity_date + 'T00:00:00')) : null
               const isExpanded = expandedTicker === row.symbol
 
               return (

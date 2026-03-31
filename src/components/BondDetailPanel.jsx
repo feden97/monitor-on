@@ -1,16 +1,5 @@
 import React, { useMemo } from 'react'
-import {
-  calcTIR,
-  calcParidad,
-  calcCurrentYield,
-  calcDuration,
-  calcModDuration,
-  calcCouponAccrued,
-  calcCleanPrice,
-  generateCashFlows,
-  parseInterestString,
-  parseAmortString
-} from '../utils/bondMath'
+import { analyzeBond, getNextBusinessDay } from '../utils/bondEngine'
 import { formatPrice, formatPct } from '../utils/formatters'
 
 /**
@@ -31,31 +20,21 @@ export default function BondDetailPanel({ bond, prospecto, dolarMEP }) {
   const metrics = useMemo(() => {
     if (!bond.c) return null
 
-    const settlementDate = new Date() // Today
+    // Liquidación T+1 (Tomorrow or next business day)
+    const today = new Date()
+    const tomorrow = new Date(today)
+    tomorrow.setDate(today.getDate() + 1)
+    
+    // getNextBusinessDay takes a 'YYYY-MM-DD' and rolls forward over weekends/holidays
+    const settlementDate = getNextBusinessDay(tomorrow.toISOString().split('T')[0])
+    
     const dirtyPrice = bond.c
     
     // Use prospecto cash flows if available
-    const flows = prospecto?.cash_flows || []
-    if (flows.length === 0) return null
+    const rawFlows = prospecto?.cashflows || prospecto?.cash_flows || []
+    if (rawFlows.length === 0) return null
 
-    const accrued = calcCouponAccrued(flows, settlementDate)
-    const cleanPrice = calcCleanPrice(dirtyPrice, accrued)
-    const tir = calcTIR(flows, dirtyPrice, settlementDate)
-    const paridad = calcParidad(dirtyPrice, flows, settlementDate)
-    const currentYield = calcCurrentYield(interest?.rate || 0, dirtyPrice)
-    const duration = calcDuration(flows, dirtyPrice, settlementDate)
-    const modDuration = calcModDuration(duration, tir)
-
-    return {
-      accrued,
-      cleanPrice,
-      tir,
-      paridad,
-      currentYield,
-      duration,
-      modDuration,
-      flows
-    }
+    return analyzeBond(dirtyPrice, prospecto, settlementDate)
   }, [bond, prospecto, interest])
 
   // ── 3. Render Helper ──────────────────────────────────────────────
@@ -104,11 +83,11 @@ export default function BondDetailPanel({ bond, prospecto, dolarMEP }) {
           <div className="bg-terminal-panel rounded-lg p-4 border border-terminal-border shadow-sm">
             <DataRow label="Precio Dirty (u$s)" value={bond.c ? `$${bond.c.toFixed(2)}` : '—'} highlight />
             <DataRow label="Precio Clean (u$s)" value={metrics ? `$${metrics.cleanPrice.toFixed(2)}` : '—'} />
-            <DataRow label="TIR (Efectiva)" value={metrics ? formatPct(metrics.tir) : '—'} highlight />
+            <DataRow label="TIR (Efectiva)" value={metrics?.ytm != null ? formatPct(metrics.ytm) : '—'} highlight />
             <DataRow label="Current Yield" value={metrics ? formatPct(metrics.currentYield) : '—'} />
             <DataRow label="Paridad" value={metrics ? formatPct(metrics.paridad) : '—'} />
-            <DataRow label="Duration" value={metrics ? metrics.duration.toFixed(2) : '—'} subValue="en años" />
-            <DataRow label="Mod. Duration" value={metrics ? metrics.modDuration.toFixed(2) : '—'} />
+            <DataRow label="Duration" value={metrics?.duration ? metrics.duration.toFixed(2) : '—'} subValue="en años" />
+            <DataRow label="Mod. Duration" value={metrics?.modDuration ? metrics.modDuration.toFixed(2) : '—'} />
             <DataRow label="Cupón Corrido" value={metrics ? `$${metrics.accrued.toFixed(4)}` : '—'} />
             {dolarMEP?.value && bond.c && (
               <DataRow label="Equiv. Pesos" value={`$${(bond.c * dolarMEP.value).toLocaleString('es-AR', { maximumFractionDigits: 0 })}`} subValue={`Base MEP $${dolarMEP.value}`} />
@@ -123,7 +102,7 @@ export default function BondDetailPanel({ bond, prospecto, dolarMEP }) {
             Flujo de Fondos
           </h4>
           <div className="bg-terminal-panel rounded-lg overflow-hidden border border-terminal-border shadow-sm max-h-[460px] overflow-y-auto">
-            {metrics?.flows && metrics.flows.length > 0 ? (
+            {metrics?.futureFlows && metrics.futureFlows.length > 0 ? (
               <table className="w-full text-xs font-mono">
                 <thead className="bg-terminal-surface/30 sticky top-0">
                   <tr className="border-b border-terminal-border">
@@ -134,18 +113,21 @@ export default function BondDetailPanel({ bond, prospecto, dolarMEP }) {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-terminal-border/20">
-                  {metrics.flows
-                    .filter(f => new Date(f.date) >= new Date())
-                    .map((f, i) => (
+                  {metrics.futureFlows.map((f, i) => (
                       <tr key={i} className="hover:bg-terminal-surface/10">
                         <td className="px-3 py-2">{f.date}</td>
-                        <td className="px-3 py-2 text-right text-up">{f.interest.toFixed(2)}%</td>
-                        <td className="px-3 py-2 text-right text-terminal-accent">{f.amortization.toFixed(2)}%</td>
-                        <td className="px-3 py-2 text-right font-bold">${(f.interest + f.amortization).toFixed(2)}</td>
+                        <td className="px-3 py-2 text-right text-up">{f.intAmt.toFixed(2)}%</td>
+                        <td className="px-3 py-2 text-right text-terminal-accent">{f.amortAmt.toFixed(2)}%</td>
+                        <td className="px-3 py-2 text-right font-bold">${f.totalAmt.toFixed(2)}</td>
                       </tr>
                     ))}
                 </tbody>
               </table>
+            ) : metrics?.isMatured ? (
+               <div className="p-8 text-center">
+                 <div className="text-terminal-muted text-xs mb-2 italic">Este bono ya ha vencido (Matured).</div>
+                 <div className="text-[10px] text-terminal-muted/60">No hay pagos futuros.</div>
+               </div>
             ) : (
               <div className="p-8 text-center">
                 <div className="text-terminal-muted text-xs mb-2 italic">No hay datos de flujo disponibles para este ticker.</div>
