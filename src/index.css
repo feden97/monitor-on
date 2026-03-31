@@ -9,7 +9,6 @@
   --font-sans: "IBM Plex Sans", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", Menlo, Monaco, Consolas, monospace;
 
-  /* Theme colors using the CSS variables below */
   --color-terminal-bg: var(--bg-base);
   --color-terminal-panel: var(--bg-panel);
   --color-terminal-surface: var(--bg-surface);
@@ -20,19 +19,15 @@
 
   --color-up: var(--color-up);
   --color-up-light: var(--bg-up-light);
-
   --color-down: var(--color-down);
   --color-down-light: var(--bg-down-light);
-
   --color-flat: var(--color-flat);
   --color-flat-light: var(--bg-flat-light);
-
   --color-highlight: var(--color-highlight);
 
-  --shadow-card: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
-  --shadow-card-hover: 0 4px 12px rgba(0,0,0,0.10);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.1);
 
-  /* Animations */
   --animate-pulse-dot: pulse-dot 1.8s ease-in-out infinite;
   --animate-shimmer: shimmer 1.4s infinite linear;
 
@@ -58,7 +53,6 @@
 }
 
 :root {
-  /* ── MODO CLARO ── */
   --bg-base: #F9FAFB;
   --bg-panel: #FFFFFF;
   --bg-surface: #F3F4F6;
@@ -108,7 +102,6 @@
 }
 
 .dark {
-  /* ── MODO OSCURO PRO ── */
   --bg-base: #0F0F13;
   --bg-panel: #16161A;
   --bg-surface: #1F1F22;
@@ -167,13 +160,18 @@
     @apply font-sans bg-background text-foreground;
     min-height: 100vh;
   }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
   * {
     @apply border-border outline-ring/50;
   }
 }
 
 @layer components {
-  /* ── Table header cells ── */
   .th-cell {
     @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-terminal-muted border-b border-terminal-border select-none whitespace-nowrap;
   }
@@ -182,7 +180,6 @@
     @apply cursor-pointer hover:text-terminal-text;
   }
 
-  /* ── Table body rows ── */
   .td-cell {
     @apply px-4 py-2.5 text-sm font-mono whitespace-nowrap border-b border-terminal-border/50;
   }
@@ -191,12 +188,10 @@
     @apply hover:bg-terminal-surface;
   }
 
-  /* ── Ticker badge ── */
   .ticker-badge {
     @apply inline-block font-mono font-semibold text-xs tracking-wider bg-terminal-accent text-terminal-bg px-2 py-0.5 rounded-sm;
   }
 
-  /* ── Change pill ── */
   .change-up {
     @apply inline-flex items-center gap-1 text-up font-mono font-medium bg-up-light px-2 py-0.5 rounded-sm text-xs;
   }
@@ -219,9 +214,56 @@
     background-size: 600px 100%;
     border-radius: 3px;
   }
+
+  .sheet-grid-table {
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .sheet-sticky-name,
+  .sheet-sticky-cell,
+  .sheet-sticky-group {
+    background-clip: padding-box;
+  }
+
+  .sheet-sticky-name,
+  .sheet-sticky-cell {
+    background-color: var(--bg-panel);
+  }
+
+  .sheet-sticky-group {
+    background-color: var(--bg-surface);
+  }
+
+  .sheet-sticky-name {
+    box-shadow: none;
+  }
+
+  .sheet-sticky-cell {
+    box-shadow: none;
+  }
+
+  .nav-item {
+    @apply text-terminal-muted hover:bg-terminal-surface/60 hover:text-terminal-text;
+  }
+
+  .nav-item--active {
+    @apply border border-terminal-border bg-terminal-surface text-terminal-text;
+  }
+
+  .metric-chip {
+    @apply flex flex-col items-end gap-0 py-1;
+  }
+
+  .metric-chip__label {
+    @apply text-[9px] font-bold uppercase tracking-widest text-terminal-muted;
+  }
+
+  .metric-chip__value {
+    @apply font-mono text-xs font-bold tabular-nums text-terminal-text;
+  }
 }
 
-/* ── Scrollbar styling ── */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -251,6 +293,13 @@
 .dark .skeleton {
   background: linear-gradient(90deg, #1F1F22 25%, #27272A 50%, #1F1F22 75%);
   background-size: 600px 100%;
+}
+
+.dark *,
+.dark *::before,
+.dark *::after {
+  animation: none !important;
+  transition: none !important;
 }
 
 @theme inline {

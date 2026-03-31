@@ -1,77 +1,139 @@
 import { useMemo, useState } from 'react'
+import { ArrowUpDown, Search } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import {
-  Activity,
-  AlertCircle,
-  ArrowRight,
-  ArrowUpDown,
-  Award,
-  Clock,
-  DollarSign,
-  Search,
-  Target,
-  TrendingDown,
-  TrendingUp,
-} from 'lucide-react'
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import { cn } from '@/lib/utils'
 import { analyzeBond, daysBetween, getNextBusinessDay } from '../utils/bondEngine'
-import { formatPct, formatPctSimple } from '../utils/formatters'
+import { formatDate, formatNumber, formatPctSimple } from '../utils/formatters'
 import bondProspectos from '../data/bondProspectos.json'
 
-const formatPx = (value) => (value != null ? `$${value.toFixed(2)}` : '—')
+const DASH = '-'
+const NAME_COL_WIDTH = 320
+const USD_TICKER_COL_WIDTH = 80
+const ARS_TICKER_COL_WIDTH = 80
 
-function EmptyPanel({ message }) {
+const FOCUS_OPTIONS = [
+  { id: 'all', label: 'Todo' },
+  { id: 'coupon-soon', label: 'Pago cercano' },
+  { id: 'discount', label: 'Bajo residual' },
+  { id: 'income', label: 'Prox. cobro' },
+]
+
+function formatUsd(value, digits = 2) {
+  if (value == null || Number.isNaN(value)) return DASH
+  return `$${value.toLocaleString('es-AR', {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  })}`
+}
+
+function formatArs(value, digits = 0) {
+  if (value == null || Number.isNaN(value)) return DASH
+  return `$${value.toLocaleString('es-AR', {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  })}`
+}
+
+function badgeTone(value, type) {
+  if (value == null) return 'text-terminal-muted'
+
+  if (type === 'days') {
+    if (value <= 30) return 'bg-[#fde8e8] text-[#b42318] dark:bg-[#2d1414] dark:text-[#fca5a5]'
+    if (value <= 90) return 'bg-[#fff4db] text-[#b45309] dark:bg-[#3b2a12] dark:text-[#fcd34d]'
+    return 'bg-transparent text-terminal-text'
+  }
+
+  if (type === 'paridad') {
+    if (value < 85) return 'bg-[#fde8e8] text-[#b42318] dark:bg-[#2d1414] dark:text-[#fca5a5]'
+    if (value < 100) return 'bg-[#fff4db] text-[#b45309] dark:bg-[#3b2a12] dark:text-[#fcd34d]'
+    return 'bg-transparent text-terminal-text'
+  }
+
+  if (type === 'ytm') {
+    if (value >= 15) return 'bg-[#fde8e8] text-[#b42318] dark:bg-[#2d1414] dark:text-[#fca5a5]'
+    if (value >= 10) return 'bg-[#fff4db] text-[#b45309] dark:bg-[#3b2a12] dark:text-[#fcd34d]'
+    return 'bg-transparent text-terminal-text'
+  }
+
+  if (type === 'income') {
+    if (value >= 60) return 'bg-[#e7f8ee] text-[#0f7a38] dark:bg-[#14281A] dark:text-[#86efac]'
+    if (value >= 35) return 'bg-terminal-accent/10 text-terminal-accent'
+    return 'bg-transparent text-terminal-text'
+  }
+
+  return 'bg-transparent text-terminal-text'
+}
+
+function cellPill(content, tone) {
   return (
-    <div className="rounded-lg border border-dashed border-terminal-border px-4 py-6 text-center text-sm text-terminal-muted">
-      {message}
-    </div>
+    <span className={cn('inline-flex min-w-[72px] justify-center rounded-sm px-1.5 py-0.5 font-medium', tone)}>
+      {content}
+    </span>
   )
 }
 
-function MetricCard({ title, value, sub, icon: Icon, colorClass }) {
-  return (
-    <div className="flex items-start gap-4 rounded-xl border border-terminal-border bg-terminal-panel p-5 shadow-sm">
-      <div className={`flex-shrink-0 rounded-lg border p-3 ${colorClass}`}>
-        <Icon size={20} />
-      </div>
-      <div>
-        <h3 className="mb-1 text-[11px] font-bold uppercase tracking-widest text-terminal-muted">{title}</h3>
-        <div className="text-2xl font-mono font-bold tabular-nums text-terminal-text">{value}</div>
-        {sub && <div className="mt-1 text-xs text-terminal-muted">{sub}</div>}
-      </div>
-    </div>
-  )
+function topRowsBy(rows, selector, comparator = 'max', limit = 5) {
+  return [...rows]
+    .filter((row) => {
+      const value = selector(row)
+      return value != null && !Number.isNaN(value)
+    })
+    .sort((a, b) => {
+      const valueA = selector(a)
+      const valueB = selector(b)
+      return comparator === 'min' ? valueA - valueB : valueB - valueA
+    })
+    .slice(0, limit)
 }
 
-function HighlightRow({ bond, valueLabel, highlightClass = 'text-terminal-accent' }) {
+function RankingCard({ title, description, rows, renderValue, emptyLabel }) {
   return (
-    <div className="flex items-center justify-between rounded-md border-b border-terminal-border/40 px-2 py-2.5 last:border-0 hover:bg-terminal-surface/20">
-      <div className="flex items-center gap-3">
-        <span className="ticker-badge !border !border-terminal-border/50 !bg-terminal-surface !text-terminal-text">
-          {bond.symbol}
-        </span>
-        {bond.law && (
-          <span className={`rounded px-1.5 py-0.5 text-[9px] font-bold ${bond.law === 'NY' ? 'bg-terminal-accent/10 text-terminal-accent' : 'bg-terminal-surface text-terminal-muted'}`}>
-            {bond.law}
-          </span>
+    <section className="rounded-lg border border-terminal-border bg-terminal-panel">
+      <div className="border-b border-terminal-border px-4 py-3">
+        <div className="text-[11px] uppercase tracking-[0.16em] text-terminal-muted">{title}</div>
+        <div className="mt-1 text-xs text-terminal-muted">{description}</div>
+      </div>
+      <div className="divide-y divide-terminal-border/70">
+        {rows.length ? rows.map((row, index) => (
+          <div key={`${title}-${row.symbol}`} className="grid grid-cols-[32px_minmax(0,1fr)_auto] items-center gap-3 px-4 py-2.5">
+            <div className="font-mono text-xs tabular-nums text-terminal-muted">{index + 1}</div>
+            <div className="min-w-0">
+              <div className="truncate font-mono text-sm font-semibold text-terminal-text">{row.symbol}</div>
+              <div className="truncate text-xs text-terminal-muted">{row.name}</div>
+            </div>
+            <div className="text-right font-mono text-sm font-semibold tabular-nums text-terminal-text">
+              {renderValue(row)}
+            </div>
+          </div>
+        )) : (
+          <div className="px-4 py-6 text-sm text-terminal-muted">{emptyLabel}</div>
         )}
       </div>
-      <div className={`text-right font-mono text-sm font-bold ${highlightClass}`}>{valueLabel}</div>
-    </div>
+    </section>
   )
 }
 
-export default function Home({ bonds, dolarMEP, riesgoPais }) {
-  const [filter, setFilter] = useState('')
+export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
+  const [focus, setFocus] = useState('all')
   const [sortKey, setSortKey] = useState('symbol')
   const [sortDir, setSortDir] = useState('asc')
+  const [investmentAmount, setInvestmentAmount] = useState('1000')
 
-  const { enriched, kpis, lowPar, topYTM, topMovers } = useMemo(() => {
+  const model = useMemo(() => {
     if (!bonds?.length) {
       return {
-        enriched: [],
-        kpis: {},
-        lowPar: [],
-        topYTM: [],
-        topMovers: { gainers: [], losers: [] },
+        rows: [],
+        summary: null,
+        coverage: null,
       }
     }
 
@@ -80,100 +142,129 @@ export default function Home({ bonds, dolarMEP, riesgoPais }) {
     tomorrow.setDate(today.getDate() + 1)
     const settlementDate = getNextBusinessDay(tomorrow.toISOString().split('T')[0])
 
-    let upCount = 0
-    let downCount = 0
-    let totalVol = 0
-    const dList = []
+    const arsQuotes = new Map(
+      bonds
+        .filter((bond) => bond.symbol?.endsWith('O'))
+        .map((bond) => [bond.symbol, bond])
+    )
 
-    bonds.forEach((rawRow) => {
-      if (rawRow.pct_change > 0) upCount += 1
-      if (rawRow.pct_change < 0) downCount += 1
-      if (rawRow.v > 0) totalVol += rawRow.v
+    let missingProspecto = 0
+    let missingCashflows = 0
+    let missingRating = 0
+    let missingTickerArs = 0
 
-      const symbol = rawRow.symbol
-      if (!symbol || !symbol.endsWith('D')) return
+    const capitalBase = Number(investmentAmount)
+    const validCapitalBase = Number.isFinite(capitalBase) && capitalBase > 0 ? capitalBase : 1000
 
-      const prospecto = bondProspectos[symbol]
-      const px = rawRow.c
-      const chg = rawRow.pct_change || 0
+    const rows = bonds
+      .filter((bond) => bond.symbol?.endsWith('D'))
+      .map((bond) => {
+        const prospecto = bondProspectos[bond.symbol]
+        if (!prospecto) missingProspecto += 1
 
-      let ytm = null
-      let daysToCoupon = null
-      let nextPaymentAmt = null
-      let couponRate = prospecto?.coupon_rate || null
-      let paridad = null
+        const tickerArs = prospecto?.ticker_o || `${bond.symbol.slice(0, -1)}O`
+        const arsQuote = arsQuotes.get(tickerArs)?.c ?? null
+        const metrics = bond.c > 0 && prospecto ? analyzeBond(bond.c, prospecto, settlementDate) : null
+        const nextFlow = metrics?.futureFlows?.[0] || null
 
-      if (px > 0 && prospecto) {
-        const metrics = analyzeBond(px, prospecto, settlementDate)
+        if (prospecto && !metrics) missingCashflows += 1
+        if (!prospecto?.rating) missingRating += 1
+        if (!arsQuote) missingTickerArs += 1
 
-        if (metrics) {
-          ytm = metrics.ytm
-          paridad = metrics.paridad
+        const nominalesPerBase = bond.c > 0 ? (validCapitalBase / bond.c) * 100 : null
+        const impliedUsdFromPesos = arsQuote && dolarMEP?.value ? arsQuote / dolarMEP.value : null
+        const nextCouponBase = nextFlow && nominalesPerBase ? (nextFlow.intAmt * nominalesPerBase) / 100 : null
+        const nextAmortBase = nextFlow && nominalesPerBase ? (nextFlow.amortAmt * nominalesPerBase) / 100 : null
+        const nextTotalBase = nextFlow && nominalesPerBase ? (nextFlow.totalAmt * nominalesPerBase) / 100 : null
+        const daysToCoupon = nextFlow ? daysBetween(today, new Date(`${nextFlow.rawDate}T00:00:00`)) : null
+        const daysToMaturity = prospecto?.maturity_date
+          ? daysBetween(settlementDate, new Date(`${prospecto.maturity_date}T00:00:00`))
+          : null
+        const residualValue = metrics?.futureFlows?.reduce((sum, flow) => sum + flow.amortAmt, 0) ?? null
 
-          const nextFlow = metrics.futureFlows?.[0]
-          if (nextFlow) {
-            nextPaymentAmt = nextFlow.totalAmt * 10
-            daysToCoupon = daysBetween(today, new Date(`${nextFlow.rawDate}T00:00:00`))
-          }
+        return {
+          symbol: bond.symbol,
+          tickerArs,
+          name: prospecto?.name || bond.symbol,
+          law: prospecto?.law || null,
+          couponRate: prospecto?.coupon_rate ?? null,
+          frequency: prospecto?.frequency ?? null,
+          maturityDate: prospecto?.maturity_date ?? null,
+          daysToMaturity,
+          nextCouponDate: nextFlow?.date ?? null,
+          daysToCoupon,
+          priceUsd: bond.c ?? null,
+          priceArs: arsQuote,
+          impliedUsdFromPesos,
+          ytm: metrics?.ytm ?? null,
+          paridad: metrics?.paridad ?? null,
+          currentYield: metrics?.currentYield ?? null,
+          residualValue,
+          amortType: prospecto?.amort_type ?? null,
+          nominalesPerBase,
+          nextCouponBase,
+          nextAmortBase,
+          nextTotalBase,
+          duration: metrics?.duration ?? null,
+          volumeNominales: bond.v ?? null,
+          operations: bond.q_op ?? null,
+          minInvestment: prospecto?.min_investment ?? 1,
+          currencyType: prospecto?.currency_type ?? null,
+          rating: prospecto?.rating ?? null,
         }
-      }
-
-      dList.push({
-        symbol,
-        name: prospecto?.name,
-        law: prospecto?.law,
-        rating: prospecto?.rating,
-        px,
-        chg,
-        ytm,
-        paridad,
-        couponRate,
-        daysToCoupon,
-        nextPaymentAmt,
       })
-    })
 
-    const lowPar = dList
-      .filter((bond) => bond.px && bond.px < 100 && bond.ytm && bond.couponRate && bond.ytm > bond.couponRate)
-      .sort((a, b) => b.ytm - a.ytm)
-      .slice(0, 5)
-
-    const topYTM = dList
-      .filter((bond) => bond.ytm != null)
-      .sort((a, b) => b.ytm - a.ytm)
-      .slice(0, 5)
-
-    const withChg = dList.filter((bond) => bond.chg !== 0).sort((a, b) => b.chg - a.chg)
+    const rowsWithYtm = rows.filter((row) => row.ytm != null)
+    const averageYtm = rowsWithYtm.length
+      ? rowsWithYtm.reduce((sum, row) => sum + row.ytm, 0) / rowsWithYtm.length
+      : null
 
     return {
-      enriched: dList,
-      kpis: {
-        total: dList.length,
-        upCount,
-        downCount,
-        totalVol,
+      rows,
+      summary: {
+        total: rows.length,
+        averageYtm,
+        lowParityCount: rows.filter((row) => row.paridad != null && row.paridad < 100).length,
+        paymentSoonCount: rows.filter((row) => row.daysToCoupon != null && row.daysToCoupon <= 45).length,
+        bestYtmRows: topRowsBy(rows, (row) => row.ytm, 'max'),
+        lowestParityRows: topRowsBy(rows, (row) => row.paridad, 'min'),
+        mostActiveRows: topRowsBy(rows, (row) => row.operations ?? row.volumeNominales, 'max'),
+        coverageScore: rows.length
+          ? Math.round(((rows.length * 4 - missingProspecto - missingCashflows - missingRating - missingTickerArs) / (rows.length * 4)) * 100)
+          : 0,
       },
-      lowPar,
-      topYTM,
-      topMovers: {
-        gainers: withChg.slice(0, 5),
-        losers: withChg.slice(-5).reverse(),
+      coverage: {
+        missingProspecto,
+        missingCashflows,
+        missingTickerArs,
+        missingRating,
       },
     }
-  }, [bonds])
+  }, [bonds, dolarMEP?.value, investmentAmount])
 
-  const filteredTable = useMemo(() => {
-    let result = [...enriched]
+  const filteredRows = useMemo(() => {
+    const query = filter.trim().toLowerCase()
+    let rows = [...model.rows]
 
-    if (filter) {
-      const query = filter.toLowerCase()
-      result = result.filter((bond) =>
-        bond.symbol?.toLowerCase().includes(query) ||
-        bond.name?.toLowerCase().includes(query)
+    if (query) {
+      rows = rows.filter((row) =>
+        row.symbol.toLowerCase().includes(query) ||
+        row.tickerArs.toLowerCase().includes(query) ||
+        row.name.toLowerCase().includes(query)
       )
     }
 
-    result.sort((a, b) => {
+    if (focus === 'coupon-soon') {
+      rows = rows.filter((row) => row.daysToCoupon != null && row.daysToCoupon <= 90)
+    }
+    if (focus === 'discount') {
+      rows = rows.filter((row) => row.paridad != null && row.paridad < 100)
+    }
+    if (focus === 'income') {
+      rows = rows.filter((row) => row.nextTotalBase != null && row.nextTotalBase > 0)
+    }
+
+    rows.sort((a, b) => {
       let va = a[sortKey]
       let vb = b[sortKey]
 
@@ -187,8 +278,8 @@ export default function Home({ bonds, dolarMEP, riesgoPais }) {
       return sortDir === 'asc' ? va - vb : vb - va
     })
 
-    return result
-  }, [enriched, filter, sortDir, sortKey])
+    return rows
+  }, [filter, focus, model.rows, sortDir, sortKey])
 
   function handleSort(key) {
     if (sortKey === key) {
@@ -197,211 +288,254 @@ export default function Home({ bonds, dolarMEP, riesgoPais }) {
     }
 
     setSortKey(key)
-    setSortDir(['ytm', 'chg', 'px'].includes(key) ? 'desc' : 'asc')
+    setSortDir(['ytm', 'paridad', 'nextTotalBase', 'operations', 'volumeNominales'].includes(key) ? 'desc' : 'asc')
   }
 
-  if (!bonds?.length) return null
+  if (!model.rows.length) return null
 
-  const topMovementMix = [...topMovers.gainers, ...topMovers.losers].slice(0, 5)
+  const investmentBase = Number(investmentAmount) || 1000
+  const coverageNotes = [
+    model.coverage.missingProspecto ? `${model.coverage.missingProspecto} sin prospecto` : null,
+    model.coverage.missingCashflows ? `${model.coverage.missingCashflows} sin cashflows` : null,
+    model.coverage.missingTickerArs ? `${model.coverage.missingTickerArs} sin ticker ARS` : null,
+    model.coverage.missingRating ? `${model.coverage.missingRating} sin calificacion` : null,
+  ].filter(Boolean)
+
+  const stickyTickerStart = NAME_COL_WIDTH
+  const stickyTickerArsStart = NAME_COL_WIDTH + USD_TICKER_COL_WIDTH
 
   return (
-    <div className="space-y-8 pb-12">
-      <section className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <MetricCard
-          title="Total instrumentos USD"
-          value={kpis.total}
-          sub={
-            <span className="flex gap-3 font-bold">
-              <span className="flex items-center text-up"><TrendingUp size={12} className="mr-1" />{kpis.upCount}</span>
-              <span className="flex items-center text-down"><TrendingDown size={12} className="mr-1" />{kpis.downCount}</span>
-            </span>
-          }
-          icon={Activity}
-          colorClass="bg-terminal-surface text-terminal-text"
+    <div className="space-y-4 pb-10">
+      <div className="grid gap-4 xl:grid-cols-3">
+        <RankingCard
+          title="Mejor TIR"
+          description="Top instrumentos por TIR efectiva anual."
+          rows={model.summary.bestYtmRows}
+          renderValue={(row) => formatPctSimple(row.ytm)}
+          emptyLabel="No hay TIR disponible para armar el ranking."
         />
-        <MetricCard
-          title="Dolar MEP"
-          value={dolarMEP?.value ? `$${dolarMEP.value.toLocaleString('es-AR', { maximumFractionDigits: 0 })}` : '—'}
-          sub={dolarMEP?.timestamp ? `Act: ${new Date(dolarMEP.timestamp).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })}` : 'Sin referencia'}
-          icon={DollarSign}
-          colorClass="border-up/20 bg-up/10 text-up"
+        <RankingCard
+          title="Menor paridad"
+          description="Top instrumentos por menor paridad actual."
+          rows={model.summary.lowestParityRows}
+          renderValue={(row) => formatPctSimple(row.paridad)}
+          emptyLabel="No hay paridades disponibles para armar el ranking."
         />
-        <MetricCard
-          title="Riesgo pais"
-          value={riesgoPais?.value ? `${riesgoPais.value} bps` : '—'}
-          sub={riesgoPais?.timestamp ? `Fecha: ${riesgoPais.timestamp.split('-').reverse().join('/')}` : 'Sin referencia'}
-          icon={Target}
-          colorClass="border-terminal-accent/20 bg-terminal-accent/10 text-terminal-accent"
+        <RankingCard
+          title="Mas operadas"
+          description="Top instrumentos por cantidad de operaciones, con VN como referencia."
+          rows={model.summary.mostActiveRows}
+          renderValue={(row) => `${formatNumber(row.operations)} ops`}
+          emptyLabel="No hay datos de operaciones disponibles."
         />
-        <MetricCard
-          title="Volumen nominal"
-          value={`$${((kpis.totalVol || 0) / 1000000).toFixed(1)}M`}
-          sub="Millones operados en la rueda"
-          icon={Activity}
-          colorClass="bg-terminal-surface text-terminal-text"
-        />
-      </section>
+      </div>
 
-      <section className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <div className="overflow-hidden rounded-xl border border-terminal-border bg-terminal-panel shadow-card">
-          <div className="flex items-center gap-2 border-b border-terminal-border bg-terminal-surface/30 px-5 py-4">
-            <AlertCircle size={16} className="text-terminal-accent" />
-            <h3 className="text-sm font-bold text-terminal-text">Oportunidades bajo par</h3>
+      <section className="rounded-lg border border-terminal-border bg-terminal-panel px-4 py-3">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+          <div className="space-y-1">
+            <div className="text-sm font-semibold text-terminal-text">Claves de lectura</div>
+            <div className="text-xs text-terminal-muted">
+              <span className="font-medium text-terminal-text">Cada U$S {formatNumber(investmentBase)}</span> muestra cuantos nominales compras hoy y cuanto cobrarias en el proximo cupon, en la proxima amortizacion y en el proximo cobro total.
+            </div>
+            <div className="text-xs text-terminal-muted">
+              <span className="font-medium text-terminal-text">Comprando en $</span> divide la cotizacion en pesos por el dolar MEP y deja visible el precio implicito en dolares para compararlo contra la especie en U$S.
+            </div>
+            {coverageNotes.length > 0 && (
+              <div className="text-xs text-terminal-muted">
+                Faltantes detectados: {coverageNotes.join(' | ')}.
+              </div>
+            )}
           </div>
-          <div className="p-3">
-            {lowPar.length ? lowPar.map((bond) => (
-              <HighlightRow
-                key={bond.symbol}
-                bond={bond}
-                valueLabel={(
-                  <div className="flex flex-col items-end">
-                    <span className="text-[10px] font-medium text-terminal-muted">
-                      Paridad: <span className="text-terminal-text">{formatPctSimple(bond.paridad)}</span>
-                    </span>
-                    <span>TIR {formatPctSimple(bond.ytm)}</span>
-                  </div>
+          <div className="flex flex-wrap gap-2">
+            <div className="flex items-center gap-2 rounded-sm border border-terminal-border bg-terminal-panel px-2 py-1">
+              <span className="text-[11px] uppercase tracking-[0.14em] text-terminal-muted">Base U$S</span>
+              <Input
+                type="number"
+                min="1"
+                step="100"
+                value={investmentAmount}
+                onChange={(event) => setInvestmentAmount(event.target.value)}
+                className="h-7 w-24 border-0 bg-transparent px-1 text-right font-mono text-sm text-terminal-text shadow-none focus-visible:ring-0"
+              />
+            </div>
+            {FOCUS_OPTIONS.map((option) => (
+              <Button
+                key={option.id}
+                variant={focus === option.id ? 'secondary' : 'outline'}
+                size="sm"
+                className={cn(
+                  'rounded-sm border-terminal-border px-2.5',
+                  focus !== option.id && 'bg-terminal-panel text-terminal-muted hover:bg-terminal-surface hover:text-terminal-text'
                 )}
-              />
-            )) : <EmptyPanel message="No hay bonos bajo par destacados con la data actual." />}
-          </div>
-        </div>
-
-        <div className="overflow-hidden rounded-xl border border-terminal-border bg-terminal-panel shadow-card">
-          <div className="flex items-center gap-2 border-b border-terminal-border bg-terminal-surface/30 px-5 py-4">
-            <Award size={16} className="text-up" />
-            <h3 className="text-sm font-bold text-terminal-text">Mejores TIR</h3>
-          </div>
-          <div className="p-3">
-            {topYTM.length ? topYTM.map((bond) => (
-              <HighlightRow
-                key={bond.symbol}
-                bond={bond}
-                valueLabel={formatPctSimple(bond.ytm)}
-                highlightClass="text-up"
-              />
-            )) : <EmptyPanel message="Todavia no hay metricas suficientes para rankear TIR." />}
-          </div>
-        </div>
-
-        <div className="overflow-hidden rounded-xl border border-terminal-border bg-terminal-panel shadow-card">
-          <div className="flex items-center gap-2 border-b border-terminal-border bg-terminal-surface/30 px-5 py-4">
-            <TrendingUp size={16} className="text-terminal-text" />
-            <h3 className="text-sm font-bold text-terminal-text">Mayores movimientos</h3>
-          </div>
-          <div className="p-3">
-            {topMovementMix.length ? topMovementMix.map((bond) => (
-              <HighlightRow
-                key={bond.symbol}
-                bond={bond}
-                valueLabel={formatPct(bond.chg)}
-                highlightClass={bond.chg > 0 ? 'text-up' : 'text-down'}
-              />
-            )) : <EmptyPanel message="No hubo variaciones destacadas en la ultima carga." />}
+                onClick={() => setFocus(option.id)}
+              >
+                {option.label}
+              </Button>
+            ))}
           </div>
         </div>
       </section>
 
-      <section>
-        <div className="mb-4 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-          <h2 className="flex items-center gap-2 text-lg font-bold tracking-tight text-terminal-text">
-            <ArrowRight size={18} className="text-terminal-accent" />
-            Screener consolidado
-          </h2>
-          <div className="relative w-full sm:max-w-xs">
-            <Search size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-terminal-muted" />
-            <input
-              type="text"
-              placeholder="Buscar ticker o emisor..."
-              value={filter}
-              onChange={(event) => setFilter(event.target.value)}
-              className="w-full rounded-lg border border-terminal-border bg-terminal-panel py-2 pl-9 pr-3 text-sm font-mono focus:outline-none focus:ring-1 focus:ring-terminal-accent"
-              aria-label="Buscar ticker o emisor"
-            />
+      <section className="isolate overflow-hidden rounded-lg border border-terminal-border bg-terminal-panel">
+        <div className="border-b border-terminal-border px-4 py-3">
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <div className="text-sm font-semibold text-terminal-text">Obligaciones negociables</div>
+              <div className="text-xs text-terminal-muted">Vista tipo spreadsheet para monitoreo diario y comparacion rapida.</div>
+            </div>
+            <div className="relative w-full lg:max-w-sm">
+              <Search size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-terminal-muted" />
+              <Input
+                value={filter}
+                onChange={(event) => onFilterChange?.(event.target.value)}
+                placeholder="Buscar ticker o emisora..."
+                className="h-8 rounded-sm border-terminal-border bg-terminal-panel pl-9 text-sm text-terminal-text placeholder:text-terminal-muted"
+              />
+            </div>
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-xl border border-terminal-border bg-terminal-panel shadow-card">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="border-b border-terminal-border bg-terminal-surface/50">
-                <tr>
-                  {[
-                    { k: 'symbol', l: 'Ticker' },
-                    { k: 'name', l: 'Nombre' },
-                    { k: 'px', l: 'Precio' },
-                    { k: 'chg', l: 'Var%' },
-                    { k: 'ytm', l: 'TIR' },
-                    { k: 'couponRate', l: 'Cupon' },
-                    { k: 'daysToCoupon', l: 'Dias al cupon' },
-                    { k: 'nextPaymentAmt', l: 'Prox. USD/mil' },
-                    { k: 'law', l: 'Ley' },
-                    { k: 'rating', l: 'Calif.' },
-                  ].map((column) => (
-                    <th
-                      key={column.k}
-                      onClick={() => handleSort(column.k)}
-                      className="cursor-pointer whitespace-nowrap px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-terminal-muted hover:text-terminal-text"
-                    >
-                      <div className="flex items-center gap-1.5">
-                        {column.l}
-                        {sortKey === column.k && <ArrowUpDown size={10} className="text-terminal-accent" />}
-                      </div>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-terminal-border/40">
-                {filteredTable.length ? filteredTable.map((bond) => (
-                  <tr key={bond.symbol} className="group hover:bg-terminal-surface/30">
-                    <td className="px-4 py-2.5">
-                      <span className="ticker-badge">{bond.symbol}</span>
-                    </td>
-                    <td className="max-w-[180px] truncate px-4 py-2.5 text-[11px] font-medium text-terminal-text" title={bond.name}>
-                      {bond.name || '—'}
-                    </td>
-                    <td className="px-4 py-2.5 font-mono font-bold tabular-nums">{formatPx(bond.px)}</td>
-                    <td className="px-4 py-2.5 font-mono">
-                      <span className={`rounded px-1.5 py-0.5 text-[11px] font-bold ${bond.chg > 0 ? 'bg-up/10 text-up' : bond.chg < 0 ? 'bg-down/10 text-down' : 'text-terminal-muted'}`}>
-                        {bond.chg ? formatPct(bond.chg) : '—'}
-                      </span>
-                    </td>
-                    <td className="px-4 py-2.5 font-mono font-bold tabular-nums text-terminal-accent">
-                      {bond.ytm != null ? formatPctSimple(bond.ytm) : '—'}
-                    </td>
-                    <td className="px-4 py-2.5 font-mono tabular-nums">{bond.couponRate != null ? `${bond.couponRate}%` : '—'}</td>
-                    <td className="px-4 py-2.5 text-center font-mono">
-                      {bond.daysToCoupon != null ? (
-                        <span className={`flex items-center justify-center gap-1 font-bold tabular-nums ${bond.daysToCoupon < 15 ? 'text-down' : bond.daysToCoupon < 30 ? 'text-[#FBBF24]' : 'text-terminal-muted'}`}>
-                          {bond.daysToCoupon <= 30 && <Clock size={12} />}
-                          {bond.daysToCoupon}
-                        </span>
-                      ) : '—'}
-                    </td>
-                    <td className="px-4 py-2.5 text-right font-mono font-bold tabular-nums text-up">
-                      {bond.nextPaymentAmt != null ? `$${bond.nextPaymentAmt.toFixed(2)}` : '—'}
-                    </td>
-                    <td className="px-4 py-2.5 text-center">
-                      {bond.law ? (
-                        <span className={`rounded border px-1.5 py-0.5 text-[9px] font-bold uppercase ${bond.law === 'NY' ? 'border-terminal-accent/20 bg-terminal-accent/10 text-terminal-accent' : 'border-terminal-border bg-transparent text-terminal-muted'}`}>
-                          {bond.law}
-                        </span>
-                      ) : '—'}
-                    </td>
-                    <td className="px-4 py-2.5 text-center text-[10px] font-bold text-terminal-muted">
-                      {bond.rating || '—'}
-                    </td>
-                  </tr>
-                )) : (
-                  <tr>
-                    <td colSpan={10} className="px-4 py-10">
-                      <EmptyPanel message="No hubo resultados para ese filtro. Probá con ticker o nombre del emisor." />
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <Table className="sheet-grid-table min-w-[2050px] text-[12px]">
+          <TableHeader>
+            <TableRow className="hover:bg-transparent">
+              <TableHead
+                rowSpan={2}
+                style={{ left: 0, minWidth: NAME_COL_WIDTH, width: NAME_COL_WIDTH }}
+                className="sheet-sticky-name sticky z-20 border-r border-b border-terminal-border text-center text-[11px] font-medium text-terminal-text"
+              >
+                Obligaciones Negociables
+              </TableHead>
+              <TableHead
+                colSpan={2}
+                style={{ left: stickyTickerStart }}
+                className="sheet-sticky-group sticky z-10 border-r border-b border-terminal-border text-center text-[11px] font-medium text-terminal-text"
+              >
+                Ticker
+              </TableHead>
+              <TableHead colSpan={2} className="border-r border-b border-terminal-border bg-terminal-surface text-center text-[11px] font-medium text-terminal-text">
+                Renta
+              </TableHead>
+              <TableHead colSpan={4} className="border-r border-b border-terminal-border bg-terminal-surface text-center text-[11px] font-medium text-terminal-text">
+                Fechas
+              </TableHead>
+              <TableHead colSpan={3} className="border-r border-b border-terminal-border bg-terminal-surface text-center text-[11px] font-medium text-terminal-text">
+                Mercado
+              </TableHead>
+              <TableHead colSpan={5} className="border-r border-b border-terminal-border bg-[#ffe3e3] text-center text-[11px] font-medium text-[#7a1f1f] dark:bg-[#391818] dark:text-[#fecaca]">
+                Valor
+              </TableHead>
+              <TableHead colSpan={4} className="border-r border-b border-terminal-border bg-[#e6f6df] text-center text-[11px] font-medium text-[#386641] dark:bg-[#17311d] dark:text-[#bbf7d0]">
+                Cada U$S {formatNumber(investmentBase)}
+              </TableHead>
+              <TableHead colSpan={5} className="border-b border-terminal-border bg-terminal-surface text-center text-[11px] font-medium text-terminal-text">
+                Riesgo
+              </TableHead>
+            </TableRow>
+            <TableRow className="hover:bg-transparent">
+              {[
+                ['symbol', 'U$S'],
+                ['tickerArs', '$'],
+                ['couponRate', '%'],
+                ['frequency', 'Cupones/ano'],
+                ['maturityDate', 'Fecha venc.'],
+                ['daysToMaturity', 'Dias para finalizar'],
+                ['nextCouponDate', 'Proximo pago'],
+                ['daysToCoupon', 'Dias para pago'],
+                ['priceUsd', 'Cotizacion U$S'],
+                ['priceArs', 'Cotizacion $'],
+                ['impliedUsdFromPesos', 'Comprando en $'],
+                ['ytm', 'TIR'],
+                ['paridad', 'Paridad'],
+                ['currentYield', 'Current Yield'],
+                ['residualValue', 'Valor residual'],
+                ['amortType', 'Amort.'],
+                ['nominalesPerBase', 'Nominales'],
+                ['nextCouponBase', 'Prox. cupon'],
+                ['nextAmortBase', 'Prox. amort.'],
+                ['nextTotalBase', 'Prox. renta + amort.'],
+                ['duration', 'Duration'],
+                ['minInvestment', 'Minimo'],
+                ['law', 'Ley'],
+                ['currencyType', 'Dolar'],
+                ['rating', 'Calificacion'],
+              ].map(([key, label]) => (
+                <TableHead
+                  key={key}
+                  onClick={() => handleSort(key)}
+                  style={
+                    key === 'symbol'
+                      ? { left: stickyTickerStart, minWidth: USD_TICKER_COL_WIDTH, width: USD_TICKER_COL_WIDTH }
+                      : key === 'tickerArs'
+                        ? { left: stickyTickerArsStart, minWidth: ARS_TICKER_COL_WIDTH, width: ARS_TICKER_COL_WIDTH }
+                        : undefined
+                  }
+                  className={cn(
+                    'border-r border-terminal-border bg-terminal-panel px-2 py-1 text-center text-[11px] font-medium text-terminal-text last:border-r-0',
+                    key === 'symbol' || key === 'tickerArs' ? 'sheet-sticky-cell sticky z-10' : ''
+                  )}
+                >
+                  <button className="inline-flex items-center gap-1" type="button">
+                    <span>{label}</span>
+                    {sortKey === key && <ArrowUpDown size={10} className="text-terminal-accent" />}
+                  </button>
+                </TableHead>
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {filteredRows.length ? filteredRows.map((row) => (
+              <TableRow key={row.symbol} className="hover:bg-transparent">
+                <TableCell
+                  style={{ left: 0, minWidth: NAME_COL_WIDTH, width: NAME_COL_WIDTH }}
+                  className="sheet-sticky-name sticky z-10 border-r border-b border-terminal-border px-2 py-1.5 align-middle"
+                >
+                  <div className="truncate font-medium text-terminal-text">{row.name}</div>
+                </TableCell>
+                <TableCell
+                  style={{ left: stickyTickerStart, minWidth: USD_TICKER_COL_WIDTH, width: USD_TICKER_COL_WIDTH }}
+                  className="sheet-sticky-cell sticky z-[9] border-r border-b border-terminal-border px-2 py-1 text-center font-mono text-terminal-text"
+                >
+                  {row.symbol}
+                </TableCell>
+                <TableCell
+                  style={{ left: stickyTickerArsStart, minWidth: ARS_TICKER_COL_WIDTH, width: ARS_TICKER_COL_WIDTH }}
+                  className="sheet-sticky-cell sticky z-[9] border-r border-b border-terminal-border px-2 py-1 text-center font-mono text-terminal-text"
+                >
+                  {row.tickerArs || DASH}
+                </TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{row.couponRate != null ? formatPctSimple(row.couponRate) : DASH}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{row.frequency ?? DASH}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{formatDate(row.maturityDate)}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{cellPill(row.daysToMaturity ?? DASH, badgeTone(row.daysToMaturity, 'days'))}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{formatDate(row.nextCouponDate)}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{cellPill(row.daysToCoupon ?? DASH, badgeTone(row.daysToCoupon, 'days'))}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{formatUsd(row.priceUsd)}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{formatArs(row.priceArs)}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{formatUsd(row.impliedUsdFromPesos)}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{cellPill(formatPctSimple(row.ytm), badgeTone(row.ytm, 'ytm'))}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{cellPill(formatPctSimple(row.paridad), badgeTone(row.paridad, 'paridad'))}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{formatPctSimple(row.currentYield)}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{formatPctSimple(row.residualValue)}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{row.amortType || DASH}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{formatNumber(row.nominalesPerBase)}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{formatUsd(row.nextCouponBase)}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{formatUsd(row.nextAmortBase)}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{cellPill(formatUsd(row.nextTotalBase), badgeTone(row.nextTotalBase, 'income'))}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{row.duration != null ? row.duration.toFixed(2) : DASH}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{formatNumber(row.minInvestment)}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{row.law || DASH}</TableCell>
+                <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">{row.currencyType || DASH}</TableCell>
+                <TableCell className="border-b border-terminal-border px-2 py-1 text-center font-mono">{row.rating || DASH}</TableCell>
+              </TableRow>
+            )) : (
+              <TableRow>
+                <TableCell colSpan={26} className="py-8 text-center text-sm text-terminal-muted">
+                  No hay resultados para el filtro actual.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
       </section>
     </div>
   )

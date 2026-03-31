@@ -101,6 +101,6 @@ export function usePollingResource({
     loading,
     error,
     lastUpdated,
-    refresh: () => fetchResource(true),
+    refresh: () => fetchResource(false),
   }
 }

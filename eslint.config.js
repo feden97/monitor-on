@@ -33,6 +33,7 @@ export default [
         Response: 'readonly',
         Request: 'readonly',
         Headers: 'readonly',
+        requestAnimationFrame: 'readonly',
       },
     },
     plugins: {
@@ -53,6 +54,12 @@ export default [
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'react/prop-types': 'off',
       'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    },
+  },
+  {
+    files: ['src/components/ui/**/*.{js,jsx}'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
     },
   },
 ]

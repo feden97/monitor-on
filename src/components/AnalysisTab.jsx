@@ -2,7 +2,7 @@ import { Fragment, useMemo, useState } from 'react'
 import { ArrowUpDown, ChevronDown, ChevronRight, Search } from 'lucide-react'
 import BondDetailPanel from './BondDetailPanel'
 import { daysBetween, getNextBusinessDay } from '../utils/bondEngine'
-import { formatPct } from '../utils/formatters'
+import { formatPct, formatTime } from '../utils/formatters'
 import bondProspectos from '../data/bondProspectos.json'
 
 function EmptyState({ message }) {
@@ -13,9 +13,8 @@ function EmptyState({ message }) {
   )
 }
 
-export default function AnalysisTab({ bonds, loading, error, dolarMEP, lastUpdated }) {
+export default function AnalysisTab({ bonds, loading, error, dolarMEP, lastUpdated, filter = '', onFilterChange }) {
   const [expandedTicker, setExpandedTicker] = useState(null)
-  const [filter, setFilter] = useState('')
   const [sortKey, setSortKey] = useState('symbol')
   const [sortDir, setSortDir] = useState('asc')
 
@@ -143,7 +142,7 @@ export default function AnalysisTab({ bonds, loading, error, dolarMEP, lastUpdat
             type="text"
             placeholder="Buscar ticker o emisora..."
             value={filter}
-            onChange={(event) => setFilter(event.target.value)}
+            onChange={(event) => onFilterChange?.(event.target.value)}
             className="w-full rounded-lg border border-terminal-border bg-terminal-panel py-2 pl-10 pr-4 text-sm font-mono text-terminal-text focus:outline-none focus:ring-1 focus:ring-terminal-accent"
             aria-label="Buscar ticker o emisora"
           />
@@ -165,9 +164,7 @@ export default function AnalysisTab({ bonds, loading, error, dolarMEP, lastUpdat
           {lastUpdated && (
             <div className="rounded-lg border border-terminal-border bg-terminal-surface px-3 py-1.5 shadow-sm">
               <span className="text-[10px] font-bold uppercase tracking-wider text-terminal-muted">Mercado</span>
-              <div className="text-sm font-mono font-bold tabular-nums text-terminal-text">
-                {lastUpdated.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })}
-              </div>
+              <div className="text-sm font-mono font-bold tabular-nums text-terminal-text">{formatTime(lastUpdated, false)}</div>
             </div>
           )}
         </div>
