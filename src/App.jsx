@@ -31,18 +31,18 @@ const TABS = [
 function SidebarNav({ activeTab, onTabClick, coverageSummary, isDark, onThemeToggle }) {
   return (
     <>
-      <div className="flex items-center gap-2.5 border-b border-terminal-border px-4 py-3.5">
+      <div className="flex items-center gap-2.5 border-b border-terminal-border px-4 py-4">
         <span className="live-dot h-2 w-2 flex-shrink-0 rounded-full bg-up" />
-        <span className="font-mono text-sm font-bold tracking-tight text-terminal-text">
+        <span className="text-sm font-semibold tracking-tight text-terminal-text">
           ONs Terminal
         </span>
-        <span className="ml-auto rounded-sm border border-terminal-border bg-terminal-surface px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-terminal-muted">
+        <span className="ml-auto rounded border border-terminal-border bg-terminal-surface/50 px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wider text-terminal-muted">
           AR
         </span>
       </div>
 
-      <nav className="flex flex-1 flex-col gap-1 p-2.5">
-        <p className="px-2 pb-1 pt-2 text-[9px] font-bold uppercase tracking-widest text-terminal-muted/50">
+      <nav className="flex flex-1 flex-col gap-0.5 p-2">
+        <p className="px-3 pb-1.5 pt-3 text-[10px] font-medium uppercase tracking-wider text-terminal-muted/60">
           Principal
         </p>
         {TABS.map((tab) => {
@@ -52,12 +52,11 @@ function SidebarNav({ activeTab, onTabClick, coverageSummary, isDark, onThemeTog
             <button
               key={tab.id}
               onClick={() => onTabClick(tab.id)}
-              className={`nav-item flex items-center gap-2.5 rounded-md px-3 py-2 text-sm font-medium ${
-                isActive ? 'nav-item--active' : ''
-              }`}
+              className={`nav-item flex items-center gap-2.5 rounded-md px-3 py-2 text-[13px] font-medium ${isActive ? 'nav-item--active' : ''
+                }`}
             >
               <Icon
-                size={14}
+                size={15}
                 className={isActive ? 'text-terminal-accent' : 'text-terminal-muted'}
               />
               {tab.label}
@@ -65,19 +64,19 @@ function SidebarNav({ activeTab, onTabClick, coverageSummary, isDark, onThemeTog
           )
         })}
 
-        <p className="px-2 pb-1 pt-4 text-[9px] font-bold uppercase tracking-widest text-terminal-muted/50">
+        <p className="px-3 pb-1.5 pt-5 text-[10px] font-medium uppercase tracking-wider text-terminal-muted/60">
           Herramientas
         </p>
-        <div className="flex cursor-not-allowed items-center gap-2.5 rounded-md px-3 py-2 text-sm text-terminal-muted opacity-40">
-          <Bell size={14} />
+        <div className="flex cursor-not-allowed items-center gap-2.5 rounded-md px-3 py-2 text-[13px] text-terminal-muted/40">
+          <Bell size={15} />
           Alertas
-          <span className="ml-auto rounded-full border border-terminal-border bg-terminal-surface px-1.5 py-0.5 font-mono text-[9px] font-bold">
+          <span className="ml-auto rounded-full bg-terminal-surface px-1.5 py-0.5 font-mono text-[9px] font-medium text-terminal-muted/50">
             0
           </span>
         </div>
       </nav>
 
-      <div className="space-y-1 border-t border-terminal-border p-2.5">
+      <div className="space-y-0.5 border-t border-terminal-border p-2">
         {coverageSummary && (
           <div className="flex items-center gap-2 px-3 py-1.5">
             <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-up" />
@@ -88,9 +87,9 @@ function SidebarNav({ activeTab, onTabClick, coverageSummary, isDark, onThemeTog
         )}
         <button
           onClick={onThemeToggle}
-          className="nav-item flex w-full items-center gap-2.5 rounded-md px-3 py-2 text-sm"
+          className="nav-item flex w-full items-center gap-2.5 rounded-md px-3 py-2 text-[13px]"
         >
-          {isDark ? <Sun size={14} /> : <Moon size={14} />}
+          {isDark ? <Sun size={15} /> : <Moon size={15} />}
           {isDark ? 'Modo claro' : 'Modo oscuro'}
         </button>
       </div>
@@ -216,7 +215,7 @@ export default function App() {
 
   return (
     <div className="flex h-screen overflow-hidden bg-terminal-bg text-terminal-text">
-      <aside className="hidden w-[196px] flex-shrink-0 flex-col border-r border-terminal-border bg-terminal-panel lg:flex">
+      <aside className="hidden w-[200px] flex-shrink-0 flex-col border-r border-terminal-border bg-terminal-panel lg:flex">
         <SidebarNav {...sidebarProps} />
       </aside>
 
@@ -243,29 +242,29 @@ export default function App() {
       )}
 
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
-        <header className="flex flex-shrink-0 items-center gap-3 border-b border-terminal-border bg-terminal-panel px-4 py-2.5">
+        <header className="flex flex-shrink-0 items-center gap-3 border-b border-terminal-border bg-terminal-panel px-4 py-2">
           <button
             onClick={() => setMobileSidebarOpen(true)}
-            className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md border border-terminal-border text-terminal-muted hover:bg-terminal-surface hover:text-terminal-text lg:hidden"
+            className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg text-terminal-muted hover:bg-terminal-surface/60 hover:text-terminal-text lg:hidden"
             aria-label="Abrir menu"
           >
-            <Menu size={15} />
+            <Menu size={16} />
           </button>
 
-          <div className="flex max-w-[140px] sm:max-w-[260px] flex-1 items-center gap-2 rounded-md border border-terminal-border bg-terminal-surface px-2 sm:px-3 py-1.5 text-[10px] sm:text-xs text-terminal-muted">
-            <Search size={12} className="flex-shrink-0" />
+          <div className="flex max-w-[140px] sm:max-w-[240px] flex-1 items-center gap-2 rounded-lg bg-terminal-surface/50 px-3 py-1.5 text-terminal-muted">
+            <Search size={13} className="flex-shrink-0 text-terminal-muted/70" />
             <input
               type="text"
               value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
               placeholder="Buscar..."
-              className="min-w-0 flex-1 bg-transparent text-[10px] sm:text-xs text-terminal-text placeholder:text-terminal-muted focus:outline-none"
+              className="min-w-0 flex-1 bg-transparent text-xs text-terminal-text placeholder:text-terminal-muted/60 focus:outline-none"
               aria-label="Buscar ticker o emisora"
             />
           </div>
 
           <div className="ml-auto hidden items-center gap-0 xl:flex">
-            <div className="metric-chip border-l border-terminal-border pl-4 pr-4">
+            <div className="metric-chip border-l border-terminal-border/50 pl-4 pr-4">
               <span className="metric-chip__label">MEP</span>
               <span className="metric-chip__value">
                 {mep?.value
@@ -276,13 +275,13 @@ export default function App() {
                   : '--'}
               </span>
             </div>
-            <div className="metric-chip border-l border-terminal-border pl-4 pr-4">
-              <span className="metric-chip__label">Riesgo Pais</span>
+            <div className="metric-chip border-l border-terminal-border/50 pl-4 pr-4">
+              <span className="metric-chip__label">Riesgo País</span>
               <span className="metric-chip__value text-down">
                 {riesgoPais?.value ? `${riesgoPais.value} bps` : '--'}
               </span>
             </div>
-            <div className="metric-chip border-l border-terminal-border pl-4 pr-4">
+            <div className="metric-chip border-l border-terminal-border/50 pl-4 pr-4">
               <span className="metric-chip__label">Cobertura</span>
               <span className="metric-chip__value text-up">
                 {coverageSummary ? `${coverageSummary.score}%` : '--'}
@@ -293,12 +292,12 @@ export default function App() {
           <button
             onClick={handleRefresh}
             disabled={isRefreshing}
-            className="ml-auto flex items-center gap-1.5 rounded-md border border-terminal-border px-3 py-1.5 text-xs font-medium text-terminal-muted hover:bg-terminal-surface hover:text-terminal-text disabled:cursor-not-allowed disabled:opacity-50 xl:ml-3"
+            className="ml-auto flex items-center gap-1.5 rounded-lg bg-terminal-surface/40 px-3 py-1.5 text-xs font-medium text-terminal-muted hover:bg-terminal-surface hover:text-terminal-text disabled:cursor-not-allowed disabled:opacity-50 xl:ml-3"
             title="Actualizar datos"
           >
             <RefreshCw
               size={12}
-              className={isRefreshing ? 'animate-spin text-terminal-muted' : 'text-terminal-muted'}
+              className={isRefreshing ? 'animate-spin text-terminal-muted' : 'text-terminal-muted/70'}
             />
             <span className="hidden font-mono sm:inline">
               {isRefreshing
@@ -348,8 +347,8 @@ export default function App() {
           </div>
         </main>
 
-        <footer className="border-t border-terminal-border/60 px-5 py-2 text-center text-[10px] text-terminal-muted/60">
-          Market Data: data912.com | MEP: CriptoYa | Riesgo Pais: ArgentinaDatos | Uso informativo
+        <footer className="border-t border-terminal-border px-5 py-1.5 text-center text-[10px] text-terminal-muted/40 tracking-wide">
+          Market Data: data912.com · MEP: CriptoYa · Riesgo País: ArgentinaDatos · Uso informativo
         </footer>
       </div>
     </div>

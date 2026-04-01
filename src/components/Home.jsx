@@ -17,7 +17,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+
 import {
   Sheet,
   SheetContent,
@@ -59,48 +59,29 @@ function formatArs(value, digits = 0) {
   })}`
 }
 
-function badgeTone(value, type) {
-  if (value == null) return 'text-terminal-muted'
-
+function pillClass(value, type) {
+  if (value == null) return 'cell-pill'
   if (type === 'days') {
-    if (value <= 30) return 'bg-[#fde8e8] text-[#b42318] dark:bg-[#2d1414] dark:text-[#fca5a5]'
-    if (value <= 90) return 'bg-[#fff4db] text-[#b45309] dark:bg-[#3b2a12] dark:text-[#fcd34d]'
-    return 'bg-transparent text-terminal-text'
+    if (value <= 30) return 'cell-pill cell-pill--danger'
+    if (value <= 90) return 'cell-pill cell-pill--warn'
+    return 'cell-pill'
   }
-
   if (type === 'paridad') {
-    if (value < 85) return 'bg-[#fde8e8] text-[#b42318] dark:bg-[#2d1414] dark:text-[#fca5a5]'
-    if (value < 100) return 'bg-[#fff4db] text-[#b45309] dark:bg-[#3b2a12] dark:text-[#fcd34d]'
-    return 'bg-transparent text-terminal-text'
+    if (value < 85) return 'cell-pill cell-pill--danger'
+    if (value < 100) return 'cell-pill cell-pill--warn'
+    return 'cell-pill'
   }
-
   if (type === 'ytm') {
-    if (value >= 15) return 'bg-[#fde8e8] text-[#b42318] dark:bg-[#2d1414] dark:text-[#fca5a5]'
-    if (value >= 10) return 'bg-[#fff4db] text-[#b45309] dark:bg-[#3b2a12] dark:text-[#fcd34d]'
-    return 'bg-transparent text-terminal-text'
+    if (value >= 15) return 'cell-pill cell-pill--danger'
+    if (value >= 10) return 'cell-pill cell-pill--warn'
+    return 'cell-pill'
   }
-
   if (type === 'income') {
-    if (value >= 60) return 'bg-[#e7f8ee] text-[#0f7a38] dark:bg-[#14281A] dark:text-[#86efac]'
-    if (value >= 35) return 'bg-terminal-accent/10 text-terminal-accent'
-    return 'bg-transparent text-terminal-text'
+    if (value >= 60) return 'cell-pill cell-pill--good'
+    if (value >= 35) return 'cell-pill cell-pill--warn'
+    return 'cell-pill'
   }
-
-  return 'bg-transparent text-terminal-text'
-}
-
-function cellPill(content, tone) {
-  return (
-    <Badge
-      variant="outline"
-      className={cn(
-        'min-w-[72px] justify-center rounded-sm font-mono font-medium',
-        tone
-      )}
-    >
-      {content}
-    </Badge>
-  )
+  return 'cell-pill'
 }
 
 function topRowsBy(rows, selector, comparator = 'max', limit = 5) {
@@ -121,29 +102,29 @@ function RankingCard({ title, description, rows, renderValue, emptyLabel }) {
   return (
     <Card className="border-terminal-border bg-terminal-panel">
       <CardHeader className="px-4 py-3 pb-2">
-        <CardTitle className="text-[11px] font-bold uppercase tracking-[0.16em] text-terminal-muted">
+        <CardTitle className="text-[11px] font-semibold uppercase tracking-wider text-terminal-muted">
           {title}
         </CardTitle>
-        <CardDescription className="text-xs text-terminal-muted">
+        <CardDescription className="text-xs text-terminal-muted/70">
           {description}
         </CardDescription>
       </CardHeader>
       <CardContent className="p-0">
-        <div className="divide-y divide-terminal-border/70 border-t border-terminal-border">
+        <div className="divide-y divide-terminal-border border-t border-terminal-border">
           {rows.length ? (
             rows.map((row, index) => (
               <div
                 key={`${title}-${row.symbol}`}
-                className="grid grid-cols-[32px_minmax(0,1fr)_auto] items-center gap-3 px-4 py-2.5"
+                className="grid grid-cols-[28px_minmax(0,1fr)_auto] items-center gap-3 px-4 py-2.5 hover:bg-terminal-surface/30"
               >
-                <div className="font-mono text-xs tabular-nums text-terminal-muted">
+                <div className="font-mono text-xs tabular-nums text-terminal-muted/50">
                   {index + 1}
                 </div>
                 <div className="min-w-0">
                   <div className="truncate font-mono text-sm font-semibold text-terminal-text">
                     {row.symbol}
                   </div>
-                  <div className="truncate text-xs text-terminal-muted">
+                  <div className="truncate text-xs text-terminal-muted/70">
                     {row.name}
                   </div>
                 </div>
@@ -153,7 +134,7 @@ function RankingCard({ title, description, rows, renderValue, emptyLabel }) {
               </div>
             ))
           ) : (
-            <div className="px-4 py-6 text-sm text-terminal-muted">
+            <div className="px-4 py-6 text-sm text-terminal-muted/60">
               {emptyLabel}
             </div>
           )}
@@ -162,6 +143,12 @@ function RankingCard({ title, description, rows, renderValue, emptyLabel }) {
     </Card>
   )
 }
+
+const TD_BASE = 'border-r border-b border-terminal-border px-2 py-1 text-center font-mono'
+const TD_HIDDEN_MD = 'hidden md:table-cell ' + TD_BASE
+const TD_HIDDEN_SM = 'hidden sm:table-cell ' + TD_BASE
+const TD_HIDDEN_LG = 'hidden lg:table-cell ' + TD_BASE
+const TD_HIDDEN_XL = 'hidden xl:table-cell ' + TD_BASE
 
 const BondRow = memo(({
   row,
@@ -174,20 +161,18 @@ const BondRow = memo(({
   isMobile,
 }) => {
   return (
-    <TableRow
+    <tr
       className="cursor-pointer hover:bg-terminal-surface/40"
       onClick={() => onSelect(row)}
     >
-      <TableCell
+      <td
         style={!isMobile ? { left: 0, minWidth: NAME_COL_WIDTH, width: NAME_COL_WIDTH } : undefined}
-        className={cn(
-          "border-r border-b border-terminal-border px-2 py-1.5 align-middle",
-          !isMobile && "sheet-sticky-name sticky z-10"
-        )}
+        className={`border-r border-b border-terminal-border px-2 py-1.5 align-middle${!isMobile ? ' sheet-sticky-name sticky z-10' : ''
+          }`}
       >
         <div className="truncate font-medium text-terminal-text">{row.name}</div>
-      </TableCell>
-      <TableCell
+      </td>
+      <td
         style={{
           left: isMobile ? 0 : stickyTickerStart,
           minWidth: USD_TICKER_COL_WIDTH,
@@ -196,96 +181,55 @@ const BondRow = memo(({
         className="sheet-sticky-cell sticky z-[9] border-r border-b border-terminal-border px-2 py-1 text-center font-mono text-terminal-text"
       >
         {row.symbol}
-      </TableCell>
-      <TableCell
+      </td>
+      <td
         style={{
           left: isMobile ? USD_TICKER_COL_WIDTH : stickyTickerArsStart,
           minWidth: ARS_TICKER_COL_WIDTH,
           width: ARS_TICKER_COL_WIDTH,
         }}
-        className={cn(
-          "border-r border-b border-terminal-border px-2 py-1 text-center font-mono text-terminal-text",
-          isMobile ? "sheet-sticky-cell sticky z-[9]" : "sheet-sticky-cell sticky z-[9]"
-        )}
+        className="sheet-sticky-cell sticky z-[9] border-r border-b border-terminal-border px-2 py-1 text-center font-mono text-terminal-text"
       >
         {row.tickerArs || DASH}
-      </TableCell>
-      <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
+      </td>
+      <td className={TD_BASE}>
         {row.couponRate != null ? formatPctSimple(row.couponRate) : DASH}
-      </TableCell>
-      <TableCell className="hidden md:table-cell border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {row.frequency ?? DASH}
-      </TableCell>
-      <TableCell className="hidden lg:table-cell border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {formatDate(row.maturityDate)}
-      </TableCell>
-      <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {cellPill(
-          row.daysToMaturity ?? DASH,
-          badgeTone(row.daysToMaturity, 'days')
-        )}
-      </TableCell>
-      <TableCell className="hidden lg:table-cell border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {formatDate(row.nextCouponDate)}
-      </TableCell>
-      <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {cellPill(row.daysToCoupon ?? DASH, badgeTone(row.daysToCoupon, 'days'))}
-      </TableCell>
-      <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {formatUsd(row.priceUsd)}
-      </TableCell>
-      <TableCell className="hidden sm:table-cell border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {formatArs(row.priceArs)}
-      </TableCell>
-      <TableCell className="hidden xl:table-cell border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {formatUsd(row.impliedUsdFromPesos)}
-      </TableCell>
-      <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {cellPill(formatPctSimple(row.ytm), badgeTone(row.ytm, 'ytm'))}
-      </TableCell>
-      <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {cellPill(formatPctSimple(row.paridad), badgeTone(row.paridad, 'paridad'))}
-      </TableCell>
-      <TableCell className="hidden md:table-cell border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {formatPctSimple(row.currentYield)}
-      </TableCell>
-      <TableCell className="hidden md:table-cell border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {formatPctSimple(row.residualValue)}
-      </TableCell>
-      <TableCell className="hidden lg:table-cell border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {row.amortType || DASH}
-      </TableCell>
-      <TableCell className="hidden xl:table-cell border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {formatNumber(row.nominalesPerBase)}
-      </TableCell>
-      <TableCell className="hidden sm:table-cell border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {formatUsd(row.nextCouponBase)}
-      </TableCell>
-      <TableCell className="hidden sm:table-cell border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {formatUsd(row.nextAmortBase)}
-      </TableCell>
-      <TableCell className="border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {cellPill(
-          formatUsd(row.nextTotalBase),
-          badgeTone(row.nextTotalBase, 'income')
-        )}
-      </TableCell>
-      <TableCell className="hidden md:table-cell border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {row.duration != null ? row.duration.toFixed(2) : DASH}
-      </TableCell>
-      <TableCell className="hidden lg:table-cell border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {formatNumber(row.minInvestment)}
-      </TableCell>
-      <TableCell className="hidden lg:table-cell border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {row.law || DASH}
-      </TableCell>
-      <TableCell className="hidden lg:table-cell border-r border-b border-terminal-border px-2 py-1 text-center font-mono">
-        {row.currencyType || DASH}
-      </TableCell>
-      <TableCell className="hidden lg:table-cell border-b border-terminal-border px-2 py-1 text-center font-mono">
+      </td>
+      <td className={TD_HIDDEN_MD}>{row.frequency ?? DASH}</td>
+      <td className={TD_HIDDEN_LG}>{formatDate(row.maturityDate)}</td>
+      <td className={TD_BASE}>
+        <span className={pillClass(row.daysToMaturity, 'days')}>{row.daysToMaturity ?? DASH}</span>
+      </td>
+      <td className={TD_HIDDEN_LG}>{formatDate(row.nextCouponDate)}</td>
+      <td className={TD_BASE}>
+        <span className={pillClass(row.daysToCoupon, 'days')}>{row.daysToCoupon ?? DASH}</span>
+      </td>
+      <td className={TD_BASE}>{formatUsd(row.priceUsd)}</td>
+      <td className={TD_HIDDEN_SM}>{formatArs(row.priceArs)}</td>
+      <td className={TD_HIDDEN_XL}>{formatUsd(row.impliedUsdFromPesos)}</td>
+      <td className={TD_BASE}>
+        <span className={pillClass(row.ytm, 'ytm')}>{formatPctSimple(row.ytm)}</span>
+      </td>
+      <td className={TD_BASE}>
+        <span className={pillClass(row.paridad, 'paridad')}>{formatPctSimple(row.paridad)}</span>
+      </td>
+      <td className={TD_HIDDEN_MD}>{formatPctSimple(row.currentYield)}</td>
+      <td className={TD_HIDDEN_MD}>{formatPctSimple(row.residualValue)}</td>
+      <td className={TD_HIDDEN_LG}>{row.amortType || DASH}</td>
+      <td className={TD_HIDDEN_XL}>{formatNumber(row.nominalesPerBase)}</td>
+      <td className={TD_HIDDEN_SM}>{formatUsd(row.nextCouponBase)}</td>
+      <td className={TD_HIDDEN_SM}>{formatUsd(row.nextAmortBase)}</td>
+      <td className={TD_BASE}>
+        <span className={pillClass(row.nextTotalBase, 'income')}>{formatUsd(row.nextTotalBase)}</span>
+      </td>
+      <td className={TD_HIDDEN_MD}>{row.duration != null ? row.duration.toFixed(2) : DASH}</td>
+      <td className={TD_HIDDEN_LG}>{formatNumber(row.minInvestment)}</td>
+      <td className={TD_HIDDEN_LG}>{row.law || DASH}</td>
+      <td className={TD_HIDDEN_LG}>{row.currencyType || DASH}</td>
+      <td className="hidden lg:table-cell border-b border-terminal-border px-2 py-1 text-center font-mono">
         {row.rating || DASH}
-      </TableCell>
-    </TableRow>
+      </td>
+    </tr>
   )
 })
 
@@ -530,21 +474,21 @@ export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div className="space-y-1">
             <div className="text-sm font-semibold text-terminal-text">Claves de lectura</div>
-            <div className="text-xs text-terminal-muted">
+            <div className="text-xs text-terminal-muted/80">
               <span className="font-medium text-terminal-text">Cada U$S {formatNumber(investmentBase)}</span> muestra cuantos nominales compras hoy y cuanto cobrarias en el proximo cupon, en la proxima amortizacion y en el proximo cobro total.
             </div>
-            <div className="text-xs text-terminal-muted">
+            <div className="text-xs text-terminal-muted/80">
               <span className="font-medium text-terminal-text">Comprando en $</span> divide la cotizacion en pesos por el dolar MEP y deja visible el precio implicito en dolares para compararlo contra la especie en U$S.
             </div>
             {coverageNotes.length > 0 && (
-              <div className="text-xs text-terminal-muted">
-                Faltantes detectados: {coverageNotes.join(' | ')}.
+              <div className="text-xs text-terminal-muted/60">
+                Faltantes detectados: {coverageNotes.join(' · ')}.
               </div>
             )}
           </div>
           <div className="flex flex-wrap gap-2">
-            <div className="flex items-center gap-2 rounded-sm border border-terminal-border bg-terminal-panel px-2 py-1">
-              <span className="text-[11px] uppercase tracking-[0.14em] text-terminal-muted">Base U$S</span>
+            <div className="flex items-center gap-2 rounded-lg bg-terminal-surface/50 px-2.5 py-1">
+              <span className="text-[11px] font-medium uppercase tracking-wider text-terminal-muted">Base U$S</span>
               <Input
                 type="number"
                 min="1"
@@ -560,8 +504,8 @@ export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
                 variant={focus === option.id ? 'secondary' : 'outline'}
                 size="sm"
                 className={cn(
-                  'rounded-sm border-terminal-border px-2.5',
-                  focus !== option.id && 'bg-terminal-panel text-terminal-muted hover:bg-terminal-surface hover:text-terminal-text'
+                  'rounded-lg border-terminal-border px-2.5',
+                  focus !== option.id && 'bg-terminal-surface/30 text-terminal-muted hover:bg-terminal-surface/60 hover:text-terminal-text border-0'
                 )}
                 onClick={() => setFocus(option.id)}
               >
@@ -577,15 +521,15 @@ export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <div className="text-sm font-semibold text-terminal-text">Obligaciones negociables</div>
-              <div className="text-xs text-terminal-muted">Vista tipo spreadsheet para monitoreo diario y comparacion rapida.</div>
+              <div className="text-xs text-terminal-muted/70">Vista tipo spreadsheet para monitoreo diario y comparacion rapida.</div>
             </div>
             <div className="relative w-full lg:max-w-sm">
-              <Search size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-terminal-muted" />
+              <Search size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-terminal-muted/60" />
               <Input
                 value={filter}
                 onChange={(event) => onFilterChange?.(event.target.value)}
                 placeholder="Buscar ticker o emisora..."
-                className="h-8 rounded-sm border-terminal-border bg-terminal-panel pl-9 text-sm text-terminal-text placeholder:text-terminal-muted"
+                className="h-8 rounded-lg border-terminal-border bg-terminal-surface/40 pl-9 text-sm text-terminal-text placeholder:text-terminal-muted/50"
               />
             </div>
           </div>
@@ -611,22 +555,22 @@ export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
               >
                 Ticker
               </TableHead>
-              <TableHead colSpan={2} className="hidden md:table-cell border-r border-b border-terminal-border bg-terminal-surface text-center text-[11px] font-medium text-terminal-text">
+              <TableHead colSpan={2} className="hidden md:table-cell border-r border-b border-terminal-border bg-terminal-surface/50 text-center text-[11px] font-medium text-terminal-muted">
                 Renta
               </TableHead>
-              <TableHead colSpan={isMobile ? 2 : 4} className="border-r border-b border-terminal-border bg-terminal-surface text-center text-[11px] font-medium text-terminal-text">
+              <TableHead colSpan={isMobile ? 2 : 4} className="border-r border-b border-terminal-border bg-terminal-surface/50 text-center text-[11px] font-medium text-terminal-muted">
                 Fechas
               </TableHead>
-              <TableHead colSpan={isMobile ? 2 : 3} className="border-r border-b border-terminal-border bg-terminal-surface text-center text-[11px] font-medium text-terminal-text">
+              <TableHead colSpan={isMobile ? 2 : 3} className="border-r border-b border-terminal-border bg-terminal-surface/50 text-center text-[11px] font-medium text-terminal-muted">
                 Mercado
               </TableHead>
-              <TableHead colSpan={isMobile ? 2 : 5} className="border-r border-b border-terminal-border bg-[#ffe3e3] text-center text-[11px] font-medium text-[#7a1f1f] dark:bg-[#391818] dark:text-[#fecaca]">
+              <TableHead colSpan={isMobile ? 2 : 5} className="border-r border-b border-terminal-border bg-down/5 text-center text-[11px] font-medium text-down/80">
                 Valor
               </TableHead>
-              <TableHead colSpan={isMobile ? 1 : 4} className="border-r border-b border-terminal-border bg-[#e6f6df] text-center text-[11px] font-medium text-[#386641] dark:bg-[#17311d] dark:text-[#bbf7d0]">
+              <TableHead colSpan={isMobile ? 1 : 4} className="border-r border-b border-terminal-border bg-up/5 text-center text-[11px] font-medium text-up/80">
                 U$S {formatNumber(investmentBase)}
               </TableHead>
-              <TableHead colSpan={isMobile ? 0 : 5} className="hidden lg:table-cell border-b border-terminal-border bg-terminal-surface text-center text-[11px] font-medium text-terminal-text">
+              <TableHead colSpan={isMobile ? 0 : 5} className="hidden lg:table-cell border-b border-terminal-border bg-terminal-surface/50 text-center text-[11px] font-medium text-terminal-muted">
                 Riesgo
               </TableHead>
             </TableRow>
@@ -669,7 +613,7 @@ export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
                         : undefined
                   }
                   className={cn(
-                    'border-r border-terminal-border bg-terminal-panel px-2 py-1 text-center text-[10px] sm:text-[11px] font-medium text-terminal-text last:border-r-0',
+                    'border-r border-terminal-border bg-terminal-panel px-2 py-1 text-center text-[10px] sm:text-[11px] font-medium text-terminal-muted last:border-r-0',
                     key === 'symbol' || key === 'tickerArs' ? 'sheet-sticky-cell sticky z-10' : '',
                     hideClass
                   )}
@@ -682,7 +626,7 @@ export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
               ))}
             </TableRow>
           </TableHeader>
-          <TableBody>
+          <tbody className="table-body-perf">
             {filteredRows.length ? (
               filteredRows.map((row) => (
                 <BondRow
@@ -698,21 +642,21 @@ export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
                 />
               ))
             ) : (
-              <TableRow>
-                <TableCell
+              <tr>
+                <td
                   colSpan={isMobile ? 12 : 26}
                   className="py-8 text-center text-sm text-terminal-muted"
                 >
                   No hay resultados para el filtro actual.
-                </TableCell>
-              </TableRow>
+                </td>
+              </tr>
             )}
-          </TableBody>
+          </tbody>
         </Table>
       </section>
 
       <Sheet open={!!selectedBond} onOpenChange={(open) => !open && setSelectedBond(null)}>
-        <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto border-terminal-border bg-terminal-bg p-0">
+        <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto border-terminal-border bg-terminal-panel p-0">
           <SheetHeader className="sticky top-0 z-10 border-b border-terminal-border bg-terminal-panel px-6 py-4">
             <SheetTitle className="font-mono text-xl font-bold text-terminal-text">
               {selectedBond?.symbol}

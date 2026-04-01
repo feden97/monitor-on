@@ -4,13 +4,13 @@ import { formatDate, formatPctSimple } from '../utils/formatters'
 
 function DataRow({ label, value, subValue, highlight = false }) {
   return (
-    <div className="flex items-center justify-between border-b border-terminal-border/30 px-1 py-2 last:border-0 hover:bg-terminal-surface/20">
-      <span className="text-xs font-medium text-terminal-muted">{label}</span>
+    <div className="flex items-center justify-between border-b border-terminal-border/30 px-1 py-2.5 last:border-0 hover:bg-terminal-surface/20 rounded-sm">
+      <span className="text-xs text-terminal-muted">{label}</span>
       <div className="text-right">
-        <div className={`text-sm font-mono font-bold ${highlight ? 'text-terminal-accent' : 'text-terminal-text'}`}>
+        <div className={`text-sm font-mono font-semibold ${highlight ? 'text-terminal-accent' : 'text-terminal-text'}`}>
           {value || '—'}
         </div>
-        {subValue && <div className="text-[10px] font-mono text-terminal-muted">{subValue}</div>}
+        {subValue && <div className="text-[10px] font-mono text-terminal-muted/60">{subValue}</div>}
       </div>
     </div>
   )
@@ -38,11 +38,11 @@ export default function BondDetailPanel({ bond, prospecto, dolarMEP }) {
   return (
     <div className="flex flex-col gap-6 p-1">
       <div className="space-y-4">
-        <h4 className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-terminal-accent">
+        <h4 className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-wider text-terminal-accent">
           <span className="h-1.5 w-1.5 rounded-full bg-terminal-accent" />
           Datos de emisión
         </h4>
-        <div className="rounded-lg border border-terminal-border bg-terminal-panel p-4 shadow-sm">
+        <div className="rounded-lg border border-terminal-border bg-terminal-surface/30 p-4">
           <DataRow label="Emisora" value={prospecto?.name} />
           <DataRow label="ISIN" value={prospecto?.isin} />
           <DataRow label="Fecha emisión" value={formatDate(prospecto?.emission_date)} />
@@ -67,11 +67,11 @@ export default function BondDetailPanel({ bond, prospecto, dolarMEP }) {
       </div>
 
       <div className="space-y-4">
-        <h4 className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-terminal-accent">
+        <h4 className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-wider text-terminal-accent">
           <span className="h-1.5 w-1.5 rounded-full bg-terminal-accent" />
           Métricas financieras
         </h4>
-        <div className="rounded-lg border border-terminal-border bg-terminal-panel p-4 shadow-sm">
+        <div className="rounded-lg border border-terminal-border bg-terminal-surface/30 p-4">
           <DataRow label="Precio dirty (USD)" value={bond.c ? `$${bond.c.toFixed(2)}` : '—'} highlight />
           <DataRow label="Precio clean (USD)" value={metrics ? `$${metrics.cleanPrice.toFixed(2)}` : '—'} />
           <DataRow label="TIR efectiva" value={metrics?.ytm != null ? formatPctSimple(metrics.ytm) : '—'} highlight />
@@ -91,19 +91,19 @@ export default function BondDetailPanel({ bond, prospecto, dolarMEP }) {
       </div>
 
       <div className="space-y-4">
-        <h4 className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-terminal-accent">
+        <h4 className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-wider text-terminal-accent">
           <span className="h-1.5 w-1.5 rounded-full bg-terminal-accent" />
           Flujo de fondos
         </h4>
-        <div className="max-h-[800px] overflow-hidden rounded-lg border border-terminal-border bg-terminal-panel shadow-sm">
+        <div className="max-h-[800px] overflow-hidden rounded-lg border border-terminal-border bg-terminal-surface/30">
           {metrics?.futureFlows?.length ? (
             <table className="w-full text-xs font-mono">
               <thead className="sticky top-0 bg-terminal-surface/30">
                 <tr className="border-b border-terminal-border">
-                  <th className="px-3 py-2 text-left text-terminal-muted">Fecha</th>
-                  <th className="px-3 py-2 text-right text-terminal-muted">Cupón</th>
-                  <th className="px-3 py-2 text-right text-terminal-muted">Amort.</th>
-                  <th className="px-3 py-2 text-right text-terminal-muted">Total</th>
+                  <th className="px-3 py-2 text-left text-terminal-muted/60">Fecha</th>
+                  <th className="px-3 py-2 text-right text-terminal-muted/60">Cupón</th>
+                  <th className="px-3 py-2 text-right text-terminal-muted/60">Amort.</th>
+                  <th className="px-3 py-2 text-right text-terminal-muted/60">Total</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-terminal-border/20">
