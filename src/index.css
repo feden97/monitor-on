@@ -25,11 +25,11 @@
   --color-flat-light: var(--bg-flat-light);
   --color-highlight: var(--color-highlight);
 
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-card: none;
+  --shadow-card-hover: none;
 
-  --animate-pulse-dot: pulse-dot 1.8s ease-in-out infinite;
-  --animate-shimmer: shimmer 1.4s infinite linear;
+  --animate-pulse-dot: none;
+  --animate-shimmer: none;
 
   @keyframes pulse-dot {
     0%, 100% {
@@ -173,7 +173,7 @@
 
 @layer components {
   .th-cell {
-    @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-terminal-muted border-b border-terminal-border select-none whitespace-nowrap;
+    @apply px-2 py-2 md:px-4 md:py-3 text-left text-[10px] md:text-xs font-semibold uppercase tracking-widest text-terminal-muted border-b border-terminal-border bg-terminal-panel select-none whitespace-nowrap;
   }
 
   .th-cell.sortable {
@@ -181,11 +181,11 @@
   }
 
   .td-cell {
-    @apply px-4 py-2.5 text-sm font-mono whitespace-nowrap border-b border-terminal-border/50;
+    @apply px-2 py-1.5 text-[11px] md:px-4 md:py-2.5 md:text-sm font-mono whitespace-nowrap border-b border-terminal-border/50;
   }
 
   .tr-row {
-    @apply hover:bg-terminal-surface;
+    @apply hover:bg-terminal-surface/60;
   }
 
   .ticker-badge {

@@ -106,6 +106,16 @@ export default function App() {
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('')
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery)
+    }, 200) // 200ms debounce
+
+    return () => clearTimeout(timer)
+  }, [searchQuery])
+
   const [isDark, setIsDark] = useState(() => {
     try {
       const stored = localStorage.getItem('ons-theme-v2')
@@ -242,14 +252,14 @@ export default function App() {
             <Menu size={15} />
           </button>
 
-          <div className="flex max-w-[260px] flex-1 items-center gap-2 rounded-md border border-terminal-border bg-terminal-surface px-3 py-1.5 text-xs text-terminal-muted">
+          <div className="flex max-w-[140px] sm:max-w-[260px] flex-1 items-center gap-2 rounded-md border border-terminal-border bg-terminal-surface px-2 sm:px-3 py-1.5 text-[10px] sm:text-xs text-terminal-muted">
             <Search size={12} className="flex-shrink-0" />
             <input
               type="text"
               value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
-              placeholder="Buscar ticker o emisora..."
-              className="min-w-0 flex-1 bg-transparent text-xs text-terminal-text placeholder:text-terminal-muted focus:outline-none"
+              placeholder="Buscar..."
+              className="min-w-0 flex-1 bg-transparent text-[10px] sm:text-xs text-terminal-text placeholder:text-terminal-muted focus:outline-none"
               aria-label="Buscar ticker o emisora"
             />
           </div>
@@ -301,7 +311,7 @@ export default function App() {
         </header>
 
         <main className="flex-1 overflow-auto">
-          <div className="mx-auto max-w-screen-xl px-5 py-5">
+          <div className="mx-auto max-w-screen-xl px-2 sm:px-5 py-3 sm:py-5">
             {error && !hasData && <ErrorBanner message={error} onRetry={handleRefresh} />}
             {error && hasData && (
               <div className="mb-4 rounded-lg border border-terminal-border bg-terminal-surface/60 px-4 py-2 text-xs text-terminal-muted">
@@ -319,7 +329,7 @@ export default function App() {
               <Home
                 bonds={data}
                 dolarMEP={mep}
-                filter={searchQuery}
+                filter={debouncedSearchQuery}
                 onFilterChange={setSearchQuery}
               />
             )}
@@ -331,7 +341,7 @@ export default function App() {
                 error={error}
                 dolarMEP={mep}
                 lastUpdated={lastUpdated}
-                filter={searchQuery}
+                filter={debouncedSearchQuery}
                 onFilterChange={setSearchQuery}
               />
             )}

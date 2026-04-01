@@ -8,6 +8,43 @@
     "law": "Applicable law: 'NY' or 'ARG'",
     "callable": "Whether the bond is callable: true/false"
   },
+  "BF40D": {
+    "couponsPerYear": 2,
+    "couponDates": [
+      "02-27",
+      "08-27"
+    ],
+    "amortSchedule": [],
+    "dayConvention": 365,
+    "law": "ARG",
+    "callable": false,
+    "ticker_o": "BF40O",
+    "name": "BACS SERIE 40",
+    "coupon_rate": 5,
+    "frequency": 2,
+    "min_investment": 1200,
+    "currency_type": "MEP",
+    "rating": "AAA",
+    "maturity_date": "2027-08-27",
+    "amort_type": "Bullet",
+    "cashflows": [
+      {
+        "date": "2026-08-27",
+        "amortization_pct": 0.0,
+        "interest_pct": 2.479452055
+      },
+      {
+        "date": "2027-02-27",
+        "amortization_pct": 0.0,
+        "interest_pct": 2.520547945
+      },
+      {
+        "date": "2027-08-27",
+        "amortization_pct": 100.0,
+        "interest_pct": 2.479452055
+      }
+    ]
+  },
   "CS47D": {
     "couponsPerYear": 2,
     "couponDates": [
