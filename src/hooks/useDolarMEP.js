@@ -3,32 +3,38 @@ import { usePollingResource } from './usePollingResource'
 const DOLAR_API_URL = '/cripto/api/dolar'
 const REFRESH_INTERVAL = 60_000
 
+const areMepStatesEqual = (previous, next) =>
+  previous?.value === next?.value && previous?.timestamp === next?.timestamp
+
+const transformMepData = (data) => {
+  if (!data?.mep) {
+    return null
+  }
+
+  const rawMep = data.mep.al30?.['24hs']
+  const value = typeof rawMep === 'object'
+    ? rawMep.price
+    : (rawMep || data.mep.al30?.price || null)
+
+  if (!value) {
+    return null
+  }
+
+  return {
+    value,
+    timestamp: data.time ? data.time * 1000 : Date.now(),
+  }
+}
+
+const getMepErrorMessage = (err) => err?.message || 'No se pudo obtener el dólar MEP.'
+
 export function useDolarMEP() {
   const resource = usePollingResource({
     url: DOLAR_API_URL,
     intervalMs: REFRESH_INTERVAL,
-    areEqual: (previous, next) =>
-      previous?.value === next?.value && previous?.timestamp === next?.timestamp,
-    transformData: (data) => {
-      if (!data?.mep) {
-        return null
-      }
-
-      const rawMep = data.mep.al30?.['24hs']
-      const value = typeof rawMep === 'object'
-        ? rawMep.price
-        : (rawMep || data.mep.al30?.price || null)
-
-      if (!value) {
-        return null
-      }
-
-      return {
-        value,
-        timestamp: data.time ? data.time * 1000 : Date.now(),
-      }
-    },
-    getErrorMessage: (err) => err?.message || 'No se pudo obtener el dólar MEP.',
+    areEqual: areMepStatesEqual,
+    transformData: transformMepData,
+    getErrorMessage: getMepErrorMessage,
   })
 
   return {

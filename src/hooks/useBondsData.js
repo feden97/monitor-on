@@ -30,6 +30,32 @@ function areBondListsEqual(previous = [], next = []) {
   return true
 }
 
+function transformBonds(json) {
+  if (!json || !Array.isArray(json)) return []
+  
+  return json
+    .filter((row) => row.symbol && (row.symbol.endsWith('O') || row.symbol.endsWith('D')))
+    .map((row) => ({
+      symbol: row.symbol ?? '—',
+      q_bid: row.q_bid ?? null,
+      px_bid: row.px_bid ?? null,
+      px_ask: row.px_ask ?? null,
+      q_ask: row.q_ask ?? null,
+      v: row.v ?? null,
+      q_op: row.q_op ?? null,
+      c: row.c ?? null,
+      pct_change: row.pct_change ?? null,
+    }))
+    .sort((a, b) => a.symbol.localeCompare(b.symbol))
+}
+
+const getBondsErrorMessage = (err) => {
+  if (err?.name === 'AbortError') {
+    return 'La solicitud tardó demasiado. Verificá tu conexión.'
+  }
+  return err?.message || 'Error desconocido al obtener datos.'
+}
+
 export function useBondsData() {
   return usePollingResource({
     url: API_URL,
@@ -37,26 +63,7 @@ export function useBondsData() {
     initialData: [],
     areEqual: areBondListsEqual,
     validateData: Array.isArray,
-    transformData: (json) => json
-      .filter((row) => row.symbol && (row.symbol.endsWith('O') || row.symbol.endsWith('D')))
-      .map((row) => ({
-        symbol: row.symbol ?? '—',
-        q_bid: row.q_bid ?? null,
-        px_bid: row.px_bid ?? null,
-        px_ask: row.px_ask ?? null,
-        q_ask: row.q_ask ?? null,
-        v: row.v ?? null,
-        q_op: row.q_op ?? null,
-        c: row.c ?? null,
-        pct_change: row.pct_change ?? null,
-      }))
-      .sort((a, b) => a.symbol.localeCompare(b.symbol)),
-    getErrorMessage: (err) => {
-      if (err?.name === 'AbortError') {
-        return 'La solicitud tardó demasiado. Verificá tu conexión.'
-      }
-
-      return err?.message || 'Error desconocido al obtener datos.'
-    },
+    transformData: transformBonds,
+    getErrorMessage: getBondsErrorMessage,
   })
 }

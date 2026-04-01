@@ -17,6 +17,10 @@ export function usePollingResource({
   const mountedRef = useRef(false)
   const latestDataRef = useRef(initialData)
 
+  // Use refs for callbacks to avoid re-triggering fetchResource on every render
+  const callbacksRef = useRef({ transformData, validateData, getErrorMessage, areEqual })
+  callbacksRef.current = { transformData, validateData, getErrorMessage, areEqual }
+
   const fetchResource = useCallback(async (isInitial = false) => {
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
@@ -37,16 +41,22 @@ export function usePollingResource({
 
       const json = await response.json()
 
-      if (validateData && !validateData(json)) {
+      const {
+        validateData: validate,
+        transformData: transform,
+        areEqual: compare,
+      } = callbacksRef.current
+
+      if (validate && !validate(json)) {
         throw new Error('Formato de respuesta inesperado.')
       }
 
-      const nextData = transformData ? transformData(json) : json
+      const nextData = transform ? transform(json) : json
 
       if (mountedRef.current) {
         setError(null)
 
-        const hasChanged = !areEqual || !areEqual(latestDataRef.current, nextData)
+        const hasChanged = !compare || !compare(latestDataRef.current, nextData)
 
         if (hasChanged) {
           latestDataRef.current = nextData
@@ -57,8 +67,9 @@ export function usePollingResource({
 
       return nextData
     } catch (err) {
-      const nextError = getErrorMessage
-        ? getErrorMessage(err)
+      const { getErrorMessage: getErrorMsg } = callbacksRef.current
+      const nextError = getErrorMsg
+        ? getErrorMsg(err)
         : (err?.message || 'Error desconocido al obtener datos.')
 
       if (mountedRef.current) {
@@ -73,7 +84,7 @@ export function usePollingResource({
         setLoading(false)
       }
     }
-  }, [areEqual, getErrorMessage, timeoutMs, transformData, url, validateData])
+  }, [url, timeoutMs]) // Stripped callbacks from dependencies
 
   useEffect(() => {
     mountedRef.current = true

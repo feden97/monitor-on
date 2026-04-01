@@ -1,0 +1,6 @@
+[
+  {"tipo":"on","estado":"Normal","titulo":"ON BI PYME GARANTIZADA INTERCONECT SERIE II CLASE I...","emisores":"INTERCONECT S.A.","especies":"IN21L ","fechaAlta":"2026-03-25T03:00:00Z","fechaVencimiento":"2028-03-25T03:00:00Z","moneda":"Pesos argentinos ($)","id":"3088","codigo":"10113"},
+  {"tipo":"on","estado":"Normal","titulo":"VCP UNICRED SERIE 4","emisores":"COOPERATIVA DE CRÉDITO Y VIVIENDA UNICRED LIMITADA","especies":"CVS4V ","fechaAlta":"2026-03-20T03:00:00Z","fechaVencimiento":"2027-03-20T03:00:00Z","moneda":"Pesos argentinos ($)","id":"3087","codigo":"10112"},
+  {"tipo":"on","estado":"Normal","titulo":"ON MI PYME HECTOR BERTONE SERIE I, CLASE I...","emisores":"HECTOR A. BERTONE S.A.","especies":"EH11M ","fechaAlta":"2026-03-20T03:00:00Z","fechaVencimiento":"2028-03-20T03:00:00Z","moneda":"Pesos argentinos ($)","id":"3093","codigo":"10120"},
+  {"tipo":"on","estado":"Normal","titulo":"ON EF PAN AMERICAN ENERGY CLASE 43","emisores":"PAN AMERICAN ENERGY SL Sucursal Argentina","especies":"PN43O ","fechaAlta":"2026-01-15T03:00:00Z","fechaVencimiento":"2037-01-15T03:00:00Z","moneda":"Dólares estadounidenses (U$S)","id":"3027","codigo":"10005"}
+]

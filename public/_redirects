@@ -1,1 +1,7 @@
-/* /index.html 200
+# Cloudflare Pages Proxy Redirects
+# Replicates Vite local production proxy during development/BYMA/CriptoYa/ArgDatos logic
+
+/api/* https://data912.com/:splat 200
+/byma/* https://open.bymadata.com.ar/vanoms-be-core/rest/api/bymadata/free/:splat 200
+/cripto/* https://criptoya.com/:splat 200
+/argdata/* https://api.argentinadatos.com/:splat 200
