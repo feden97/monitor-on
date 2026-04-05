@@ -66,6 +66,14 @@ function pillClass(value, type) {
     if (value <= 90) return 'cell-pill cell-pill--warn'
     return 'cell-pill'
   }
+  if (type === 'maturity') {
+    if (value <= 180) return 'cell-pill cell-pill--danger'
+    return 'cell-pill'
+  }
+  if (type === 'coupon-alert') {
+    if (value <= 45) return 'cell-pill cell-pill--danger'
+    return 'cell-pill'
+  }
   if (type === 'paridad') {
     if (value < 85) return 'cell-pill cell-pill--danger'
     if (value < 100) return 'cell-pill cell-pill--warn'
@@ -76,9 +84,12 @@ function pillClass(value, type) {
     if (value >= 10) return 'cell-pill cell-pill--warn'
     return 'cell-pill'
   }
-  if (type === 'income') {
-    if (value >= 60) return 'cell-pill cell-pill--good'
-    if (value >= 35) return 'cell-pill cell-pill--warn'
+  if (type === 'residual') {
+    if (value < 100) return 'cell-pill cell-pill--alert'
+    return 'cell-pill'
+  }
+  if (type === 'investment') {
+    if (value >= 1000) return 'cell-pill cell-pill--danger'
     return 'cell-pill'
   }
   return 'cell-pill'
@@ -178,7 +189,7 @@ const BondRow = memo(({
           minWidth: USD_TICKER_COL_WIDTH,
           width: USD_TICKER_COL_WIDTH,
         }}
-        className="sheet-sticky-cell sticky z-[9] border-r border-b border-terminal-border px-2 py-1 text-center font-mono text-terminal-text"
+        className="sheet-sticky-cell sticky border-r border-b border-terminal-border bg-terminal-panel px-2 py-1 text-center font-mono text-terminal-text"
       >
         {row.symbol}
       </td>
@@ -188,7 +199,7 @@ const BondRow = memo(({
           minWidth: ARS_TICKER_COL_WIDTH,
           width: ARS_TICKER_COL_WIDTH,
         }}
-        className="sheet-sticky-cell sticky z-[9] border-r border-b border-terminal-border px-2 py-1 text-center font-mono text-terminal-text"
+        className="sheet-sticky-cell sticky border-r border-b border-terminal-border bg-terminal-panel px-2 py-1 text-center font-mono text-terminal-text"
       >
         {row.tickerArs || DASH}
       </td>
@@ -198,11 +209,11 @@ const BondRow = memo(({
       <td className={TD_HIDDEN_MD}>{row.frequency ?? DASH}</td>
       <td className={TD_HIDDEN_LG}>{formatDate(row.maturityDate)}</td>
       <td className={TD_BASE}>
-        <span className={pillClass(row.daysToMaturity, 'days')}>{row.daysToMaturity ?? DASH}</span>
+        <span className={pillClass(row.daysToMaturity, 'maturity')}>{row.daysToMaturity ?? DASH}</span>
       </td>
       <td className={TD_HIDDEN_LG}>{formatDate(row.nextCouponDate)}</td>
       <td className={TD_BASE}>
-        <span className={pillClass(row.daysToCoupon, 'days')}>{row.daysToCoupon ?? DASH}</span>
+        <span className={pillClass(row.daysToCoupon, 'coupon-alert')}>{row.daysToCoupon ?? DASH}</span>
       </td>
       <td className={TD_BASE}>{formatUsd(row.priceUsd)}</td>
       <td className={TD_HIDDEN_SM}>{formatArs(row.priceArs)}</td>
@@ -214,16 +225,20 @@ const BondRow = memo(({
         <span className={pillClass(row.paridad, 'paridad')}>{formatPctSimple(row.paridad)}</span>
       </td>
       <td className={TD_HIDDEN_MD}>{formatPctSimple(row.currentYield)}</td>
-      <td className={TD_HIDDEN_MD}>{formatPctSimple(row.residualValue)}</td>
+      <td className={TD_BASE}>
+        <span className={pillClass(row.residualValue, 'residual')}>{formatPctSimple(row.residualValue)}</span>
+      </td>
       <td className={TD_HIDDEN_LG}>{row.amortType || DASH}</td>
       <td className={TD_HIDDEN_XL}>{formatNumber(row.nominalesPerBase)}</td>
-      <td className={TD_HIDDEN_SM}>{formatUsd(row.nextCouponBase)}</td>
+      <td className={TD_BASE}>{formatUsd(row.nextCouponBase)}</td>
       <td className={TD_HIDDEN_SM}>{formatUsd(row.nextAmortBase)}</td>
       <td className={TD_BASE}>
-        <span className={pillClass(row.nextTotalBase, 'income')}>{formatUsd(row.nextTotalBase)}</span>
+        {formatUsd(row.nextTotalBase)}
       </td>
       <td className={TD_HIDDEN_MD}>{row.duration != null ? row.duration.toFixed(2) : DASH}</td>
-      <td className={TD_HIDDEN_LG}>{formatNumber(row.minInvestment)}</td>
+      <td className={TD_BASE}>
+        <span className={pillClass(row.minInvestment, 'investment')}>{formatNumber(row.minInvestment)}</span>
+      </td>
       <td className={TD_HIDDEN_LG}>{row.law || DASH}</td>
       <td className={TD_HIDDEN_LG}>{row.currencyType || DASH}</td>
       <td className="hidden lg:table-cell border-b border-terminal-border px-2 py-1 text-center font-mono">
@@ -516,7 +531,7 @@ export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
         </div>
       </section>
 
-      <section className="isolate overflow-hidden rounded-lg border border-terminal-border bg-terminal-panel">
+      <section className="isolate rounded-lg border border-terminal-border bg-terminal-panel">
         <div className="border-b border-terminal-border px-4 py-3">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div>
@@ -536,71 +551,71 @@ export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
         </div>
 
         <Table className="sheet-grid-table min-w-max md:min-w-[2050px] text-[12px]">
-          <TableHeader>
+          <TableHeader className="bg-terminal-panel z-20">
             <TableRow className="hover:bg-transparent">
               <TableHead
                 rowSpan={2}
                 style={!isMobile ? { left: 0, minWidth: NAME_COL_WIDTH, width: NAME_COL_WIDTH } : undefined}
                 className={cn(
-                  "border-r border-b border-terminal-border text-center text-[11px] font-medium text-terminal-text",
-                  !isMobile && "sheet-sticky-name sticky z-20"
+                  "border-r border-b border-terminal-border text-center text-[11px] font-medium text-terminal-text bg-terminal-panel",
+                  !isMobile && "sheet-sticky-name sticky top-0 z-52"
                 )}
               >
-                ONs
+                Obligaciones Negociables
               </TableHead>
               <TableHead
                 colSpan={2}
                 style={{ left: isMobile ? 0 : stickyTickerStart }}
-                className="sheet-sticky-group sticky z-10 border-r border-b border-terminal-border text-center text-[11px] font-medium text-terminal-text"
+                className="sheet-sticky-group sticky top-0 z-52 border-r border-b border-terminal-border bg-terminal-panel text-center text-[11px] font-medium text-terminal-text"
               >
                 Ticker
               </TableHead>
-              <TableHead colSpan={2} className="hidden md:table-cell border-r border-b border-terminal-border bg-terminal-surface/50 text-center text-[11px] font-medium text-terminal-muted">
+              <TableHead colSpan={2} className="hidden md:table-cell border-r border-b border-terminal-border bg-terminal-panel text-center text-[11px] font-medium text-terminal-muted sticky top-0 z-50">
                 Renta
               </TableHead>
-              <TableHead colSpan={isMobile ? 2 : 4} className="border-r border-b border-terminal-border bg-terminal-surface/50 text-center text-[11px] font-medium text-terminal-muted">
+              <TableHead colSpan={isMobile ? 2 : 4} className="border-r border-b border-terminal-border bg-terminal-panel text-center text-[11px] font-medium text-terminal-muted sticky top-0 z-50">
                 Fechas
               </TableHead>
-              <TableHead colSpan={isMobile ? 2 : 3} className="border-r border-b border-terminal-border bg-terminal-surface/50 text-center text-[11px] font-medium text-terminal-muted">
+              <TableHead colSpan={isMobile ? 2 : 3} className="border-r border-b border-terminal-border bg-terminal-panel text-center text-[11px] font-medium text-terminal-muted sticky top-0 z-50">
                 Mercado
               </TableHead>
-              <TableHead colSpan={isMobile ? 2 : 5} className="border-r border-b border-terminal-border bg-down/5 text-center text-[11px] font-medium text-down/80">
-                Valor
+              <TableHead colSpan={isMobile ? 2 : 5} className="border-r border-b border-terminal-border bg-terminal-panel text-center text-[11px] font-medium text-terminal-muted sticky top-0 z-50">
+                Rendimiento
               </TableHead>
-              <TableHead colSpan={isMobile ? 1 : 4} className="border-r border-b border-terminal-border bg-up/5 text-center text-[11px] font-medium text-up/80">
-                U$S {formatNumber(investmentBase)}
+              <TableHead colSpan={isMobile ? 1 : 4} className="border-r border-b border-terminal-border bg-terminal-panel text-center text-[11px] font-medium text-terminal-muted sticky top-0 z-50">
+                Cada U$S {formatNumber(investmentBase)}
               </TableHead>
-              <TableHead colSpan={isMobile ? 0 : 5} className="hidden lg:table-cell border-b border-terminal-border bg-terminal-surface/50 text-center text-[11px] font-medium text-terminal-muted">
-                Riesgo
+              <TableHead colSpan={isMobile ? 0 : 5} className="hidden lg:table-cell border-b border-terminal-border bg-terminal-panel text-center text-[11px] font-medium text-terminal-muted sticky top-0 z-50">
+                Riesgo / Ley
               </TableHead>
             </TableRow>
             <TableRow className="hover:bg-transparent">
               {[
                 ['symbol', 'U$S', ''],
                 ['tickerArs', '$', ''],
-                ['couponRate', '%', ''],
-                ['frequency', 'Freq.', 'hidden md:table-cell'],
+                ['couponRate', 'Cupón %', ''],
+                ['frequency', 'Pagos/Año', 'hidden md:table-cell'],
                 ['maturityDate', 'Venc.', 'hidden lg:table-cell'],
-                ['daysToMaturity', 'Venc.', ''],
-                ['nextCouponDate', 'Pago', 'hidden lg:table-cell'],
-                ['daysToCoupon', 'Pago', ''],
-                ['priceUsd', 'Price U$D', ''],
-                ['priceArs', 'Price $', 'hidden sm:table-cell'],
-                ['impliedUsdFromPesos', 'Imp. U$D', 'hidden xl:table-cell'],
+                ['daysToMaturity', 'Días Venc.', ''],
+                ['nextCouponDate', 'Próx. Pago', 'hidden lg:table-cell'],
+                ['daysToCoupon', 'Días Pago', ''],
+                ['priceUsd', 'Precio U$S', ''],
+                ['priceArs', 'Precio $', 'hidden sm:table-cell'],
+                ['impliedUsdFromPesos', 'MEP Impl.', 'hidden xl:table-cell'],
                 ['ytm', 'TIR', ''],
                 ['paridad', 'Paridad', ''],
                 ['currentYield', 'Yield', 'hidden md:table-cell'],
-                ['residualValue', 'Resid.', 'hidden md:table-cell'],
-                ['amortType', 'Amort.', 'hidden lg:table-cell'],
-                ['nominalesPerBase', 'Nom.', 'hidden xl:table-cell'],
-                ['nextCouponBase', 'Cp.', 'hidden sm:table-cell'],
-                ['nextAmortBase', 'Am.', 'hidden sm:table-cell'],
-                ['nextTotalBase', 'Income', ''],
-                ['duration', 'Dur.', 'hidden md:table-cell'],
-                ['minInvestment', 'Min.', 'hidden lg:table-cell'],
+                ['residualValue', 'Valor Res.', ''],
+                ['amortType', 'Tipo Amort.', 'hidden lg:table-cell'],
+                ['nominalesPerBase', 'VN Compras', 'hidden xl:table-cell'],
+                ['nextCouponBase', 'Cupón U$S', ''],
+                ['nextAmortBase', 'Amort. U$S', 'hidden sm:table-cell'],
+                ['nextTotalBase', 'Cobro Prox.', ''],
+                ['duration', 'Duración', 'hidden md:table-cell'],
+                ['minInvestment', 'Lám. Mín.', ''],
                 ['law', 'Ley', 'hidden lg:table-cell'],
-                ['currencyType', 'DLR', 'hidden lg:table-cell'],
-                ['rating', 'Fix', 'hidden lg:table-cell'],
+                ['currencyType', 'Dólar', 'hidden lg:table-cell'],
+                ['rating', 'Calif.', 'hidden lg:table-cell'],
               ].map(([key, label, hideClass]) => (
                 <TableHead
                   key={key}
@@ -613,8 +628,8 @@ export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
                         : undefined
                   }
                   className={cn(
-                    'border-r border-terminal-border bg-terminal-panel px-2 py-1 text-center text-[10px] sm:text-[11px] font-medium text-terminal-muted last:border-r-0',
-                    key === 'symbol' || key === 'tickerArs' ? 'sheet-sticky-cell sticky z-10' : '',
+                    'border-r border-terminal-border bg-terminal-panel px-2 py-1 text-center text-[10px] sm:text-[11px] font-medium text-terminal-muted last:border-r-0 sticky top-[39px]',
+                    key === 'symbol' || key === 'tickerArs' ? 'sheet-sticky-cell' : '',
                     hideClass
                   )}
                 >

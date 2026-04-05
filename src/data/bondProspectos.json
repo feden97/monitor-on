@@ -8,6 +8,171 @@
     "law": "Applicable law: 'NY' or 'ARG'",
     "callable": "Whether the bond is callable: true/false"
   },
+  "YM34D": {
+    "couponsPerYear": 2,
+    "couponDates": ["01-17", "07-17"],
+    "amortSchedule": [{"date": "2032-01-17", "pct": 30}, {"date": "2033-01-17", "pct": 30}, {"date": "2034-01-17", "pct": 40}],
+    "dayConvention": 360,
+    "law": "NY",
+    "callable": false,
+    "ticker_o": "YM34O",
+    "name": "YPF XXXIV 2034",
+    "coupon_rate": 8.25,
+    "frequency": 2,
+    "min_investment": 1000,
+    "currency_type": "Cable",
+    "rating": "AA",
+    "maturity_date": "2034-01-17",
+    "amort_type": "Amort.",
+    "cashflows": [
+      { "date": "2026-07-17", "amortization_pct": 0, "interest_pct": 4.125 },
+      { "date": "2027-01-17", "amortization_pct": 0, "interest_pct": 4.125 }
+    ]
+  },
+  "YM39D": {
+    "couponsPerYear": 2,
+    "couponDates": ["01-21", "07-21"],
+    "amortSchedule": [{"date": "2037-07-21", "pct": 33}, {"date": "2038-07-21", "pct": 33}, {"date": "2039-07-21", "pct": 34}],
+    "dayConvention": 360,
+    "law": "NY",
+    "callable": false,
+    "ticker_o": "YM39O",
+    "name": "YPF XXXIX 2039",
+    "coupon_rate": 9.5,
+    "frequency": 2,
+    "min_investment": 1000,
+    "currency_type": "Cable",
+    "rating": "AA",
+    "maturity_date": "2039-07-21",
+    "amort_type": "Amort.",
+    "cashflows": [
+      { "date": "2026-01-21", "amortization_pct": 0, "interest_pct": 4.75 },
+      { "date": "2026-07-21", "amortization_pct": 0, "interest_pct": 4.75 }
+    ]
+  },
+  "YMCID": {
+    "couponsPerYear": 2,
+    "couponDates": ["06-30", "12-30"],
+    "amortSchedule": [],
+    "dayConvention": 360,
+    "law": "NY",
+    "callable": false,
+    "ticker_o": "YMCIO",
+    "name": "YPF XVII 2029",
+    "coupon_rate": 2.5,
+    "frequency": 2,
+    "min_investment": 1000,
+    "currency_type": "Cable",
+    "rating": "AA",
+    "maturity_date": "2029-06-30",
+    "amort_type": "Bullet",
+    "cashflows": [
+      { "date": "2026-06-30", "amortization_pct": 0, "interest_pct": 1.25 },
+      { "date": "2026-12-30", "amortization_pct": 0, "interest_pct": 1.25 }
+    ]
+  },
+  "YMCJD": {
+    "couponsPerYear": 2,
+    "couponDates": ["03-30", "09-30"],
+    "amortSchedule": [],
+    "dayConvention": 360,
+    "law": "NY",
+    "callable": false,
+    "ticker_o": "YMCJO",
+    "name": "YPF XVIII 2033",
+    "coupon_rate": 1.5,
+    "frequency": 2,
+    "min_investment": 1000,
+    "currency_type": "Cable",
+    "rating": "AA",
+    "maturity_date": "2033-09-30",
+    "amort_type": "Bullet",
+    "cashflows": [
+      { "date": "2026-03-30", "amortization_pct": 0, "interest_pct": 0.75 },
+      { "date": "2026-09-30", "amortization_pct": 0, "interest_pct": 0.75 }
+    ]
+  },
+  "YMCXO": {
+    "couponsPerYear": 2,
+    "couponDates": ["03-11", "09-11"],
+    "amortSchedule": [],
+    "dayConvention": 360,
+    "law": "ARG",
+    "ticker_o": "YMCXO",
+    "name": "YPF XXXI 2031",
+    "coupon_rate": 8.75,
+    "frequency": 2,
+    "min_investment": 1,
+    "currency_type": "MEP",
+    "rating": "AA",
+    "maturity_date": "2031-09-11",
+    "amort_type": "Bullet",
+    "cashflows": [
+      { "date": "2026-03-11", "amortization_pct": 0, "interest_pct": 4.375 },
+      { "date": "2026-09-11", "amortization_pct": 0, "interest_pct": 4.375 }
+    ]
+  },
+  "CS51D": {
+    "couponsPerYear": 2,
+    "couponDates": ["01-20", "07-20"],
+    "amortSchedule": [],
+    "dayConvention": 360,
+    "law": "ARG",
+    "ticker_o": "CS51O",
+    "name": "CRESUD C51 2027",
+    "coupon_rate": 6.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "currency_type": "MEP",
+    "rating": "AAA",
+    "maturity_date": "2027-01-20",
+    "amort_type": "Bullet",
+    "cashflows": [
+      { "date": "2026-07-20", "amortization_pct": 0, "interest_pct": 3.0 },
+      { "date": "2027-01-20", "amortization_pct": 100, "interest_pct": 3.0 }
+    ]
+  },
+  "DNC9D": {
+    "couponsPerYear": 2,
+    "couponDates": ["05-30", "11-30"],
+    "amortSchedule": [],
+    "dayConvention": 360,
+    "law": "ARG",
+    "ticker_o": "DNC9O",
+    "name": "EDENOR C9 2027",
+    "coupon_rate": 8.0,
+    "frequency": 2,
+    "min_investment": 1,
+    "currency_type": "MEP",
+    "rating": "A+",
+    "maturity_date": "2027-05-30",
+    "amort_type": "Bullet",
+    "cashflows": [
+      { "date": "2026-05-30", "amortization_pct": 0, "interest_pct": 4.0 },
+      { "date": "2026-11-30", "amortization_pct": 0, "interest_pct": 4.0 },
+      { "date": "2027-05-30", "amortization_pct": 100, "interest_pct": 4.0 }
+    ]
+  },
+  "CP39D": {
+    "couponsPerYear": 2,
+    "couponDates": ["03-31", "09-30"],
+    "amortSchedule": [],
+    "dayConvention": 360,
+    "law": "ARG",
+    "ticker_o": "CP39O",
+    "name": "PAMPA C39 2028",
+    "coupon_rate": 7.95,
+    "frequency": 2,
+    "min_investment": 1000,
+    "currency_type": "MEP",
+    "rating": "AAA",
+    "maturity_date": "2028-03-31",
+    "amort_type": "Bullet",
+    "cashflows": [
+      { "date": "2026-03-31", "amortization_pct": 0, "interest_pct": 3.975 },
+      { "date": "2026-09-30", "amortization_pct": 0, "interest_pct": 3.975 }
+    ]
+  },
   "BF40D": {
     "couponsPerYear": 2,
     "couponDates": [
@@ -2051,41 +2216,6 @@
     ],
     "dayConvention": 360
   },
-  "DNC8D": {
-    "ticker_o": "DNC8O",
-    "name": "EDENOR C8",
-    "coupon_rate": 8.5,
-    "frequency": 2,
-    "min_investment": 1,
-    "law": "ARG",
-    "currency_type": "MEP",
-    "rating": "A+",
-    "maturity_date": "2026-08-07",
-    "amort_type": "Amort.",
-    "cashflows": [
-      {
-        "date": "2026-04-01",
-        "amortization_pct": 0.0,
-        "interest_pct": 0.0
-      },
-      {
-        "date": "2025-08-07",
-        "amortization_pct": 0.0,
-        "interest_pct": 0.0
-      },
-      {
-        "date": "2026-02-07",
-        "amortization_pct": 0.0,
-        "interest_pct": 4.284931507
-      },
-      {
-        "date": "2026-08-07",
-        "amortization_pct": 100.0,
-        "interest_pct": 4.215068493
-      }
-    ],
-    "dayConvention": 365
-  },
   "EAC3D": {
     "ticker_o": "EAC3O",
     "name": "MSU GREEN ENERGY C3",
@@ -3746,18 +3876,6 @@
       }
     ],
     "dayConvention": 360
-  },
-  "MGC9D": {
-    "ticker_o": "MGC9O",
-    "name": "PAMPA ENERGIA S.A C9",
-    "coupon_rate": 9.5,
-    "frequency": 2,
-    "min_investment": 1,
-    "law": "NY",
-    "currency_type": "Cable",
-    "rating": "AAA",
-    "maturity_date": "2026-12-08",
-    "amort_type": "Amort."
   },
   "MGCMD": {
     "ticker_o": "MGCMO",
@@ -6885,18 +7003,6 @@
       }
     ],
     "dayConvention": 360
-  },
-  "RCCJD": {
-    "ticker_o": "RCCJO",
-    "name": "ARCOR 2027 C18",
-    "coupon_rate": 8.25,
-    "frequency": 2,
-    "min_investment": 1000,
-    "law": "NY",
-    "currency_type": "Cable",
-    "rating": "AAA",
-    "maturity_date": "2027-10-09",
-    "amort_type": "Amort."
   },
   "RCCRD": {
     "ticker_o": "RCCRO",

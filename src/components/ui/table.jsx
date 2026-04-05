@@ -5,7 +5,7 @@ function Table({
   ...props
 }) {
   return (
-    <div data-slot="table-container" className="relative isolate w-full overflow-x-auto overflow-y-hidden">
+    <div data-slot="table-container" className="relative isolate w-full overflow-auto max-h-[85vh] scrollbar-thin">
       <table
         data-slot="table"
         className={cn("w-full caption-bottom text-sm", className)}
