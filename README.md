@@ -1,78 +1,51 @@
-# 📊 ONs Dashboard — Obligaciones Negociables · Mercado Argentino
+# ONs Terminal — Obligaciones Negociables
 
-Panel Bloomberg-style para visualizar datos en tiempo real de Obligaciones Negociables (ONs) del mercado argentino.
+Panel para consultar cotizaciones de ONs argentinas, comparar instrumentos y revisar métricas y flujos de fondos.
 
-## Stack
+## Desarrollo
 
-| Herramienta | Versión | Rol |
-|---|---|---|
-| React | 18 | UI framework |
-| Vite | 5 | Build tool / dev server |
-| TanStack Table | 8 | Tabla de datos con sorting/filtering |
-| Tailwind CSS | 3 | Estilos utilitarios |
-| Lucide React | latest | Íconos |
-
-## Inicio rápido
+Con Node.js 24 LTS y npm:
 
 ```bash
-# 1. Clonar / descomprimir el proyecto
-cd arg-ons-dashboard
-
-# 2. Instalar dependencias
-npm install
-
-# 3. Levantar el servidor de desarrollo
+npm ci
 npm run dev
 ```
 
-Abrí [http://localhost:5173](http://localhost:5173) en tu navegador.
+Abrir http://localhost:5173. Vite configura proxies locales a data912, CriptoYa y ArgentinaDatos.
 
-## Proxy CORS
+## Validación
 
-Durante el desarrollo local, Vite actúa como proxy para evitar errores CORS del navegador:
-
-```
-Browser → /api/live/arg_corp  →  Vite proxy  →  https://data912.com/live/arg_corp
-```
-
-Esto está configurado en `vite.config.js`. **No es necesario ningún cambio adicional** para el entorno de desarrollo.
-
-En producción (deploy en servidor), configurá tu servidor (nginx, Caddy, etc.) con un proxy reverso al mismo endpoint, o utilizá un backend propio.
-
-## Estructura del proyecto
-
-```
-arg-ons-dashboard/
-├── public/
-├── src/
-│   ├── components/
-│   │   ├── BondsTable.jsx    # Tabla principal (TanStack Table)
-│   │   ├── StatsBar.jsx      # Resumen estadístico
-│   │   └── ErrorBanner.jsx   # Banner de error con retry
-│   ├── hooks/
-│   │   └── useBondsData.js   # Fetch + auto-refresh cada 30s
-│   ├── utils/
-│   │   └── formatters.js     # Formateo de precios, %%, números
-│   ├── App.jsx               # Componente raíz
-│   ├── main.jsx
-│   └── index.css             # Tailwind + estilos globales
-├── tailwind.config.js
-├── postcss.config.js
-├── vite.config.js            # Configuración Vite + proxy
-└── package.json
+```bash
+npm test
+npm run lint
+npm run build
 ```
 
-## Próximos pasos sugeridos
+Las pruebas usan el ejecutor nativo de Node, sin dependencias adicionales. Cubren cálculos, fechas, reutilización de métricas, normalización de respuestas, cancelación de consultas y proxies HTTP. La compilación genera `dist/`.
 
-- [ ] Agregar cálculo de TIR (backend / worker)
-- [ ] Agregar columna de Paridad
-- [ ] Filtros por tipo de moneda (ARS / USD)
-- [ ] Exportación a CSV / Excel
-- [ ] Modo oscuro
-- [ ] Gráfico de velas intradiario por instrumento
+## Arquitectura
 
-## Datos
+- React 19, Vite 8 y Tailwind CSS 4.
+- `src/lib/resourceFetcher.js`: solicitudes deduplicadas, validación, timeout y cancelación.
+- `src/hooks/usePollingResource.js`: integración React; conserva datos válidos ante errores, pausa consultas periódicas en pestañas ocultas y actualiza al volver.
+- `src/utils/marketData.js`: normalización de cotizaciones, MEP y riesgo país.
+- `src/utils/bondEngine.js`: fechas civiles, flujos, cupón corrido, TIR y duración.
+- `src/utils/bondModel.js` y `src/hooks/useBondMarketModel.js`: snapshot compartido entre Inicio, Análisis, cobertura y detalle; reutiliza métricas mientras precio, prospecto y fecha de liquidación no cambian.
+- Análisis y detalle se cargan al abrirlos mediante importaciones dinámicas.
+- `server/proxy.js`: lógica común de las funciones de Cloudflare Pages en `functions/`.
 
-Los datos provienen de [data912.com](https://data912.com) y se actualizan automáticamente cada **30 segundos**.
+## Actualización de datos
 
-> ⚠️ Los datos tienen carácter informativo y no constituyen asesoramiento financiero.
+Las cotizaciones se consultan cada 10 segundos; MEP cada 60 segundos y riesgo país cada 5 minutos mientras la pestaña está visible. El refresco manual comparte solicitudes en curso. La hora de actualización indica la última consulta correcta aunque los valores no cambien.
+
+Los proxies de producción cachean GET públicos durante 10, 30 y 300 segundos respectivamente. Los POST evitan la caché. No se reenvían cookies ni credenciales del sitio a los proveedores. Los fallos de caché permiten seguir consultando el origen.
+
+Para desplegar en Cloudflare Pages se necesitan `dist/`, las funciones de `functions/` y su helper de `server/`. `vite preview` sirve el resultado estático; no ejecuta las funciones de Cloudflare ni los proxies de desarrollo.
+
+## Alcance de los cálculos
+
+Se conservan las convenciones financieras existentes: liquidación al día calendario siguiente ajustado a día hábil; 30E/360 cuando el prospecto indica 360 y días reales en los demás casos. La TIR usa fechas teóricas y los pagos mostrados usan fechas hábiles. El solver limita sus iteraciones y devuelve ausencia de resultado cuando no converge.
+
+Los cálculos dependen de los datos estáticos de `src/data/`. El calendario cargado termina el 1 de enero de 2026 y requiere actualización con fuentes verificadas para ajustar feriados posteriores. Existen cronogramas vacíos o parciales y claves repetidas en los prospectos; no se reconstruyen pagos ni se completan datos automáticamente. Las mejoras de código no validan la exactitud contractual de esos datos.
+
+Fuentes: data912.com, CriptoYa y ArgentinaDatos. Uso informativo.

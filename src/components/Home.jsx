@@ -1,11 +1,9 @@
-import { memo, useMemo, useState, useRef, useEffect } from 'react'
+import { lazy, memo, Suspense, useMemo, useState, useEffect, useCallback } from 'react'
 import { ArrowUpDown, Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
   Table,
-  TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -26,10 +24,10 @@ import {
   SheetDescription,
 } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
-import { analyzeBond, daysBetween, getNextBusinessDay } from '../utils/bondEngine'
+import { compareBondValues } from '../utils/bondModel.js'
 import { formatDate, formatNumber, formatPctSimple } from '../utils/formatters'
-import bondProspectos from '../data/bondProspectos.json'
-import BondDetailPanel from './BondDetailPanel'
+
+const BondDetailPanel = lazy(() => import('./BondDetailPanel'))
 
 const DASH = '-'
 const NAME_COL_WIDTH = 320
@@ -43,20 +41,22 @@ const FOCUS_OPTIONS = [
   { id: 'income', label: 'Prox. cobro' },
 ]
 
-function formatUsd(value, digits = 2) {
+const MONEY_FORMATTERS = new Map([0, 2].map((digits) => [digits, new Intl.NumberFormat('es-AR', {
+  minimumFractionDigits: digits,
+  maximumFractionDigits: digits,
+})]))
+
+function formatMoney(value, digits) {
   if (value == null || Number.isNaN(value)) return DASH
-  return `$${value.toLocaleString('es-AR', {
-    minimumFractionDigits: digits,
-    maximumFractionDigits: digits,
-  })}`
+  return `$${MONEY_FORMATTERS.get(digits).format(value)}`
 }
 
-function formatArs(value, digits = 0) {
-  if (value == null || Number.isNaN(value)) return DASH
-  return `$${value.toLocaleString('es-AR', {
-    minimumFractionDigits: digits,
-    maximumFractionDigits: digits,
-  })}`
+function formatUsd(value) {
+  return formatMoney(value, 2)
+}
+
+function formatArs(value) {
+  return formatMoney(value, 0)
 }
 
 function pillClass(value, type) {
@@ -96,7 +96,7 @@ function pillClass(value, type) {
 }
 
 function topRowsBy(rows, selector, comparator = 'max', limit = 5) {
-  return [...rows]
+  return rows
     .filter((row) => {
       const value = selector(row)
       return value != null && !Number.isNaN(value)
@@ -250,8 +250,9 @@ const BondRow = memo(({
 
 BondRow.displayName = 'BondRow'
 
-export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
-  const [selectedBond, setSelectedBond] = useState(null)
+export default function Home({ marketModel, dolarMEP, filter = '', searchValue = filter, onFilterChange }) {
+  const [selectedTicker, setSelectedTicker] = useState(null)
+  const selectBond = useCallback((row) => setSelectedTicker(row.symbol), [])
   const [focus, setFocus] = useState('all')
   const [sortKey, setSortKey] = useState('symbol')
   const [sortDir, setSortDir] = useState('asc')
@@ -264,145 +265,36 @@ export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
-  const metricsCache = useRef(new Map())
-  const lastSettlementDateStr = useRef('')
+  const investmentBase = Number(investmentAmount) > 0 && Number.isFinite(Number(investmentAmount))
+    ? Number(investmentAmount) : 1000
 
-  const model = useMemo(() => {
-    if (!bonds?.length) {
-      return {
-        rows: [],
-        summary: null,
-        coverage: null,
-      }
-    }
-
-    const today = new Date()
-    const tomorrow = new Date(today)
-    tomorrow.setDate(today.getDate() + 1)
-    const settlementDate = getNextBusinessDay(tomorrow.toISOString().split('T')[0])
-    const settlementDateStr = settlementDate.toISOString().split('T')[0]
-
-    // Reset cache if settlement date changes (new business day)
-    if (lastSettlementDateStr.current !== settlementDateStr) {
-      metricsCache.current.clear()
-      lastSettlementDateStr.current = settlementDateStr
-    }
-
-    const arsQuotes = new Map(
-      bonds
-        .filter((bond) => bond.symbol?.endsWith('O'))
-        .map((bond) => [bond.symbol, bond])
-    )
-
-    let missingProspecto = 0
-    let missingCashflows = 0
-    let missingRating = 0
-    let missingTickerArs = 0
-
-    const capitalBase = Number(investmentAmount)
-    const validCapitalBase = Number.isFinite(capitalBase) && capitalBase > 0 ? capitalBase : 1000
-
-    const rows = bonds
-      .filter((bond) => bond.symbol?.endsWith('D'))
-      .map((bond) => {
-        const prospecto = bondProspectos[bond.symbol]
-        if (!prospecto) missingProspecto += 1
-
-        const tickerArs = prospecto?.ticker_o || `${bond.symbol.slice(0, -1)}O`
-        const arsQuote = arsQuotes.get(tickerArs)?.c ?? null
-
-        // Cache logic: only re-calculate metrics if price or prospecto changed
-        const cacheKey = `${bond.symbol}-${bond.c}`
-        let metrics = metricsCache.current.get(cacheKey)
-
-        if (!metrics && bond.c > 0 && prospecto) {
-          metrics = analyzeBond(bond.c, prospecto, settlementDate)
-          metricsCache.current.set(cacheKey, metrics)
-        }
-
-        const nextFlow = metrics?.futureFlows?.[0] || null
-
-        if (prospecto && !metrics) missingCashflows += 1
-        if (!prospecto?.rating) missingRating += 1
-        if (!arsQuote) missingTickerArs += 1
-
-        const nominalesPerBase = bond.c > 0 ? (validCapitalBase / bond.c) * 100 : null
-        const impliedUsdFromPesos = arsQuote && dolarMEP?.value ? arsQuote / dolarMEP.value : null
-        const nextCouponBase = nextFlow && nominalesPerBase ? (nextFlow.intAmt * nominalesPerBase) / 100 : null
-        const nextAmortBase = nextFlow && nominalesPerBase ? (nextFlow.amortAmt * nominalesPerBase) / 100 : null
-        const nextTotalBase = nextFlow && nominalesPerBase ? (nextFlow.totalAmt * nominalesPerBase) / 100 : null
-        const daysToCoupon = nextFlow ? daysBetween(today, new Date(`${nextFlow.rawDate}T00:00:00`)) : null
-        const daysToMaturity = prospecto?.maturity_date
-          ? daysBetween(settlementDate, new Date(`${prospecto.maturity_date}T00:00:00`))
-          : null
-        const residualValue = metrics?.futureFlows?.reduce((sum, flow) => sum + flow.amortAmt, 0) ?? null
-
-        return {
-          symbol: bond.symbol,
-          tickerArs,
-          name: prospecto?.name || bond.symbol,
-          law: prospecto?.law || null,
-          couponRate: prospecto?.coupon_rate ?? null,
-          frequency: prospecto?.frequency ?? null,
-          maturityDate: prospecto?.maturity_date ?? null,
-          daysToMaturity,
-          nextCouponDate: nextFlow?.date ?? null,
-          daysToCoupon,
-          priceUsd: bond.c ?? null,
-          priceArs: arsQuote,
-          impliedUsdFromPesos,
-          ytm: metrics?.ytm ?? null,
-          paridad: metrics?.paridad ?? null,
-          currentYield: metrics?.currentYield ?? null,
-          residualValue,
-          amortType: prospecto?.amort_type ?? null,
-          nominalesPerBase,
-          nextCouponBase,
-          nextAmortBase,
-          nextTotalBase,
-          duration: metrics?.duration ?? null,
-          volumeNominales: bond.v ?? null,
-          operations: bond.q_op ?? null,
-          minInvestment: prospecto?.min_investment ?? 1,
-          currencyType: prospecto?.currency_type ?? null,
-          rating: prospecto?.rating ?? null,
-        }
-      })
-
-    const rowsWithYtm = rows.filter((row) => row.ytm != null)
-    const averageYtm = rowsWithYtm.length
-      ? rowsWithYtm.reduce((sum, row) => sum + row.ytm, 0) / rowsWithYtm.length
-      : null
-
+  const rows = useMemo(() => marketModel.rows.map((row) => {
+    const nextFlow = row.metrics?.futureFlows?.[0]
+    const nominalesPerBase = row.priceUsd > 0 ? (investmentBase / row.priceUsd) * 100 : null
     return {
-      rows,
-      summary: {
-        total: rows.length,
-        averageYtm,
-        lowParityCount: rows.filter((row) => row.paridad != null && row.paridad < 100).length,
-        paymentSoonCount: rows.filter((row) => row.daysToCoupon != null && row.daysToCoupon <= 45).length,
-        bestYtmRows: topRowsBy(rows, (row) => row.ytm, 'max'),
-        lowestParityRows: topRowsBy(rows, (row) => row.paridad, 'min'),
-        mostActiveRows: topRowsBy(rows, (row) => row.operations ?? row.volumeNominales, 'max'),
-        coverageScore: rows.length
-          ? Math.round(((rows.length * 4 - missingProspecto - missingCashflows - missingRating - missingTickerArs) / (rows.length * 4)) * 100)
-          : 0,
-      },
-      coverage: {
-        missingProspecto,
-        missingCashflows,
-        missingTickerArs,
-        missingRating,
-      },
+      ...row,
+      nominalesPerBase,
+      impliedUsdFromPesos: row.priceArs && dolarMEP?.value ? row.priceArs / dolarMEP.value : null,
+      nextCouponBase: nextFlow && nominalesPerBase ? (nextFlow.intAmt * nominalesPerBase) / 100 : null,
+      nextAmortBase: nextFlow && nominalesPerBase ? (nextFlow.amortAmt * nominalesPerBase) / 100 : null,
+      nextTotalBase: nextFlow && nominalesPerBase ? (nextFlow.totalAmt * nominalesPerBase) / 100 : null,
     }
-  }, [bonds, dolarMEP?.value, investmentAmount])
+  }), [marketModel.rows, dolarMEP?.value, investmentBase])
+
+  const rankings = useMemo(() => ({
+    bestYtmRows: topRowsBy(marketModel.rows, (row) => row.ytm, 'max'),
+    lowestParityRows: topRowsBy(marketModel.rows, (row) => row.paridad, 'min'),
+    mostActiveRows: topRowsBy(marketModel.rows, (row) => row.operations ?? row.volumeNominales, 'max'),
+  }), [marketModel.rows])
+
+  const selectedBond = marketModel.rows.find((row) => row.symbol === selectedTicker)
 
   const filteredRows = useMemo(() => {
     const query = filter.trim().toLowerCase()
-    let rows = [...model.rows]
+    let filtered = rows
 
     if (query) {
-      rows = rows.filter((row) =>
+      filtered = filtered.filter((row) =>
         row.symbol.toLowerCase().includes(query) ||
         row.tickerArs.toLowerCase().includes(query) ||
         row.name.toLowerCase().includes(query)
@@ -410,31 +302,18 @@ export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
     }
 
     if (focus === 'coupon-soon') {
-      rows = rows.filter((row) => row.daysToCoupon != null && row.daysToCoupon <= 90)
+      filtered = filtered.filter((row) => row.daysToCoupon != null && row.daysToCoupon <= 90)
     }
     if (focus === 'discount') {
-      rows = rows.filter((row) => row.paridad != null && row.paridad < 100)
+      filtered = filtered.filter((row) => row.paridad != null && row.paridad < 100)
     }
     if (focus === 'income') {
-      rows = rows.filter((row) => row.nextTotalBase != null && row.nextTotalBase > 0)
+      filtered = filtered.filter((row) => row.nextTotalBase != null && row.nextTotalBase > 0)
     }
 
-    rows.sort((a, b) => {
-      let va = a[sortKey]
-      let vb = b[sortKey]
+    return [...filtered].sort((a, b) => compareBondValues(a[sortKey], b[sortKey], sortDir))
 
-      if (va == null) va = sortDir === 'asc' ? Number.POSITIVE_INFINITY : Number.NEGATIVE_INFINITY
-      if (vb == null) vb = sortDir === 'asc' ? Number.POSITIVE_INFINITY : Number.NEGATIVE_INFINITY
-
-      if (typeof va === 'string') {
-        return sortDir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va)
-      }
-
-      return sortDir === 'asc' ? va - vb : vb - va
-    })
-
-    return rows
-  }, [filter, focus, model.rows, sortDir, sortKey])
+  }, [filter, focus, rows, sortDir, sortKey])
 
   function handleSort(key) {
     if (sortKey === key) {
@@ -446,14 +325,13 @@ export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
     setSortDir(['ytm', 'paridad', 'nextTotalBase', 'operations', 'volumeNominales'].includes(key) ? 'desc' : 'asc')
   }
 
-  if (!model.rows.length) return null
+  if (!rows.length) return null
 
-  const investmentBase = Number(investmentAmount) || 1000
   const coverageNotes = [
-    model.coverage.missingProspecto ? `${model.coverage.missingProspecto} sin prospecto` : null,
-    model.coverage.missingCashflows ? `${model.coverage.missingCashflows} sin cashflows` : null,
-    model.coverage.missingTickerArs ? `${model.coverage.missingTickerArs} sin ticker ARS` : null,
-    model.coverage.missingRating ? `${model.coverage.missingRating} sin calificacion` : null,
+    marketModel.coverage.missingProspecto ? `${marketModel.coverage.missingProspecto} sin prospecto` : null,
+    marketModel.coverage.missingCashflows ? `${marketModel.coverage.missingCashflows} sin cashflows` : null,
+    marketModel.coverage.missingTickerArs ? `${marketModel.coverage.missingTickerArs} sin ticker ARS` : null,
+    marketModel.coverage.missingRating ? `${marketModel.coverage.missingRating} sin calificacion` : null,
   ].filter(Boolean)
 
   const stickyTickerStart = NAME_COL_WIDTH
@@ -465,21 +343,21 @@ export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
         <RankingCard
           title="Mejor TIR"
           description="Top instrumentos por TIR efectiva anual."
-          rows={model.summary.bestYtmRows}
+          rows={rankings.bestYtmRows}
           renderValue={(row) => formatPctSimple(row.ytm)}
           emptyLabel="No hay TIR disponible para armar el ranking."
         />
         <RankingCard
           title="Menor paridad"
           description="Top instrumentos por menor paridad actual."
-          rows={model.summary.lowestParityRows}
+          rows={rankings.lowestParityRows}
           renderValue={(row) => formatPctSimple(row.paridad)}
           emptyLabel="No hay paridades disponibles para armar el ranking."
         />
         <RankingCard
           title="Mas operadas"
           description="Top instrumentos por cantidad de operaciones, con VN como referencia."
-          rows={model.summary.mostActiveRows}
+          rows={rankings.mostActiveRows}
           renderValue={(row) => `${formatNumber(row.operations)} ops`}
           emptyLabel="No hay datos de operaciones disponibles."
         />
@@ -541,7 +419,7 @@ export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
             <div className="relative w-full lg:max-w-sm">
               <Search size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-terminal-muted/60" />
               <Input
-                value={filter}
+                value={searchValue}
                 onChange={(event) => onFilterChange?.(event.target.value)}
                 placeholder="Buscar ticker o emisora..."
                 className="h-8 rounded-lg border-terminal-border bg-terminal-surface/40 pl-9 text-sm text-terminal-text placeholder:text-terminal-muted/50"
@@ -652,7 +530,7 @@ export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
                   NAME_COL_WIDTH={NAME_COL_WIDTH}
                   USD_TICKER_COL_WIDTH={USD_TICKER_COL_WIDTH}
                   ARS_TICKER_COL_WIDTH={ARS_TICKER_COL_WIDTH}
-                  onSelect={setSelectedBond}
+                  onSelect={selectBond}
                   isMobile={isMobile}
                 />
               ))
@@ -670,7 +548,7 @@ export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
         </Table>
       </section>
 
-      <Sheet open={!!selectedBond} onOpenChange={(open) => !open && setSelectedBond(null)}>
+      <Sheet open={!!selectedBond} onOpenChange={(open) => !open && setSelectedTicker(null)}>
         <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto border-terminal-border bg-terminal-panel p-0">
           <SheetHeader className="sticky top-0 z-10 border-b border-terminal-border bg-terminal-panel px-6 py-4">
             <SheetTitle className="font-mono text-xl font-bold text-terminal-text">
@@ -682,11 +560,14 @@ export default function Home({ bonds, dolarMEP, filter = '', onFilterChange }) {
           </SheetHeader>
           <div className="p-6">
             {selectedBond && (
-              <BondDetailPanel
-                bond={{ c: selectedBond.priceUsd }}
-                prospecto={bondProspectos[selectedBond.symbol]}
-                dolarMEP={dolarMEP}
-              />
+              <Suspense fallback={<div className="py-8 text-center text-sm text-terminal-muted">Cargando detalle...</div>}>
+                <BondDetailPanel
+                  bond={selectedBond.quote}
+                  prospecto={selectedBond.prospecto}
+                  metrics={selectedBond.metrics}
+                  dolarMEP={dolarMEP}
+                />
+              </Suspense>
             )}
           </div>
         </SheetContent>

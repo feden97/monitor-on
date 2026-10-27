@@ -1,9 +1,9 @@
-import { Fragment, useMemo, useState } from 'react'
+import { Fragment, lazy, Suspense, useMemo, useState } from 'react'
 import { ArrowUpDown, ChevronDown, ChevronRight, Search } from 'lucide-react'
-import BondDetailPanel from './BondDetailPanel'
-import { daysBetween, getNextBusinessDay } from '../utils/bondEngine'
+import { compareBondValues } from '../utils/bondModel.js'
 import { formatPct, formatTime } from '../utils/formatters'
-import bondProspectos from '../data/bondProspectos.json'
+
+const BondDetailPanel = lazy(() => import('./BondDetailPanel'))
 
 function EmptyState({ message }) {
   return (
@@ -13,84 +13,29 @@ function EmptyState({ message }) {
   )
 }
 
-export default function AnalysisTab({ bonds, loading, error, dolarMEP, lastUpdated, filter = '', onFilterChange }) {
+export default function AnalysisTab({ marketModel, loading, error, dolarMEP, lastUpdated, filter = '', searchValue = filter, onFilterChange }) {
   const [expandedTicker, setExpandedTicker] = useState(null)
   const [sortKey, setSortKey] = useState('symbol')
   const [sortDir, setSortDir] = useState('asc')
 
-  const dTickers = useMemo(
-    () => bonds.filter((row) => row.symbol && row.symbol.endsWith('D')),
-    [bonds]
-  )
-
-  const globalSettlementDate = useMemo(() => {
-    const today = new Date()
-    const tomorrow = new Date(today)
-    tomorrow.setDate(today.getDate() + 1)
-    return getNextBusinessDay(tomorrow.toISOString().split('T')[0])
-  }, [])
-
+  const dTickers = marketModel.rows
   const filteredData = useMemo(() => {
-    let filtered = [...dTickers]
+    const query = filter.trim().toLowerCase()
+    const filtered = query ? dTickers.filter((row) =>
+      row.symbol.toLowerCase().includes(query) ||
+      row.tickerArs.toLowerCase().includes(query) ||
+      row.name.toLowerCase().includes(query)
+    ) : dTickers
 
-    if (filter) {
-      const query = filter.toLowerCase()
-      filtered = filtered.filter((row) => {
-        const prospecto = bondProspectos[row.symbol]
-        const name = prospecto?.name?.toLowerCase() || ''
-        return row.symbol.toLowerCase().includes(query) || name.includes(query)
-      })
-    }
-
-    filtered.sort((a, b) => {
-      const prosA = bondProspectos[a.symbol]
-      const prosB = bondProspectos[b.symbol]
-      let va
-      let vb
-
-      switch (sortKey) {
-        case 'symbol':
-          va = a.symbol
-          vb = b.symbol
-          break
-        case 'emisor':
-          va = prosA?.name || ''
-          vb = prosB?.name || ''
-          break
-        case 'precio':
-          va = a.c || 0
-          vb = b.c || 0
-          break
-        case 'pct_change':
-          va = a.pct_change || 0
-          vb = b.pct_change || 0
-          break
-        case 'dias':
-          va = prosA?.maturity_date ? daysBetween(globalSettlementDate, new Date(`${prosA.maturity_date}T00:00:00`)) : Number.POSITIVE_INFINITY
-          vb = prosB?.maturity_date ? daysBetween(globalSettlementDate, new Date(`${prosB.maturity_date}T00:00:00`)) : Number.POSITIVE_INFINITY
-          break
-        case 'ley':
-          va = prosA?.law || ''
-          vb = prosB?.law || ''
-          break
-        case 'calif':
-          va = prosA?.rating || ''
-          vb = prosB?.rating || ''
-          break
-        default:
-          va = a[sortKey] || 0
-          vb = b[sortKey] || 0
-      }
-
-      if (typeof va === 'string') {
-        return sortDir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va)
-      }
-
-      return sortDir === 'asc' ? va - vb : vb - va
-    })
-
-    return filtered
-  }, [dTickers, filter, globalSettlementDate, sortDir, sortKey])
+    const field = {
+      emisor: 'name', precio: 'priceUsd', dias: 'daysToMaturity', ley: 'law', calif: 'rating',
+    }[sortKey] || sortKey
+    return [...filtered].sort((a, b) => compareBondValues(
+      field === 'pct_change' ? a.quote.pct_change : a[field],
+      field === 'pct_change' ? b.quote.pct_change : b[field],
+      sortDir
+    ))
+  }, [dTickers, filter, sortDir, sortKey])
 
   function toggleExpand(ticker) {
     setExpandedTicker((prev) => (prev === ticker ? null : ticker))
@@ -106,7 +51,7 @@ export default function AnalysisTab({ bonds, loading, error, dolarMEP, lastUpdat
     setSortDir(key === 'pct_change' || key === 'precio' ? 'desc' : 'asc')
   }
 
-  if (loading && !bonds.length) {
+  if (loading && !dTickers.length) {
     return (
       <div className="space-y-2">
         {Array.from({ length: 12 }).map((_, index) => (
@@ -116,7 +61,7 @@ export default function AnalysisTab({ bonds, loading, error, dolarMEP, lastUpdat
     )
   }
 
-  if (error && !bonds.length) {
+  if (error && !dTickers.length) {
     return <EmptyState message="No se pudieron cargar bonos para el panel de analisis." />
   }
 
@@ -141,7 +86,7 @@ export default function AnalysisTab({ bonds, loading, error, dolarMEP, lastUpdat
           <input
             type="text"
             placeholder="Buscar ticker o emisora..."
-            value={filter}
+            value={searchValue}
             onChange={(event) => onFilterChange?.(event.target.value)}
             className="w-full rounded-lg border border-terminal-border bg-terminal-panel py-2 pl-10 pr-4 text-sm font-mono text-terminal-text focus:outline-none focus:ring-1 focus:ring-terminal-accent"
             aria-label="Buscar ticker o emisora"
@@ -192,10 +137,8 @@ export default function AnalysisTab({ bonds, loading, error, dolarMEP, lastUpdat
           </thead>
           <tbody className="divide-y divide-terminal-border/40">
             {filteredData.length ? filteredData.map((row) => {
-              const prospecto = bondProspectos[row.symbol]
-              const dias = prospecto?.maturity_date
-                ? daysBetween(globalSettlementDate, new Date(`${prospecto.maturity_date}T00:00:00`))
-                : null
+              const prospecto = row.prospecto
+              const dias = row.daysToMaturity
               const isExpanded = expandedTicker === row.symbol
 
               return (
@@ -230,12 +173,12 @@ export default function AnalysisTab({ bonds, loading, error, dolarMEP, lastUpdat
                       ) : '—'}
                     </td>
                     <td className="px-4 py-3 text-right font-mono font-bold tabular-nums">
-                      {row.c != null ? row.c.toFixed(2) : '—'}
+                      {row.quote.c != null ? row.quote.c.toFixed(2) : '—'}
                     </td>
                     <td className="px-4 py-3 text-right">
-                      {row.pct_change != null ? (
-                        <span className={`rounded-md px-2 py-0.5 text-[11px] font-bold font-mono ${row.pct_change > 0 ? 'bg-up/10 text-up' : row.pct_change < 0 ? 'bg-down/10 text-down' : 'bg-terminal-surface text-terminal-muted'}`}>
-                          {formatPct(row.pct_change)}
+                      {row.quote.pct_change != null ? (
+                        <span className={`rounded-md px-2 py-0.5 text-[11px] font-bold font-mono ${row.quote.pct_change > 0 ? 'bg-up/10 text-up' : row.quote.pct_change < 0 ? 'bg-down/10 text-down' : 'bg-terminal-surface text-terminal-muted'}`}>
+                          {formatPct(row.quote.pct_change)}
                         </span>
                       ) : '—'}
                     </td>
@@ -256,7 +199,9 @@ export default function AnalysisTab({ bonds, loading, error, dolarMEP, lastUpdat
                   {isExpanded && (
                     <tr>
                       <td colSpan={columns.length} className="bg-terminal-bg/50 p-0">
-                        <BondDetailPanel bond={row} prospecto={prospecto} dolarMEP={dolarMEP} />
+                        <Suspense fallback={<div className="p-6 text-center text-sm text-terminal-muted">Cargando detalle...</div>}>
+                          <BondDetailPanel bond={row.quote} prospecto={prospecto} metrics={row.metrics} dolarMEP={dolarMEP} />
+                        </Suspense>
                       </td>
                     </tr>
                   )}

@@ -1,14 +1,14 @@
-import { useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { Activity, Bell, LineChart, Menu, Moon, RefreshCw, Search, Sun, X } from 'lucide-react'
 import Home from './components/Home'
 import ErrorBanner from './components/ErrorBanner'
-import AnalysisTab from './components/AnalysisTab'
 import { useBondsData } from './hooks/useBondsData'
 import { useDolarMEP } from './hooks/useDolarMEP'
 import { useRiesgoPais } from './hooks/useRiesgoPais'
-import { analyzeBond, getNextBusinessDay } from './utils/bondEngine'
+import { useBondMarketModel } from './hooks/useBondMarketModel'
 import { formatTime } from './utils/formatters'
-import bondProspectos from './data/bondProspectos.json'
+
+const AnalysisTab = lazy(() => import('./components/AnalysisTab'))
 
 function applyThemeWithoutMotion(isDark) {
   const style = document.createElement('style')
@@ -141,55 +141,8 @@ export default function App() {
 
   const hasData = data.length > 0
 
-  const coverageSummary = useMemo(() => {
-    const dBonds = data.filter((row) => row.symbol?.endsWith('D'))
-    if (!dBonds.length) return null
-
-    const tomorrow = new Date()
-    tomorrow.setDate(tomorrow.getDate() + 1)
-    const settlementDate = getNextBusinessDay(tomorrow.toISOString().split('T')[0])
-    const arsQuotes = new Map(
-      data
-        .filter((row) => row.symbol?.endsWith('O'))
-        .map((row) => [row.symbol, row])
-    )
-
-    let missingProspecto = 0
-    let missingCashflows = 0
-    let missingRating = 0
-    let missingTickerArs = 0
-
-    dBonds.forEach((bond) => {
-      const prospecto = bondProspectos[bond.symbol]
-      if (!prospecto) missingProspecto += 1
-
-      const tickerArs = prospecto?.ticker_o || `${bond.symbol.slice(0, -1)}O`
-      const arsQuote = arsQuotes.get(tickerArs)?.c ?? null
-      const metrics =
-        bond.c > 0 && prospecto ? analyzeBond(bond.c, prospecto, settlementDate) : null
-
-      if (prospecto && !metrics) missingCashflows += 1
-      if (!prospecto?.rating) missingRating += 1
-      if (!arsQuote) missingTickerArs += 1
-    })
-
-    const totalChecks = dBonds.length * 4
-    const missingChecks = missingProspecto + missingCashflows + missingRating + missingTickerArs
-    const score = totalChecks
-      ? Math.round(((totalChecks - missingChecks) / totalChecks) * 100)
-      : 0
-
-    return {
-      score,
-      totalRows: dBonds.length,
-      totalChecks,
-      availableChecks: totalChecks - missingChecks,
-      missingProspecto,
-      missingCashflows,
-      missingRating,
-      missingTickerArs,
-    }
-  }, [data])
+  const marketModel = useBondMarketModel(data)
+  const coverageSummary = marketModel.coverageSummary
 
   async function handleRefresh() {
     setIsRefreshing(true)
@@ -278,7 +231,7 @@ export default function App() {
             <div className="metric-chip border-l border-terminal-border/50 pl-4 pr-4">
               <span className="metric-chip__label">Riesgo País</span>
               <span className="metric-chip__value text-down">
-                {riesgoPais?.value ? `${riesgoPais.value} bps` : '--'}
+                {riesgoPais?.value != null ? `${riesgoPais.value} bps` : '--'}
               </span>
             </div>
             <div className="metric-chip border-l border-terminal-border/50 pl-4 pr-4">
@@ -326,23 +279,27 @@ export default function App() {
 
             {activeTab === 'home' && hasData && (
               <Home
-                bonds={data}
+                marketModel={marketModel}
                 dolarMEP={mep}
                 filter={debouncedSearchQuery}
+                searchValue={searchQuery}
                 onFilterChange={setSearchQuery}
               />
             )}
 
             {activeTab === 'analysis' && (
-              <AnalysisTab
-                bonds={data}
-                loading={loading}
-                error={error}
-                dolarMEP={mep}
-                lastUpdated={lastUpdated}
-                filter={debouncedSearchQuery}
-                onFilterChange={setSearchQuery}
-              />
+              <Suspense fallback={<div className="py-12 text-center text-sm text-terminal-muted">Cargando análisis...</div>}>
+                <AnalysisTab
+                  marketModel={marketModel}
+                  loading={loading}
+                  error={error}
+                  dolarMEP={mep}
+                  lastUpdated={lastUpdated}
+                  filter={debouncedSearchQuery}
+                  searchValue={searchQuery}
+                  onFilterChange={setSearchQuery}
+                />
+              </Suspense>
             )}
           </div>
         </main>

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { createResourceFetcher } from '../lib/resourceFetcher.js'
 
 export function usePollingResource({
   url,
@@ -14,104 +15,62 @@ export function usePollingResource({
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [lastUpdated, setLastUpdated] = useState(null)
-  const mountedRef = useRef(false)
   const latestDataRef = useRef(initialData)
-
-  // Use refs for callbacks to avoid re-triggering fetchResource on every render
+  const resourceRef = useRef(null)
   const callbacksRef = useRef({ transformData, validateData, getErrorMessage, areEqual })
-  callbacksRef.current = { transformData, validateData, getErrorMessage, areEqual }
 
-  const fetchResource = useCallback(async (isInitial = false) => {
-    const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
+  useEffect(() => {
+    callbacksRef.current = { transformData, validateData, getErrorMessage, areEqual }
+  })
 
-    if (isInitial) {
-      setLoading(true)
-    }
-
-    try {
-      const response = await fetch(url, {
-        signal: controller.signal,
-        headers: { Accept: 'application/json' },
-      })
-
-      if (!response.ok) {
-        throw new Error(`Error HTTP ${response.status}: ${response.statusText}`)
-      }
-
-      const json = await response.json()
-
-      const {
-        validateData: validate,
-        transformData: transform,
-        areEqual: compare,
-      } = callbacksRef.current
-
-      if (validate && !validate(json)) {
-        throw new Error('Formato de respuesta inesperado.')
-      }
-
-      const nextData = transform ? transform(json) : json
-
-      if (mountedRef.current) {
-        setError(null)
-
-        const hasChanged = !compare || !compare(latestDataRef.current, nextData)
-
-        if (hasChanged) {
+  // A separate resource per effect prevents an old response updating a new URL
+  // or a StrictMode remount, even if the upstream ignores cancellation.
+  useEffect(() => {
+    setLoading(true)
+    const resource = createResourceFetcher({
+      url,
+      timeoutMs,
+      getCallbacks: () => callbacksRef.current,
+      onSuccess(nextData) {
+        const compare = callbacksRef.current.areEqual
+        if (!compare || !compare(latestDataRef.current, nextData)) {
           latestDataRef.current = nextData
           setData(nextData)
-          setLastUpdated(new Date())
         }
-      }
-
-      return nextData
-    } catch (err) {
-      const { getErrorMessage: getErrorMsg } = callbacksRef.current
-      const nextError = getErrorMsg
-        ? getErrorMsg(err)
-        : (err?.message || 'Error desconocido al obtener datos.')
-
-      if (mountedRef.current) {
-        setError(nextError)
-      }
-
-      throw err
-    } finally {
-      clearTimeout(timeoutId)
-
-      if (mountedRef.current) {
-        setLoading(false)
-      }
-    }
-  }, [url, timeoutMs]) // Stripped callbacks from dependencies
-
-  useEffect(() => {
-    mountedRef.current = true
-    fetchResource(true).catch(() => {})
+        setError(null)
+        setLastUpdated(new Date())
+      },
+      onError(err) {
+        const getMessage = callbacksRef.current.getErrorMessage
+        setError(getMessage ? getMessage(err) : err?.message || 'Error desconocido al obtener datos.')
+      },
+      onSettled: () => setLoading(false),
+    })
+    resourceRef.current = resource
+    resource.refresh().catch(() => {})
 
     return () => {
-      mountedRef.current = false
+      resource.dispose()
+      if (resourceRef.current === resource) resourceRef.current = null
     }
-  }, [fetchResource])
+  }, [url, timeoutMs])
+
+  const refresh = useCallback(() => resourceRef.current?.refresh() ?? Promise.resolve(null), [])
 
   useEffect(() => {
-    if (!intervalMs) {
-      return undefined
+    if (!(intervalMs > 0)) return undefined
+
+    function refreshWhenVisible() {
+      if (document.visibilityState !== 'hidden') refresh().catch(() => {})
     }
 
-    const id = setInterval(() => {
-      fetchResource(false).catch(() => {})
-    }, intervalMs)
+    const id = setInterval(refreshWhenVisible, intervalMs)
+    document.addEventListener('visibilitychange', refreshWhenVisible)
+    return () => {
+      clearInterval(id)
+      document.removeEventListener('visibilitychange', refreshWhenVisible)
+    }
+  }, [refresh, intervalMs])
 
-    return () => clearInterval(id)
-  }, [fetchResource, intervalMs])
-
-  return {
-    data,
-    loading,
-    error,
-    lastUpdated,
-    refresh: () => fetchResource(false),
-  }
+  return { data, loading, error, lastUpdated, refresh }
 }

@@ -1,5 +1,3 @@
-import { useMemo } from 'react'
-import { analyzeBond, getNextBusinessDay } from '../utils/bondEngine'
 import { formatDate, formatPctSimple } from '../utils/formatters'
 
 function DataRow({ label, value, subValue, highlight = false }) {
@@ -8,7 +6,7 @@ function DataRow({ label, value, subValue, highlight = false }) {
       <span className="text-xs text-terminal-muted">{label}</span>
       <div className="text-right">
         <div className={`text-sm font-mono font-semibold ${highlight ? 'text-terminal-accent' : 'text-terminal-text'}`}>
-          {value || '—'}
+          {value ?? '—'}
         </div>
         {subValue && <div className="text-[10px] font-mono text-terminal-muted/60">{subValue}</div>}
       </div>
@@ -16,21 +14,7 @@ function DataRow({ label, value, subValue, highlight = false }) {
   )
 }
 
-export default function BondDetailPanel({ bond, prospecto, dolarMEP }) {
-  const metrics = useMemo(() => {
-    if (!bond.c) return null
-
-    const today = new Date()
-    const tomorrow = new Date(today)
-    tomorrow.setDate(today.getDate() + 1)
-    const settlementDate = getNextBusinessDay(tomorrow.toISOString().split('T')[0])
-
-    const rawFlows = prospecto?.cashflows || prospecto?.cash_flows || []
-    if (!rawFlows.length) return null
-
-    return analyzeBond(bond.c, prospecto, settlementDate)
-  }, [bond.c, prospecto])
-
+export default function BondDetailPanel({ bond, prospecto, dolarMEP, metrics }) {
   const interestRate = prospecto?.coupon_rate
   const amortType = prospecto?.amort_type
   const nextFlow = metrics?.futureFlows?.[0]
@@ -73,13 +57,13 @@ export default function BondDetailPanel({ bond, prospecto, dolarMEP }) {
         </h4>
         <div className="rounded-lg border border-terminal-border bg-terminal-surface/30 p-4">
           <DataRow label="Precio dirty (USD)" value={bond.c ? `$${bond.c.toFixed(2)}` : '—'} highlight />
-          <DataRow label="Precio clean (USD)" value={metrics ? `$${metrics.cleanPrice.toFixed(2)}` : '—'} />
+          <DataRow label="Precio clean (USD)" value={metrics?.cleanPrice != null ? `$${metrics.cleanPrice.toFixed(2)}` : '—'} />
           <DataRow label="TIR efectiva" value={metrics?.ytm != null ? formatPctSimple(metrics.ytm) : '—'} highlight />
           <DataRow label="Current yield" value={metrics ? formatPctSimple(metrics.currentYield) : '—'} />
           <DataRow label="Paridad" value={metrics ? formatPctSimple(metrics.paridad) : '—'} />
-          <DataRow label="Duration" value={metrics?.duration ? metrics.duration.toFixed(2) : '—'} subValue="años" />
-          <DataRow label="Mod. duration" value={metrics?.modDuration ? metrics.modDuration.toFixed(2) : '—'} />
-          <DataRow label="Cupón corrido" value={metrics ? `$${metrics.accrued.toFixed(4)}` : '—'} />
+          <DataRow label="Duration" value={metrics?.duration != null ? metrics.duration.toFixed(2) : '—'} subValue="años" />
+          <DataRow label="Mod. duration" value={metrics?.modDuration != null ? metrics.modDuration.toFixed(2) : '—'} />
+          <DataRow label="Cupón corrido" value={metrics?.accrued != null ? `$${metrics.accrued.toFixed(4)}` : '—'} />
           {dolarMEP?.value && bond.c && (
             <DataRow
               label="Equiv. en pesos"

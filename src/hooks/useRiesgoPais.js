@@ -1,21 +1,11 @@
 import { usePollingResource } from './usePollingResource'
+import { transformRpData } from '../utils/marketData.js'
 
 const RP_API_URL = '/argdata/v1/finanzas/indices/riesgo-pais/ultimo'
 const REFRESH_INTERVAL = 300_000
 
 const areRpStatesEqual = (previous, next) =>
   previous?.value === next?.value && previous?.timestamp === next?.timestamp
-
-const transformRpData = (data) => {
-  if (!data?.valor) {
-    return null
-  }
-
-  return {
-    value: data.valor,
-    timestamp: data.fecha,
-  }
-}
 
 const getRpErrorMessage = (err) => err?.message || 'No se pudo obtener el riesgo país.'
 
