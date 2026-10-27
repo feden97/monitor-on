@@ -40,6 +40,8 @@ Las cotizaciones se consultan cada 10 segundos; MEP cada 60 segundos y riesgo pa
 
 Los proxies de producción cachean GET públicos durante 10, 30 y 300 segundos respectivamente. Los POST evitan la caché. No se reenvían cookies ni credenciales del sitio a los proveedores. Los fallos de caché permiten seguir consultando el origen.
 
+En Vercel, `vercel.json` configura la compilación y los rewrites externos de `/api/`, `/cripto/` y `/argdata/`. Vercel no ejecuta las funciones de Cloudflare en `functions/` ni aplica `public/_redirects`; los límites de tiempo y caché del helper descritos arriba corresponden a Cloudflare. Los rewrites de Vercel usan el comportamiento de proxy de esa plataforma y las cabeceras del proveedor.
+
 Para desplegar en Cloudflare Pages se necesitan `dist/`, las funciones de `functions/` y su helper de `server/`. `vite preview` sirve el resultado estático; no ejecuta las funciones de Cloudflare ni los proxies de desarrollo.
 
 ## Alcance de los cálculos
