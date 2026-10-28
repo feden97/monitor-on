@@ -1,0 +1,411 @@
+{
+  "format": "monitor-on-calculation/v1",
+  "engineVersion": "fixed-income-2.1.0",
+  "id": null,
+  "identifierAlgorithm": null,
+  "instrumentId": "ypf-international-xxxiv-2025-01-17",
+  "symbol": "YM34D",
+  "contractVersion": "1.1.0",
+  "documentaryEvidence": [
+    {
+      "id": "ypf-xxxiv-results-2025-01-08",
+      "url": "https://inversores.ypf.com/documents/emisiones/internacionales/YPF-Aviso-de-Resultados-ON-Clase-XXXIV.pdf",
+      "sha256": "623158038c028f8eb9c4392e7bd608ba8f621d75e3fccdd5f4bf5cb1f1ec700f"
+    },
+    {
+      "id": "ypf-xxxiv-subscription-2025-01-02",
+      "url": "https://inversores.ypf.com/documents/emisiones/internacionales/YPF-Aviso-de-Suscripcion-ON-XXXIV-Internacional.pdf",
+      "sha256": "b9ab05c2ae2ce59c56c984fb5ad074142c15e9a2fd02bbcd2fe6b1c2e0f04471"
+    },
+    {
+      "id": "ypf-xxxiv-supplement-2025-01-02",
+      "url": "https://inversores.ypf.com/documents/emisiones/internacionales/YPF-Suplemento-ON-XXXIV-Internacional.pdf",
+      "sha256": "6eaa2ed3fc139ab05713b8ca164fe2b6e6041300201ab81b051dd609be215cce"
+    }
+  ],
+  "scenario": "hold-to-maturity",
+  "scenarioKind": "manual-contractual-unadjusted",
+  "settlementDate": "2026-10-28",
+  "dayCount": "ACT/365F",
+  "accrualDayCount": "30E/360",
+  "dayCountVersion": "day-count-1.0.0",
+  "yieldBasis": "effective-annual",
+  "nominalFrequency": 2,
+  "price": {
+    "value": 102.31458333333333,
+    "currency": "USD",
+    "type": "dirty",
+    "nominalBasis": "original",
+    "source": "manual-scenario",
+    "marketTimestamp": null,
+    "receivedAt": null
+  },
+  "userInputs": {
+    "price": 100,
+    "settlementDate": "2026-10-28",
+    "priceType": "clean",
+    "nominalBasis": "original",
+    "accrualDayCount": "30E/360",
+    "discountDayCount": "ACT/365F"
+  },
+  "rawCashflows": [
+    {
+      "date": "2025-07-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2026-01-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2026-07-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2027-01-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2027-07-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2028-01-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2028-07-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2029-01-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2029-07-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2030-01-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2030-07-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2031-01-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2031-07-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2032-01-17",
+      "amortization_pct": 30,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2032-07-17",
+      "amortization_pct": 0,
+      "interest_pct": 2.8875
+    },
+    {
+      "date": "2033-01-17",
+      "amortization_pct": 30,
+      "interest_pct": 2.8875
+    },
+    {
+      "date": "2033-07-17",
+      "amortization_pct": 0,
+      "interest_pct": 1.6500000000000001
+    },
+    {
+      "date": "2034-01-17",
+      "amortization_pct": 40,
+      "interest_pct": 1.6500000000000001
+    }
+  ],
+  "cashflows": [
+    {
+      "date": "2027-01-17",
+      "adjustedDate": null,
+      "referenceCalendarStatus": "out-of-coverage",
+      "yearFraction": 0.2219178082191781,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2027-07-17",
+      "adjustedDate": null,
+      "referenceCalendarStatus": "out-of-coverage",
+      "yearFraction": 0.7178082191780822,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2028-01-17",
+      "adjustedDate": null,
+      "referenceCalendarStatus": "out-of-coverage",
+      "yearFraction": 1.2219178082191782,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2028-07-17",
+      "adjustedDate": null,
+      "referenceCalendarStatus": "out-of-coverage",
+      "yearFraction": 1.7205479452054795,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2029-01-17",
+      "adjustedDate": null,
+      "referenceCalendarStatus": "out-of-coverage",
+      "yearFraction": 2.2246575342465755,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2029-07-17",
+      "adjustedDate": null,
+      "referenceCalendarStatus": "out-of-coverage",
+      "yearFraction": 2.7205479452054795,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2030-01-17",
+      "adjustedDate": null,
+      "referenceCalendarStatus": "out-of-coverage",
+      "yearFraction": 3.2246575342465755,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2030-07-17",
+      "adjustedDate": null,
+      "referenceCalendarStatus": "out-of-coverage",
+      "yearFraction": 3.7205479452054795,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2031-01-17",
+      "adjustedDate": null,
+      "referenceCalendarStatus": "out-of-coverage",
+      "yearFraction": 4.2246575342465755,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2031-07-17",
+      "adjustedDate": null,
+      "referenceCalendarStatus": "out-of-coverage",
+      "yearFraction": 4.720547945205479,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2032-01-17",
+      "adjustedDate": null,
+      "referenceCalendarStatus": "out-of-coverage",
+      "yearFraction": 5.2246575342465755,
+      "interest": 4.125,
+      "principal": 30,
+      "total": 34.125
+    },
+    {
+      "date": "2032-07-17",
+      "adjustedDate": null,
+      "referenceCalendarStatus": "out-of-coverage",
+      "yearFraction": 5.723287671232876,
+      "interest": 2.8875,
+      "principal": 0,
+      "total": 2.8875
+    },
+    {
+      "date": "2033-01-17",
+      "adjustedDate": null,
+      "referenceCalendarStatus": "out-of-coverage",
+      "yearFraction": 6.227397260273973,
+      "interest": 2.8875,
+      "principal": 30,
+      "total": 32.8875
+    },
+    {
+      "date": "2033-07-17",
+      "adjustedDate": null,
+      "referenceCalendarStatus": "out-of-coverage",
+      "yearFraction": 6.723287671232876,
+      "interest": 1.6500000000000001,
+      "principal": 0,
+      "total": 1.6500000000000001
+    },
+    {
+      "date": "2034-01-17",
+      "adjustedDate": null,
+      "referenceCalendarStatus": "out-of-coverage",
+      "yearFraction": 7.227397260273973,
+      "interest": 1.6500000000000001,
+      "principal": 40,
+      "total": 41.65
+    }
+  ],
+  "outputs": {
+    "ytm": 8.406221911381834,
+    "tna": 8.236617251992291,
+    "duration": 4.926977214664106,
+    "modDuration": 4.7320949405376185,
+    "effectiveModDuration": 4.544921064301763,
+    "convexity": 28.726682124174687,
+    "nominalConvexity": 28.869050239159186,
+    "dirtyPrice": 102.31458333333333,
+    "cleanPrice": 100,
+    "accrued": 2.314583333333333,
+    "outstandingPrincipal": 100
+  },
+  "calendarReference": {
+    "status": "covered-range",
+    "from": "2026-01-01",
+    "to": "2026-12-31",
+    "calendars": [
+      {
+        "id": "AR-BANK",
+        "version": "2026.10.27-1",
+        "coverage": {
+          "from": "2026-01-01",
+          "to": "2026-12-31"
+        },
+        "reviewedAt": "2026-10-27",
+        "reviewStatus": "official-schedule-reviewed",
+        "sources": [
+          {
+            "id": "bcra-calendar-2026",
+            "title": "Feriados bancarios de 2026",
+            "url": "https://www.bcra.gob.ar/consulta-feriados-bancarios/",
+            "retrievedDate": "2026-10-27",
+            "locator": "Tabla Feriados bancarios de 2026"
+          },
+          {
+            "id": "bcra-c101352",
+            "title": "Comunicación C 101352",
+            "url": "https://www.bcra.gob.ar/archivos/Pdfs/comytexord/C101352.pdf",
+            "publishedDate": "2025-12-30",
+            "retrievedDate": "2026-10-27",
+            "locator": "Anexo, página PDF 2"
+          },
+          {
+            "id": "bcra-c102390",
+            "title": "Comunicación C 102390",
+            "url": "https://www.bcra.gob.ar/archivos/Pdfs/comytexord/C102390.pdf",
+            "publishedDate": "2026-10-01",
+            "retrievedDate": "2026-10-27",
+            "locator": "Página PDF 1"
+          },
+          {
+            "id": "bcra-a8487",
+            "title": "Comunicación A 8487",
+            "url": "https://www.bcra.gob.ar/archivos/Pdfs/comytexord/A8487.pdf",
+            "publishedDate": "2026-10-01",
+            "retrievedDate": "2026-10-27",
+            "locator": "Página PDF 1; fecha incorporada también en la tabla anual BCRA"
+          },
+          {
+            "id": "bcra-bank-day",
+            "title": "Día de las trabajadoras y trabajadores bancarios",
+            "url": "https://www.bcra.gob.ar/noticias/miercoles-06-11-dia-de-las-trabajadoras-y-trabajadores-bancarios/",
+            "publishedDate": "2019-11-05",
+            "retrievedDate": "2026-10-27",
+            "locator": "Regla del 6 de noviembre de cada año y liquidación al siguiente día hábil"
+          }
+        ]
+      },
+      {
+        "id": "US-NY-FED",
+        "version": "2026.10.27-1",
+        "coverage": {
+          "from": "2026-01-01",
+          "to": "2027-12-31"
+        },
+        "reviewedAt": "2026-10-27",
+        "reviewStatus": "official-schedule-reviewed",
+        "sources": [
+          {
+            "id": "ny-fed-schedule",
+            "title": "Holiday Schedule · Federal Reserve Bank of New York",
+            "url": "https://www.newyorkfed.org/aboutthefed/holiday_schedule.html",
+            "retrievedDate": "2026-10-27",
+            "locator": "Columnas 2026 y 2027; nota de cierre observado el 05/07/2027"
+          },
+          {
+            "id": "fed-k8",
+            "title": "Holidays Observed - K.8",
+            "url": "https://www.federalreserve.gov/aboutthefed/k8.htm",
+            "publishedDate": "2026-07-08",
+            "retrievedDate": "2026-10-27",
+            "locator": "Columnas 2026/2027 y notas de feriados en sábado y domingo"
+          }
+        ]
+      }
+    ],
+    "notes": [
+      "Cobertura del calendario bancario anual 2026 consultado en BCRA, con modificaciones conocidas al 27/10/2026.",
+      "Los días turísticos se incluyen porque BCRA los enumera para entidades financieras; no se extrapolan desde reglas laborales generales.",
+      "El 6 de noviembre se incorpora por la regla anual del Día del Bancario publicada por BCRA, aunque no figure en la tabla anual consultada.",
+      "No cubre 2027: no se localizó un listado bancario oficial completo para ese año durante esta revisión.",
+      "No certifica por sí solo la convención de liquidación de BYMA/MAE ni la aplicabilidad a un contrato concreto.",
+      "Calendario de operación publicado por Federal Reserve Bank of New York para 2026 y 2027.",
+      "Un feriado en domingo se observa el lunes siguiente. Si cae en sábado, los Federal Reserve Banks abren el viernes anterior: no trasladar el calendario de empleados federales/Board of Governors.",
+      "No es un calendario NYSE ni certifica por sí solo qué bancos comerciales exige un contrato o qué mercados liquidan.",
+      "Las fechas previstas pueden cambiar por cierres extraordinarios futuros; esta versión refleja las fuentes consultadas al 27/10/2026."
+    ]
+  },
+  "assumptions": [
+    "Escenario teórico con cumplimiento de los pagos originales hasta vencimiento, sin rescate, gastos ni impuestos.",
+    "El descuento usa las fechas contractuales sin desplazar; las fechas hábiles son una simulación separada de Following.",
+    "La familia documental 30/360 no determina la variante: la convención de devengamiento elegida es un supuesto explícito.",
+    "Se supone cumplida la amortización original anterior a la liquidación para convertir nominal residual a original.",
+    "El calendario NY Fed es una referencia operativa; no acredita el calendario de todos los bancos comerciales de Nueva York.",
+    "Sin cobertura conjunta, la fecha ajustada queda desconocida. La regla contractual de desplazamiento y derechos al cupón requieren revisión adicional."
+  ],
+  "quality": {
+    "calculation": {
+      "status": "indicative",
+      "label": "Escenario manual",
+      "reasons": [
+        "Escenario teórico con cumplimiento de los pagos originales hasta vencimiento, sin rescate, gastos ni impuestos.",
+        "El descuento usa las fechas contractuales sin desplazar; las fechas hábiles son una simulación separada de Following.",
+        "La familia documental 30/360 no determina la variante: la convención de devengamiento elegida es un supuesto explícito.",
+        "Se supone cumplida la amortización original anterior a la liquidación para convertir nominal residual a original.",
+        "El calendario NY Fed es una referencia operativa; no acredita el calendario de todos los bancos comerciales de Nueva York.",
+        "Sin cobertura conjunta, la fecha ajustada queda desconocida. La regla contractual de desplazamiento y derechos al cupón requieren revisión adicional."
+      ]
+    }
+  }
+}

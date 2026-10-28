@@ -9,7 +9,7 @@ This script:
    - Schedule dates.
    - Amortization percentages.
    - Coupon percentages.
-4. Updates `src/data/bondProspectos.json`.
+4. Writes a candidate catalog for review; never overwrites the operational catalog.
 
 Usage: 
 pip install pandas openpyxl
@@ -24,6 +24,7 @@ import re
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(SCRIPT_DIR)
 PROSPECTOS_PATH = os.path.join(PROJECT_DIR, 'src', 'data', 'bondProspectos.json')
+CANDIDATE_PATH = os.path.join(PROJECT_DIR, 'research', 'fixed-income', 'candidates', 'spreadsheet-latest.json')
 
 # The structural Google Sheet that has all the individual tabs
 SHEET_ID = "15ao2-irEdSR04cTnfhYdWrLLm4y89t8WrYVU6xt-oFY"
@@ -177,11 +178,13 @@ def main():
             print(f"  Warning: Could not parse {sheet_name}: {e}")
             continue
 
-    # Write changes
-    with open(PROSPECTOS_PATH, 'w', encoding='utf-8') as f:
+    # Extraction is a proposal. Contract changes require evidence and review.
+    os.makedirs(os.path.dirname(CANDIDATE_PATH), exist_ok=True)
+    with open(CANDIDATE_PATH, 'w', encoding='utf-8') as f:
         json.dump(prospectos, f, indent=2, ensure_ascii=False)
 
-    print(f'\n🎇 Success! Synced detailed cashflow schedules for {count_schedules} bonds.')
+    print(f'\nExtracted schedules for {count_schedules} bonds into {CANDIDATE_PATH}.')
+    print('Pending contract review and structural validation; operational catalog unchanged.')
 
 if __name__ == '__main__':
     main()

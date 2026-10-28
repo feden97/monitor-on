@@ -75,6 +75,7 @@ export function formatTime(value, includeSeconds = true) {
   if (Number.isNaN(date.getTime())) return DASH
 
   return date.toLocaleTimeString('es-AR', {
+    timeZone: 'America/Argentina/Buenos_Aires',
     hour: '2-digit',
     minute: '2-digit',
     second: includeSeconds ? '2-digit' : undefined,

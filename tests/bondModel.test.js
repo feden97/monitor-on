@@ -8,11 +8,14 @@ const prospecto = {
   name: 'Example issuer',
   ticker_o: 'EXAMPLEO',
   coupon_rate: 10,
+  dayConvention: 365,
+  frequency: 2,
   emission_date: '2026-01-01',
   maturity_date: '2027-11-01',
   rating: 'AA',
   cashflows: [
     { date: '2026-11-01', amortization_pct: 0, interest_pct: 5 },
+    { date: '2027-05-01', amortization_pct: 0, interest_pct: 5 },
     { date: '2027-11-01', amortization_pct: 100, interest_pct: 5 },
   ],
 }

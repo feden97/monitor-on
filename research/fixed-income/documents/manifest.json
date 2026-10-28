@@ -1,0 +1,36 @@
+{
+  "issuer": "YPF S.A.",
+  "issue": "Clase XXXIV internacional emitida 2025-01-17",
+  "documents": [
+    {
+      "file": "ypf-clase-xxxiv-aviso-resultados-2025.pdf",
+      "url": "https://inversores.ypf.com/documents/emisiones/internacionales/YPF-Aviso-de-Resultados-ON-Clase-XXXIV.pdf",
+      "title": "Aviso de resultados",
+      "published_date": "2025-01-08",
+      "retrieved_date": "2026-10-27",
+      "pages": 3,
+      "bytes": 692722,
+      "sha256": "623158038c028f8eb9c4392e7bd608ba8f621d75e3fccdd5f4bf5cb1f1ec700f"
+    },
+    {
+      "file": "ypf-clase-xxxiv-aviso-suscripcion-2025.pdf",
+      "url": "https://inversores.ypf.com/documents/emisiones/internacionales/YPF-Aviso-de-Suscripcion-ON-XXXIV-Internacional.pdf",
+      "title": "Aviso de suscripción",
+      "published_date": "2025-01-02",
+      "retrieved_date": "2026-10-27",
+      "pages": 5,
+      "bytes": 441030,
+      "sha256": "b9ab05c2ae2ce59c56c984fb5ad074142c15e9a2fd02bbcd2fe6b1c2e0f04471"
+    },
+    {
+      "file": "ypf-clase-xxxiv-suplemento-2025.pdf",
+      "url": "https://inversores.ypf.com/documents/emisiones/internacionales/YPF-Suplemento-ON-XXXIV-Internacional.pdf",
+      "title": "Suplemento de prospecto",
+      "published_date": "2025-01-02",
+      "retrieved_date": "2026-10-27",
+      "pages": 123,
+      "bytes": 1561823,
+      "sha256": "6eaa2ed3fc139ab05713b8ca164fe2b6e6041300201ab81b051dd609be215cce"
+    }
+  ]
+}

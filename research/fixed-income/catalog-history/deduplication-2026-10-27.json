@@ -1,0 +1,2337 @@
+{
+  "date": "2026-10-27",
+  "sourceSnapshot": "catalog-before-2026-10-27.json",
+  "sourceSha256": "f743ec4907bf4d2a517b90892b8c8a3835235fb715a4abcbe5d5fb1fc4057820",
+  "outputSha256": "fe8ba8ea732f4c71a5cb6b0227b4dd7d9b99c384d613bbb6935d3ca7b7290668",
+  "scope": "Top-level uniqueness only. All prior effective property values preserved. Missing fields remain unknown.",
+  "decisions": [
+    {
+      "key": "YM34D",
+      "decision": "preserve_previous_effective_record_without_merging",
+      "reason": "Preserves the object previously used by JSON.parse; this is compatibility, not contractual validation.",
+      "selectedSourceLine": 9451,
+      "occurrences": [
+        {
+          "sourceLine": 11,
+          "record": {
+            "couponsPerYear": 2,
+            "couponDates": [
+              "01-17",
+              "07-17"
+            ],
+            "amortSchedule": [
+              {
+                "date": "2032-01-17",
+                "pct": 30
+              },
+              {
+                "date": "2033-01-17",
+                "pct": 30
+              },
+              {
+                "date": "2034-01-17",
+                "pct": 40
+              }
+            ],
+            "dayConvention": 360,
+            "law": "NY",
+            "callable": false,
+            "ticker_o": "YM34O",
+            "name": "YPF XXXIV 2034",
+            "coupon_rate": 8.25,
+            "frequency": 2,
+            "min_investment": 1000,
+            "currency_type": "Cable",
+            "rating": "AA",
+            "maturity_date": "2034-01-17",
+            "amort_type": "Amort.",
+            "cashflows": [
+              {
+                "date": "2026-07-17",
+                "amortization_pct": 0,
+                "interest_pct": 4.125
+              },
+              {
+                "date": "2027-01-17",
+                "amortization_pct": 0,
+                "interest_pct": 4.125
+              }
+            ]
+          }
+        },
+        {
+          "sourceLine": 9451,
+          "record": {
+            "ticker_o": "YM34O",
+            "name": "YPF S.A. C34",
+            "coupon_rate": 8.25,
+            "frequency": 2,
+            "min_investment": 1,
+            "law": "NY",
+            "currency_type": "Cable",
+            "rating": "AAA",
+            "maturity_date": "2034-01-17",
+            "amort_type": "Amort.",
+            "cashflows": [
+              {
+                "date": "2026-04-01",
+                "amortization_pct": 0,
+                "interest_pct": 0
+              },
+              {
+                "date": "2025-01-17",
+                "amortization_pct": 0,
+                "interest_pct": 0
+              },
+              {
+                "date": "2025-07-17",
+                "amortization_pct": 0,
+                "interest_pct": 4.125
+              },
+              {
+                "date": "2026-01-17",
+                "amortization_pct": 0,
+                "interest_pct": 4.125
+              },
+              {
+                "date": "2026-07-17",
+                "amortization_pct": 0,
+                "interest_pct": 4.125
+              },
+              {
+                "date": "2027-01-17",
+                "amortization_pct": 0,
+                "interest_pct": 4.125
+              },
+              {
+                "date": "2027-07-17",
+                "amortization_pct": 0,
+                "interest_pct": 4.125
+              },
+              {
+                "date": "2028-01-17",
+                "amortization_pct": 0,
+                "interest_pct": 4.125
+              },
+              {
+                "date": "2028-07-17",
+                "amortization_pct": 0,
+                "interest_pct": 4.125
+              },
+              {
+                "date": "2029-01-17",
+                "amortization_pct": 0,
+                "interest_pct": 4.125
+              },
+              {
+                "date": "2029-07-17",
+                "amortization_pct": 0,
+                "interest_pct": 4.125
+              },
+              {
+                "date": "2030-01-17",
+                "amortization_pct": 0,
+                "interest_pct": 4.125
+              },
+              {
+                "date": "2030-07-17",
+                "amortization_pct": 0,
+                "interest_pct": 4.125
+              },
+              {
+                "date": "2031-01-17",
+                "amortization_pct": 0,
+                "interest_pct": 4.125
+              },
+              {
+                "date": "2031-07-17",
+                "amortization_pct": 0,
+                "interest_pct": 4.125
+              },
+              {
+                "date": "2032-01-17",
+                "amortization_pct": 30,
+                "interest_pct": 4.125
+              },
+              {
+                "date": "2032-07-17",
+                "amortization_pct": 0,
+                "interest_pct": 2.8875
+              },
+              {
+                "date": "2033-01-17",
+                "amortization_pct": 30,
+                "interest_pct": 2.8875
+              },
+              {
+                "date": "2033-07-17",
+                "amortization_pct": 0,
+                "interest_pct": 1.65
+              },
+              {
+                "date": "2034-01-17",
+                "amortization_pct": 40,
+                "interest_pct": 1.65
+              }
+            ],
+            "dayConvention": 360
+          }
+        }
+      ],
+      "fields": [
+        {
+          "field": "couponsPerYear",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 2
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "couponDates",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": [
+                "01-17",
+                "07-17"
+              ]
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "amortSchedule",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": [
+                {
+                  "date": "2032-01-17",
+                  "pct": 30
+                },
+                {
+                  "date": "2033-01-17",
+                  "pct": 30
+                },
+                {
+                  "date": "2034-01-17",
+                  "pct": 40
+                }
+              ]
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "dayConvention",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 360
+            },
+            {
+              "present": true,
+              "value": 360
+            }
+          ]
+        },
+        {
+          "field": "law",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "NY"
+            },
+            {
+              "present": true,
+              "value": "NY"
+            }
+          ]
+        },
+        {
+          "field": "callable",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": false
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "ticker_o",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "YM34O"
+            },
+            {
+              "present": true,
+              "value": "YM34O"
+            }
+          ]
+        },
+        {
+          "field": "name",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "YPF XXXIV 2034"
+            },
+            {
+              "present": true,
+              "value": "YPF S.A. C34"
+            }
+          ]
+        },
+        {
+          "field": "coupon_rate",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 8.25
+            },
+            {
+              "present": true,
+              "value": 8.25
+            }
+          ]
+        },
+        {
+          "field": "frequency",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 2
+            },
+            {
+              "present": true,
+              "value": 2
+            }
+          ]
+        },
+        {
+          "field": "min_investment",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 1000
+            },
+            {
+              "present": true,
+              "value": 1
+            }
+          ]
+        },
+        {
+          "field": "currency_type",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "Cable"
+            },
+            {
+              "present": true,
+              "value": "Cable"
+            }
+          ]
+        },
+        {
+          "field": "rating",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "AA"
+            },
+            {
+              "present": true,
+              "value": "AAA"
+            }
+          ]
+        },
+        {
+          "field": "maturity_date",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "2034-01-17"
+            },
+            {
+              "present": true,
+              "value": "2034-01-17"
+            }
+          ]
+        },
+        {
+          "field": "amort_type",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "Amort."
+            },
+            {
+              "present": true,
+              "value": "Amort."
+            }
+          ]
+        },
+        {
+          "field": "cashflows",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": [
+                {
+                  "date": "2026-07-17",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.125
+                },
+                {
+                  "date": "2027-01-17",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.125
+                }
+              ]
+            },
+            {
+              "present": true,
+              "value": [
+                {
+                  "date": "2026-04-01",
+                  "amortization_pct": 0,
+                  "interest_pct": 0
+                },
+                {
+                  "date": "2025-01-17",
+                  "amortization_pct": 0,
+                  "interest_pct": 0
+                },
+                {
+                  "date": "2025-07-17",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.125
+                },
+                {
+                  "date": "2026-01-17",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.125
+                },
+                {
+                  "date": "2026-07-17",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.125
+                },
+                {
+                  "date": "2027-01-17",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.125
+                },
+                {
+                  "date": "2027-07-17",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.125
+                },
+                {
+                  "date": "2028-01-17",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.125
+                },
+                {
+                  "date": "2028-07-17",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.125
+                },
+                {
+                  "date": "2029-01-17",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.125
+                },
+                {
+                  "date": "2029-07-17",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.125
+                },
+                {
+                  "date": "2030-01-17",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.125
+                },
+                {
+                  "date": "2030-07-17",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.125
+                },
+                {
+                  "date": "2031-01-17",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.125
+                },
+                {
+                  "date": "2031-07-17",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.125
+                },
+                {
+                  "date": "2032-01-17",
+                  "amortization_pct": 30,
+                  "interest_pct": 4.125
+                },
+                {
+                  "date": "2032-07-17",
+                  "amortization_pct": 0,
+                  "interest_pct": 2.8875
+                },
+                {
+                  "date": "2033-01-17",
+                  "amortization_pct": 30,
+                  "interest_pct": 2.8875
+                },
+                {
+                  "date": "2033-07-17",
+                  "amortization_pct": 0,
+                  "interest_pct": 1.65
+                },
+                {
+                  "date": "2034-01-17",
+                  "amortization_pct": 40,
+                  "interest_pct": 1.65
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "YM39D",
+      "decision": "preserve_previous_effective_record_without_merging",
+      "reason": "Preserves the object previously used by JSON.parse; this is compatibility, not contractual validation.",
+      "selectedSourceLine": 9696,
+      "occurrences": [
+        {
+          "sourceLine": 32,
+          "record": {
+            "couponsPerYear": 2,
+            "couponDates": [
+              "01-21",
+              "07-21"
+            ],
+            "amortSchedule": [
+              {
+                "date": "2037-07-21",
+                "pct": 33
+              },
+              {
+                "date": "2038-07-21",
+                "pct": 33
+              },
+              {
+                "date": "2039-07-21",
+                "pct": 34
+              }
+            ],
+            "dayConvention": 360,
+            "law": "NY",
+            "callable": false,
+            "ticker_o": "YM39O",
+            "name": "YPF XXXIX 2039",
+            "coupon_rate": 9.5,
+            "frequency": 2,
+            "min_investment": 1000,
+            "currency_type": "Cable",
+            "rating": "AA",
+            "maturity_date": "2039-07-21",
+            "amort_type": "Amort.",
+            "cashflows": [
+              {
+                "date": "2026-01-21",
+                "amortization_pct": 0,
+                "interest_pct": 4.75
+              },
+              {
+                "date": "2026-07-21",
+                "amortization_pct": 0,
+                "interest_pct": 4.75
+              }
+            ]
+          }
+        },
+        {
+          "sourceLine": 9696,
+          "record": {
+            "ticker_o": "YM39O",
+            "name": "YPF S.A. C39",
+            "coupon_rate": 8.75,
+            "frequency": 2,
+            "min_investment": 1,
+            "law": "ARG",
+            "currency_type": "MEP",
+            "rating": "AAA",
+            "maturity_date": "2030-07-22",
+            "amort_type": "Bullet",
+            "cashflows": [
+              {
+                "date": "2026-04-01",
+                "amortization_pct": 0,
+                "interest_pct": 0
+              },
+              {
+                "date": "2025-07-22",
+                "amortization_pct": 0,
+                "interest_pct": 0
+              },
+              {
+                "date": "2026-01-22",
+                "amortization_pct": 0,
+                "interest_pct": 4.375
+              },
+              {
+                "date": "2026-07-22",
+                "amortization_pct": 0,
+                "interest_pct": 4.375
+              },
+              {
+                "date": "2027-01-22",
+                "amortization_pct": 0,
+                "interest_pct": 4.375
+              },
+              {
+                "date": "2027-07-22",
+                "amortization_pct": 0,
+                "interest_pct": 4.375
+              },
+              {
+                "date": "2028-01-22",
+                "amortization_pct": 0,
+                "interest_pct": 4.375
+              },
+              {
+                "date": "2028-07-22",
+                "amortization_pct": 0,
+                "interest_pct": 4.375
+              },
+              {
+                "date": "2029-01-22",
+                "amortization_pct": 0,
+                "interest_pct": 4.375
+              },
+              {
+                "date": "2029-07-22",
+                "amortization_pct": 0,
+                "interest_pct": 4.375
+              },
+              {
+                "date": "2030-01-22",
+                "amortization_pct": 0,
+                "interest_pct": 4.375
+              },
+              {
+                "date": "2030-07-22",
+                "amortization_pct": 100,
+                "interest_pct": 4.375
+              }
+            ],
+            "dayConvention": 360
+          }
+        }
+      ],
+      "fields": [
+        {
+          "field": "couponsPerYear",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 2
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "couponDates",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": [
+                "01-21",
+                "07-21"
+              ]
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "amortSchedule",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": [
+                {
+                  "date": "2037-07-21",
+                  "pct": 33
+                },
+                {
+                  "date": "2038-07-21",
+                  "pct": 33
+                },
+                {
+                  "date": "2039-07-21",
+                  "pct": 34
+                }
+              ]
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "dayConvention",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 360
+            },
+            {
+              "present": true,
+              "value": 360
+            }
+          ]
+        },
+        {
+          "field": "law",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "NY"
+            },
+            {
+              "present": true,
+              "value": "ARG"
+            }
+          ]
+        },
+        {
+          "field": "callable",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": false
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "ticker_o",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "YM39O"
+            },
+            {
+              "present": true,
+              "value": "YM39O"
+            }
+          ]
+        },
+        {
+          "field": "name",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "YPF XXXIX 2039"
+            },
+            {
+              "present": true,
+              "value": "YPF S.A. C39"
+            }
+          ]
+        },
+        {
+          "field": "coupon_rate",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 9.5
+            },
+            {
+              "present": true,
+              "value": 8.75
+            }
+          ]
+        },
+        {
+          "field": "frequency",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 2
+            },
+            {
+              "present": true,
+              "value": 2
+            }
+          ]
+        },
+        {
+          "field": "min_investment",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 1000
+            },
+            {
+              "present": true,
+              "value": 1
+            }
+          ]
+        },
+        {
+          "field": "currency_type",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "Cable"
+            },
+            {
+              "present": true,
+              "value": "MEP"
+            }
+          ]
+        },
+        {
+          "field": "rating",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "AA"
+            },
+            {
+              "present": true,
+              "value": "AAA"
+            }
+          ]
+        },
+        {
+          "field": "maturity_date",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "2039-07-21"
+            },
+            {
+              "present": true,
+              "value": "2030-07-22"
+            }
+          ]
+        },
+        {
+          "field": "amort_type",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "Amort."
+            },
+            {
+              "present": true,
+              "value": "Bullet"
+            }
+          ]
+        },
+        {
+          "field": "cashflows",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": [
+                {
+                  "date": "2026-01-21",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.75
+                },
+                {
+                  "date": "2026-07-21",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.75
+                }
+              ]
+            },
+            {
+              "present": true,
+              "value": [
+                {
+                  "date": "2026-04-01",
+                  "amortization_pct": 0,
+                  "interest_pct": 0
+                },
+                {
+                  "date": "2025-07-22",
+                  "amortization_pct": 0,
+                  "interest_pct": 0
+                },
+                {
+                  "date": "2026-01-22",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.375
+                },
+                {
+                  "date": "2026-07-22",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.375
+                },
+                {
+                  "date": "2027-01-22",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.375
+                },
+                {
+                  "date": "2027-07-22",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.375
+                },
+                {
+                  "date": "2028-01-22",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.375
+                },
+                {
+                  "date": "2028-07-22",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.375
+                },
+                {
+                  "date": "2029-01-22",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.375
+                },
+                {
+                  "date": "2029-07-22",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.375
+                },
+                {
+                  "date": "2030-01-22",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.375
+                },
+                {
+                  "date": "2030-07-22",
+                  "amortization_pct": 100,
+                  "interest_pct": 4.375
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "YMCID",
+      "decision": "preserve_previous_effective_record_without_merging",
+      "reason": "Preserves the object previously used by JSON.parse; this is compatibility, not contractual validation.",
+      "selectedSourceLine": 9916,
+      "occurrences": [
+        {
+          "sourceLine": 53,
+          "record": {
+            "couponsPerYear": 2,
+            "couponDates": [
+              "06-30",
+              "12-30"
+            ],
+            "amortSchedule": [],
+            "dayConvention": 360,
+            "law": "NY",
+            "callable": false,
+            "ticker_o": "YMCIO",
+            "name": "YPF XVII 2029",
+            "coupon_rate": 2.5,
+            "frequency": 2,
+            "min_investment": 1000,
+            "currency_type": "Cable",
+            "rating": "AA",
+            "maturity_date": "2029-06-30",
+            "amort_type": "Bullet",
+            "cashflows": [
+              {
+                "date": "2026-06-30",
+                "amortization_pct": 0,
+                "interest_pct": 1.25
+              },
+              {
+                "date": "2026-12-30",
+                "amortization_pct": 0,
+                "interest_pct": 1.25
+              }
+            ]
+          }
+        },
+        {
+          "sourceLine": 9916,
+          "record": {
+            "ticker_o": "YMCIO",
+            "name": "YPF S.A.",
+            "coupon_rate": 9,
+            "frequency": 2,
+            "min_investment": 1,
+            "law": "NY",
+            "currency_type": "Cable",
+            "rating": "AAA",
+            "maturity_date": "2029-06-30",
+            "amort_type": "Amort.",
+            "cashflows": [
+              {
+                "date": "2026-04-01",
+                "amortization_pct": 0,
+                "interest_pct": 0
+              },
+              {
+                "date": "2021-02-12",
+                "amortization_pct": 0,
+                "interest_pct": 0
+              },
+              {
+                "date": "2021-06-30",
+                "amortization_pct": 0,
+                "interest_pct": 0.9583333333
+              },
+              {
+                "date": "2021-12-30",
+                "amortization_pct": 0,
+                "interest_pct": 1.25
+              },
+              {
+                "date": "2022-06-30",
+                "amortization_pct": 0,
+                "interest_pct": 1.25
+              },
+              {
+                "date": "2022-12-30",
+                "amortization_pct": 0,
+                "interest_pct": 1.25
+              },
+              {
+                "date": "2023-06-30",
+                "amortization_pct": 0,
+                "interest_pct": 4.5
+              },
+              {
+                "date": "2023-12-30",
+                "amortization_pct": 0,
+                "interest_pct": 4.5
+              },
+              {
+                "date": "2024-06-30",
+                "amortization_pct": 0,
+                "interest_pct": 4.5
+              },
+              {
+                "date": "2024-12-30",
+                "amortization_pct": 0,
+                "interest_pct": 4.5
+              },
+              {
+                "date": "2025-06-30",
+                "amortization_pct": 0,
+                "interest_pct": 4.5
+              },
+              {
+                "date": "2025-12-30",
+                "amortization_pct": 0,
+                "interest_pct": 4.5
+              },
+              {
+                "date": "2026-06-30",
+                "amortization_pct": 14.28,
+                "interest_pct": 4.5
+              },
+              {
+                "date": "2026-12-30",
+                "amortization_pct": 14.28,
+                "interest_pct": 3.8574
+              },
+              {
+                "date": "2027-06-30",
+                "amortization_pct": 14.28,
+                "interest_pct": 3.2148
+              },
+              {
+                "date": "2027-12-30",
+                "amortization_pct": 14.28,
+                "interest_pct": 2.5722
+              },
+              {
+                "date": "2028-06-30",
+                "amortization_pct": 14.28,
+                "interest_pct": 1.9296
+              },
+              {
+                "date": "2028-12-30",
+                "amortization_pct": 14.28,
+                "interest_pct": 1.287
+              },
+              {
+                "date": "2029-06-30",
+                "amortization_pct": 14.28,
+                "interest_pct": 0.6444
+              }
+            ],
+            "dayConvention": 360
+          }
+        }
+      ],
+      "fields": [
+        {
+          "field": "couponsPerYear",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 2
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "couponDates",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": [
+                "06-30",
+                "12-30"
+              ]
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "amortSchedule",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": []
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "dayConvention",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 360
+            },
+            {
+              "present": true,
+              "value": 360
+            }
+          ]
+        },
+        {
+          "field": "law",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "NY"
+            },
+            {
+              "present": true,
+              "value": "NY"
+            }
+          ]
+        },
+        {
+          "field": "callable",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": false
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "ticker_o",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "YMCIO"
+            },
+            {
+              "present": true,
+              "value": "YMCIO"
+            }
+          ]
+        },
+        {
+          "field": "name",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "YPF XVII 2029"
+            },
+            {
+              "present": true,
+              "value": "YPF S.A."
+            }
+          ]
+        },
+        {
+          "field": "coupon_rate",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 2.5
+            },
+            {
+              "present": true,
+              "value": 9
+            }
+          ]
+        },
+        {
+          "field": "frequency",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 2
+            },
+            {
+              "present": true,
+              "value": 2
+            }
+          ]
+        },
+        {
+          "field": "min_investment",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 1000
+            },
+            {
+              "present": true,
+              "value": 1
+            }
+          ]
+        },
+        {
+          "field": "currency_type",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "Cable"
+            },
+            {
+              "present": true,
+              "value": "Cable"
+            }
+          ]
+        },
+        {
+          "field": "rating",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "AA"
+            },
+            {
+              "present": true,
+              "value": "AAA"
+            }
+          ]
+        },
+        {
+          "field": "maturity_date",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "2029-06-30"
+            },
+            {
+              "present": true,
+              "value": "2029-06-30"
+            }
+          ]
+        },
+        {
+          "field": "amort_type",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "Bullet"
+            },
+            {
+              "present": true,
+              "value": "Amort."
+            }
+          ]
+        },
+        {
+          "field": "cashflows",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": [
+                {
+                  "date": "2026-06-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 1.25
+                },
+                {
+                  "date": "2026-12-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 1.25
+                }
+              ]
+            },
+            {
+              "present": true,
+              "value": [
+                {
+                  "date": "2026-04-01",
+                  "amortization_pct": 0,
+                  "interest_pct": 0
+                },
+                {
+                  "date": "2021-02-12",
+                  "amortization_pct": 0,
+                  "interest_pct": 0
+                },
+                {
+                  "date": "2021-06-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 0.9583333333
+                },
+                {
+                  "date": "2021-12-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 1.25
+                },
+                {
+                  "date": "2022-06-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 1.25
+                },
+                {
+                  "date": "2022-12-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 1.25
+                },
+                {
+                  "date": "2023-06-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.5
+                },
+                {
+                  "date": "2023-12-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.5
+                },
+                {
+                  "date": "2024-06-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.5
+                },
+                {
+                  "date": "2024-12-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.5
+                },
+                {
+                  "date": "2025-06-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.5
+                },
+                {
+                  "date": "2025-12-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 4.5
+                },
+                {
+                  "date": "2026-06-30",
+                  "amortization_pct": 14.28,
+                  "interest_pct": 4.5
+                },
+                {
+                  "date": "2026-12-30",
+                  "amortization_pct": 14.28,
+                  "interest_pct": 3.8574
+                },
+                {
+                  "date": "2027-06-30",
+                  "amortization_pct": 14.28,
+                  "interest_pct": 3.2148
+                },
+                {
+                  "date": "2027-12-30",
+                  "amortization_pct": 14.28,
+                  "interest_pct": 2.5722
+                },
+                {
+                  "date": "2028-06-30",
+                  "amortization_pct": 14.28,
+                  "interest_pct": 1.9296
+                },
+                {
+                  "date": "2028-12-30",
+                  "amortization_pct": 14.28,
+                  "interest_pct": 1.287
+                },
+                {
+                  "date": "2029-06-30",
+                  "amortization_pct": 14.28,
+                  "interest_pct": 0.6444
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "YMCJD",
+      "decision": "preserve_previous_effective_record_without_merging",
+      "reason": "Preserves the object previously used by JSON.parse; this is compatibility, not contractual validation.",
+      "selectedSourceLine": 10026,
+      "occurrences": [
+        {
+          "sourceLine": 74,
+          "record": {
+            "couponsPerYear": 2,
+            "couponDates": [
+              "03-30",
+              "09-30"
+            ],
+            "amortSchedule": [],
+            "dayConvention": 360,
+            "law": "NY",
+            "callable": false,
+            "ticker_o": "YMCJO",
+            "name": "YPF XVIII 2033",
+            "coupon_rate": 1.5,
+            "frequency": 2,
+            "min_investment": 1000,
+            "currency_type": "Cable",
+            "rating": "AA",
+            "maturity_date": "2033-09-30",
+            "amort_type": "Bullet",
+            "cashflows": [
+              {
+                "date": "2026-03-30",
+                "amortization_pct": 0,
+                "interest_pct": 0.75
+              },
+              {
+                "date": "2026-09-30",
+                "amortization_pct": 0,
+                "interest_pct": 0.75
+              }
+            ]
+          }
+        },
+        {
+          "sourceLine": 10026,
+          "record": {
+            "ticker_o": "YMCJO",
+            "name": "YPF S.A.",
+            "coupon_rate": 7,
+            "frequency": 2,
+            "min_investment": 1,
+            "law": "NY",
+            "currency_type": "Cable",
+            "rating": "AAA",
+            "maturity_date": "2033-09-30",
+            "amort_type": "Amort.",
+            "cashflows": [
+              {
+                "date": "2026-04-01",
+                "amortization_pct": 0,
+                "interest_pct": 0
+              },
+              {
+                "date": "2021-02-12",
+                "amortization_pct": 0,
+                "interest_pct": 0
+              },
+              {
+                "date": "2021-09-30",
+                "amortization_pct": 0,
+                "interest_pct": 0.95
+              },
+              {
+                "date": "2022-03-30",
+                "amortization_pct": 0,
+                "interest_pct": 0.75
+              },
+              {
+                "date": "2022-09-30",
+                "amortization_pct": 0,
+                "interest_pct": 0.75
+              },
+              {
+                "date": "2023-03-30",
+                "amortization_pct": 0,
+                "interest_pct": 3.5
+              },
+              {
+                "date": "2023-09-30",
+                "amortization_pct": 0,
+                "interest_pct": 3.5
+              },
+              {
+                "date": "2024-03-30",
+                "amortization_pct": 0,
+                "interest_pct": 3.5
+              },
+              {
+                "date": "2024-09-30",
+                "amortization_pct": 0,
+                "interest_pct": 3.5
+              },
+              {
+                "date": "2025-03-30",
+                "amortization_pct": 0,
+                "interest_pct": 3.5
+              },
+              {
+                "date": "2025-09-30",
+                "amortization_pct": 0,
+                "interest_pct": 3.5
+              },
+              {
+                "date": "2026-03-30",
+                "amortization_pct": 0,
+                "interest_pct": 3.5
+              },
+              {
+                "date": "2026-09-30",
+                "amortization_pct": 0,
+                "interest_pct": 3.5
+              },
+              {
+                "date": "2027-03-30",
+                "amortization_pct": 0,
+                "interest_pct": 3.5
+              },
+              {
+                "date": "2027-09-30",
+                "amortization_pct": 0,
+                "interest_pct": 3.5
+              },
+              {
+                "date": "2028-03-30",
+                "amortization_pct": 0,
+                "interest_pct": 3.5
+              },
+              {
+                "date": "2028-09-30",
+                "amortization_pct": 0,
+                "interest_pct": 3.5
+              },
+              {
+                "date": "2029-03-30",
+                "amortization_pct": 0,
+                "interest_pct": 3.5
+              },
+              {
+                "date": "2029-09-30",
+                "amortization_pct": 0,
+                "interest_pct": 3.5
+              },
+              {
+                "date": "2030-03-30",
+                "amortization_pct": 0,
+                "interest_pct": 3.5
+              },
+              {
+                "date": "2030-09-30",
+                "amortization_pct": 25,
+                "interest_pct": 3.5
+              },
+              {
+                "date": "2031-03-30",
+                "amortization_pct": 0,
+                "interest_pct": 2.625
+              },
+              {
+                "date": "2031-09-30",
+                "amortization_pct": 25,
+                "interest_pct": 2.625
+              },
+              {
+                "date": "2032-03-30",
+                "amortization_pct": 0,
+                "interest_pct": 1.75
+              },
+              {
+                "date": "2032-09-30",
+                "amortization_pct": 25,
+                "interest_pct": 1.75
+              },
+              {
+                "date": "2033-03-30",
+                "amortization_pct": 0,
+                "interest_pct": 0.875
+              },
+              {
+                "date": "2033-09-30",
+                "amortization_pct": 25,
+                "interest_pct": 0.875
+              }
+            ],
+            "dayConvention": 360
+          }
+        }
+      ],
+      "fields": [
+        {
+          "field": "couponsPerYear",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 2
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "couponDates",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": [
+                "03-30",
+                "09-30"
+              ]
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "amortSchedule",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": []
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "dayConvention",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 360
+            },
+            {
+              "present": true,
+              "value": 360
+            }
+          ]
+        },
+        {
+          "field": "law",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "NY"
+            },
+            {
+              "present": true,
+              "value": "NY"
+            }
+          ]
+        },
+        {
+          "field": "callable",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": false
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "ticker_o",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "YMCJO"
+            },
+            {
+              "present": true,
+              "value": "YMCJO"
+            }
+          ]
+        },
+        {
+          "field": "name",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "YPF XVIII 2033"
+            },
+            {
+              "present": true,
+              "value": "YPF S.A."
+            }
+          ]
+        },
+        {
+          "field": "coupon_rate",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 1.5
+            },
+            {
+              "present": true,
+              "value": 7
+            }
+          ]
+        },
+        {
+          "field": "frequency",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 2
+            },
+            {
+              "present": true,
+              "value": 2
+            }
+          ]
+        },
+        {
+          "field": "min_investment",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 1000
+            },
+            {
+              "present": true,
+              "value": 1
+            }
+          ]
+        },
+        {
+          "field": "currency_type",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "Cable"
+            },
+            {
+              "present": true,
+              "value": "Cable"
+            }
+          ]
+        },
+        {
+          "field": "rating",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "AA"
+            },
+            {
+              "present": true,
+              "value": "AAA"
+            }
+          ]
+        },
+        {
+          "field": "maturity_date",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "2033-09-30"
+            },
+            {
+              "present": true,
+              "value": "2033-09-30"
+            }
+          ]
+        },
+        {
+          "field": "amort_type",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "Bullet"
+            },
+            {
+              "present": true,
+              "value": "Amort."
+            }
+          ]
+        },
+        {
+          "field": "cashflows",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": [
+                {
+                  "date": "2026-03-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 0.75
+                },
+                {
+                  "date": "2026-09-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 0.75
+                }
+              ]
+            },
+            {
+              "present": true,
+              "value": [
+                {
+                  "date": "2026-04-01",
+                  "amortization_pct": 0,
+                  "interest_pct": 0
+                },
+                {
+                  "date": "2021-02-12",
+                  "amortization_pct": 0,
+                  "interest_pct": 0
+                },
+                {
+                  "date": "2021-09-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 0.95
+                },
+                {
+                  "date": "2022-03-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 0.75
+                },
+                {
+                  "date": "2022-09-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 0.75
+                },
+                {
+                  "date": "2023-03-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 3.5
+                },
+                {
+                  "date": "2023-09-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 3.5
+                },
+                {
+                  "date": "2024-03-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 3.5
+                },
+                {
+                  "date": "2024-09-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 3.5
+                },
+                {
+                  "date": "2025-03-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 3.5
+                },
+                {
+                  "date": "2025-09-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 3.5
+                },
+                {
+                  "date": "2026-03-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 3.5
+                },
+                {
+                  "date": "2026-09-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 3.5
+                },
+                {
+                  "date": "2027-03-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 3.5
+                },
+                {
+                  "date": "2027-09-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 3.5
+                },
+                {
+                  "date": "2028-03-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 3.5
+                },
+                {
+                  "date": "2028-09-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 3.5
+                },
+                {
+                  "date": "2029-03-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 3.5
+                },
+                {
+                  "date": "2029-09-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 3.5
+                },
+                {
+                  "date": "2030-03-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 3.5
+                },
+                {
+                  "date": "2030-09-30",
+                  "amortization_pct": 25,
+                  "interest_pct": 3.5
+                },
+                {
+                  "date": "2031-03-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 2.625
+                },
+                {
+                  "date": "2031-09-30",
+                  "amortization_pct": 25,
+                  "interest_pct": 2.625
+                },
+                {
+                  "date": "2032-03-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 1.75
+                },
+                {
+                  "date": "2032-09-30",
+                  "amortization_pct": 25,
+                  "interest_pct": 1.75
+                },
+                {
+                  "date": "2033-03-30",
+                  "amortization_pct": 0,
+                  "interest_pct": 0.875
+                },
+                {
+                  "date": "2033-09-30",
+                  "amortization_pct": 25,
+                  "interest_pct": 0.875
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "CS51D",
+      "decision": "preserve_previous_effective_record_without_merging",
+      "reason": "Preserves the object previously used by JSON.parse; this is compatibility, not contractual validation.",
+      "selectedSourceLine": 13697,
+      "occurrences": [
+        {
+          "sourceLine": 115,
+          "record": {
+            "couponsPerYear": 2,
+            "couponDates": [
+              "01-20",
+              "07-20"
+            ],
+            "amortSchedule": [],
+            "dayConvention": 360,
+            "law": "ARG",
+            "ticker_o": "CS51O",
+            "name": "CRESUD C51 2027",
+            "coupon_rate": 6,
+            "frequency": 2,
+            "min_investment": 1,
+            "currency_type": "MEP",
+            "rating": "AAA",
+            "maturity_date": "2027-01-20",
+            "amort_type": "Bullet",
+            "cashflows": [
+              {
+                "date": "2026-07-20",
+                "amortization_pct": 0,
+                "interest_pct": 3
+              },
+              {
+                "date": "2027-01-20",
+                "amortization_pct": 100,
+                "interest_pct": 3
+              }
+            ]
+          }
+        },
+        {
+          "sourceLine": 13697,
+          "record": {
+            "cashflows": [
+              {
+                "date": "2026-04-01",
+                "amortization_pct": 0,
+                "interest_pct": 0
+              },
+              {
+                "date": "2026-01-20",
+                "amortization_pct": 0,
+                "interest_pct": 0
+              },
+              {
+                "date": "2026-07-20",
+                "amortization_pct": 0,
+                "interest_pct": 2.875
+              },
+              {
+                "date": "2027-01-20",
+                "amortization_pct": 100,
+                "interest_pct": 2.875
+              }
+            ],
+            "dayConvention": 360
+          }
+        }
+      ],
+      "fields": [
+        {
+          "field": "couponsPerYear",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 2
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "couponDates",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": [
+                "01-20",
+                "07-20"
+              ]
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "amortSchedule",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": []
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "dayConvention",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 360
+            },
+            {
+              "present": true,
+              "value": 360
+            }
+          ]
+        },
+        {
+          "field": "law",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "ARG"
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "ticker_o",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "CS51O"
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "name",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "CRESUD C51 2027"
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "coupon_rate",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 6
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "frequency",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 2
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "min_investment",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": 1
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "currency_type",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "MEP"
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "rating",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "AAA"
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "maturity_date",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "2027-01-20"
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "amort_type",
+          "decision": "remain_unknown_no_inheritance",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": "Bullet"
+            },
+            {
+              "present": false
+            }
+          ]
+        },
+        {
+          "field": "cashflows",
+          "decision": "keep_last_effective_value",
+          "valuesByOccurrence": [
+            {
+              "present": true,
+              "value": [
+                {
+                  "date": "2026-07-20",
+                  "amortization_pct": 0,
+                  "interest_pct": 3
+                },
+                {
+                  "date": "2027-01-20",
+                  "amortization_pct": 100,
+                  "interest_pct": 3
+                }
+              ]
+            },
+            {
+              "present": true,
+              "value": [
+                {
+                  "date": "2026-04-01",
+                  "amortization_pct": 0,
+                  "interest_pct": 0
+                },
+                {
+                  "date": "2026-01-20",
+                  "amortization_pct": 0,
+                  "interest_pct": 0
+                },
+                {
+                  "date": "2026-07-20",
+                  "amortization_pct": 0,
+                  "interest_pct": 2.875
+                },
+                {
+                  "date": "2027-01-20",
+                  "amortization_pct": 100,
+                  "interest_pct": 2.875
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "id": "AR-BANK",
+  "version": "2026.10.27-1",
+  "name": "Entidades financieras de Argentina · BCRA",
+  "timeZone": "America/Argentina/Buenos_Aires",
+  "coverage": { "from": "2026-01-01", "to": "2026-12-31" },
+  "reviewedAt": "2026-10-27",
+  "reviewStatus": "official-schedule-reviewed",
+  "weekendDays": [0, 6],
+  "notes": [
+    "Cobertura del calendario bancario anual 2026 consultado en BCRA, con modificaciones conocidas al 27/10/2026.",
+    "Los días turísticos se incluyen porque BCRA los enumera para entidades financieras; no se extrapolan desde reglas laborales generales.",
+    "El 6 de noviembre se incorpora por la regla anual del Día del Bancario publicada por BCRA, aunque no figure en la tabla anual consultada.",
+    "No cubre 2027: no se localizó un listado bancario oficial completo para ese año durante esta revisión.",
+    "No certifica por sí solo la convención de liquidación de BYMA/MAE ni la aplicabilidad a un contrato concreto."
+  ],
+  "sources": [
+    {
+      "id": "bcra-calendar-2026",
+      "title": "Feriados bancarios de 2026",
+      "url": "https://www.bcra.gob.ar/consulta-feriados-bancarios/",
+      "retrievedDate": "2026-10-27",
+      "locator": "Tabla Feriados bancarios de 2026"
+    },
+    {
+      "id": "bcra-c101352",
+      "title": "Comunicación C 101352",
+      "url": "https://www.bcra.gob.ar/archivos/Pdfs/comytexord/C101352.pdf",
+      "publishedDate": "2025-12-30",
+      "retrievedDate": "2026-10-27",
+      "locator": "Anexo, página PDF 2"
+    },
+    {
+      "id": "bcra-c102390",
+      "title": "Comunicación C 102390",
+      "url": "https://www.bcra.gob.ar/archivos/Pdfs/comytexord/C102390.pdf",
+      "publishedDate": "2026-10-01",
+      "retrievedDate": "2026-10-27",
+      "locator": "Página PDF 1"
+    },
+    {
+      "id": "bcra-a8487",
+      "title": "Comunicación A 8487",
+      "url": "https://www.bcra.gob.ar/archivos/Pdfs/comytexord/A8487.pdf",
+      "publishedDate": "2026-10-01",
+      "retrievedDate": "2026-10-27",
+      "locator": "Página PDF 1; fecha incorporada también en la tabla anual BCRA"
+    },
+    {
+      "id": "bcra-bank-day",
+      "title": "Día de las trabajadoras y trabajadores bancarios",
+      "url": "https://www.bcra.gob.ar/noticias/miercoles-06-11-dia-de-las-trabajadoras-y-trabajadores-bancarios/",
+      "publishedDate": "2019-11-05",
+      "retrievedDate": "2026-10-27",
+      "locator": "Regla del 6 de noviembre de cada año y liquidación al siguiente día hábil"
+    }
+  ],
+  "holidays": [
+    { "date": "2026-01-01", "name": "Año Nuevo", "sourceIds": ["bcra-c101352"] },
+    { "date": "2026-02-16", "name": "Carnaval", "sourceIds": ["bcra-c101352"] },
+    { "date": "2026-02-17", "name": "Carnaval", "sourceIds": ["bcra-c101352"] },
+    { "date": "2026-03-23", "name": "Día no laborable con fin turístico", "sourceIds": ["bcra-c101352"] },
+    { "date": "2026-03-24", "name": "Memoria por la Verdad y la Justicia", "sourceIds": ["bcra-c101352"] },
+    { "date": "2026-04-02", "name": "Veterano y Caídos en la Guerra de Malvinas / Jueves Santo", "sourceIds": ["bcra-c101352", "bcra-calendar-2026"] },
+    { "date": "2026-04-03", "name": "Viernes Santo", "sourceIds": ["bcra-c101352"] },
+    { "date": "2026-05-01", "name": "Día del Trabajador", "sourceIds": ["bcra-c101352"] },
+    { "date": "2026-05-25", "name": "Revolución de Mayo", "sourceIds": ["bcra-c101352"] },
+    { "date": "2026-06-15", "name": "General Martín Miguel de Güemes", "sourceIds": ["bcra-c101352"] },
+    { "date": "2026-07-09", "name": "Independencia", "sourceIds": ["bcra-c101352"] },
+    { "date": "2026-07-10", "name": "Día no laborable con fin turístico", "sourceIds": ["bcra-c101352"] },
+    { "date": "2026-08-17", "name": "General José de San Martín", "sourceIds": ["bcra-c101352"] },
+    { "date": "2026-10-12", "name": "Diversidad Cultural", "sourceIds": ["bcra-c101352"] },
+    { "date": "2026-11-06", "name": "Día del Bancario", "sourceIds": ["bcra-bank-day"] },
+    { "date": "2026-11-09", "name": "Feriado nacional por visita papal", "sourceIds": ["bcra-c102390", "bcra-calendar-2026"] },
+    { "date": "2026-11-10", "name": "Feriado bancario por visita papal", "sourceIds": ["bcra-a8487", "bcra-calendar-2026"] },
+    { "date": "2026-11-23", "name": "Soberanía Nacional", "sourceIds": ["bcra-c101352"] },
+    { "date": "2026-12-07", "name": "Día no laborable con fin turístico", "sourceIds": ["bcra-c101352"] },
+    { "date": "2026-12-08", "name": "Inmaculada Concepción de María", "sourceIds": ["bcra-c101352"] },
+    { "date": "2026-12-25", "name": "Navidad", "sourceIds": ["bcra-c101352"] }
+  ]
+}

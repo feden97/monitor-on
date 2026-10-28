@@ -26,6 +26,7 @@ import {
 import { cn } from '@/lib/utils'
 import { compareBondValues } from '../utils/bondModel.js'
 import { formatDate, formatNumber, formatPctSimple } from '../utils/formatters'
+import { CompactQuality } from './QualityStatus'
 
 const BondDetailPanel = lazy(() => import('./BondDetailPanel'))
 
@@ -39,6 +40,7 @@ const FOCUS_OPTIONS = [
   { id: 'coupon-soon', label: 'Pago cercano' },
   { id: 'discount', label: 'Bajo residual' },
   { id: 'income', label: 'Prox. cobro' },
+  { id: 'blocked', label: 'Revisar cronograma' },
 ]
 
 const MONEY_FORMATTERS = new Map([0, 2].map((digits) => [digits, new Intl.NumberFormat('es-AR', {
@@ -109,7 +111,7 @@ function topRowsBy(rows, selector, comparator = 'max', limit = 5) {
     .slice(0, limit)
 }
 
-function RankingCard({ title, description, rows, renderValue, emptyLabel }) {
+function RankingCard({ title, description, rows, renderValue, emptyLabel, emptyAction }) {
   return (
     <Card className="border-terminal-border bg-terminal-panel">
       <CardHeader className="px-4 py-3 pb-2">
@@ -147,6 +149,7 @@ function RankingCard({ title, description, rows, renderValue, emptyLabel }) {
           ) : (
             <div className="px-4 py-6 text-sm text-terminal-muted/60">
               {emptyLabel}
+              {emptyAction}
             </div>
           )}
         </div>
@@ -182,6 +185,7 @@ const BondRow = memo(({
           }`}
       >
         <div className="truncate font-medium text-terminal-text">{row.name}</div>
+        <CompactQuality quality={row.quality} />
       </td>
       <td
         style={{
@@ -191,7 +195,7 @@ const BondRow = memo(({
         }}
         className="sheet-sticky-cell sticky border-r border-b border-terminal-border bg-terminal-panel px-2 py-1 text-center font-mono text-terminal-text"
       >
-        {row.symbol}
+        <button type="button" className="rounded px-1 py-1 underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-terminal-accent" onClick={(event) => { event.stopPropagation(); onSelect(row) }} aria-label={`Abrir ficha de ${row.symbol}`}>{row.symbol}</button>
       </td>
       <td
         style={{
@@ -219,7 +223,7 @@ const BondRow = memo(({
       <td className={TD_HIDDEN_SM}>{formatArs(row.priceArs)}</td>
       <td className={TD_HIDDEN_XL}>{formatUsd(row.impliedUsdFromPesos)}</td>
       <td className={TD_BASE}>
-        <span className={pillClass(row.ytm, 'ytm')}>{formatPctSimple(row.ytm)}</span>
+        <span className={pillClass(row.ytm, 'ytm')} title={row.quality?.calculation?.label}>{row.ytm != null && row.quality?.calculation?.status === 'indicative' ? '≈ ' : ''}{formatPctSimple(row.ytm)}</span>
       </td>
       <td className={TD_BASE}>
         <span className={pillClass(row.paridad, 'paridad')}>{formatPctSimple(row.paridad)}</span>
@@ -282,8 +286,8 @@ export default function Home({ marketModel, dolarMEP, filter = '', searchValue =
   }), [marketModel.rows, dolarMEP?.value, investmentBase])
 
   const rankings = useMemo(() => ({
-    bestYtmRows: topRowsBy(marketModel.rows, (row) => row.ytm, 'max'),
-    lowestParityRows: topRowsBy(marketModel.rows, (row) => row.paridad, 'min'),
+    bestYtmRows: topRowsBy(marketModel.rows.filter((row) => row.quality?.rankingEligible), (row) => row.ytm, 'max'),
+    lowestParityRows: topRowsBy(marketModel.rows.filter((row) => row.quality?.rankingEligible), (row) => row.paridad, 'min'),
     mostActiveRows: topRowsBy(marketModel.rows, (row) => row.operations ?? row.volumeNominales, 'max'),
   }), [marketModel.rows])
 
@@ -309,6 +313,9 @@ export default function Home({ marketModel, dolarMEP, filter = '', searchValue =
     }
     if (focus === 'income') {
       filtered = filtered.filter((row) => row.nextTotalBase != null && row.nextTotalBase > 0)
+    }
+    if (focus === 'blocked') {
+      filtered = filtered.filter((row) => !row.quality?.canCalculate && row.quality?.schedule?.status !== 'matured')
     }
 
     return [...filtered].sort((a, b) => compareBondValues(a[sortKey], b[sortKey], sortDir))
@@ -341,22 +348,23 @@ export default function Home({ marketModel, dolarMEP, filter = '', searchValue =
     <div className="space-y-4 pb-10">
       <div className="grid gap-4 xl:grid-cols-3">
         <RankingCard
-          title="Mejor TIR"
-          description="Top instrumentos por TIR efectiva anual."
+          title="TIR comparable"
+          description="Mayor TEA entre cálculos con datos validados."
           rows={rankings.bestYtmRows}
           renderValue={(row) => formatPctSimple(row.ytm)}
-          emptyLabel="No hay TIR disponible para armar el ranking."
+          emptyLabel="Todavía no hay instrumentos con contrato, precio y calendario validados para este ranking."
+          emptyAction={marketModel.rows.some((row) => row.symbol === 'YM34D') ? <button type="button" onClick={() => setSelectedTicker('YM34D')} className="mt-3 block text-xs text-terminal-accent underline underline-offset-4">Abrir el caso documentado YM34D</button> : null}
         />
         <RankingCard
-          title="Menor paridad"
-          description="Top instrumentos por menor paridad actual."
+          title="Paridad comparable"
+          description="Menor paridad entre cálculos con datos validados."
           rows={rankings.lowestParityRows}
           renderValue={(row) => formatPctSimple(row.paridad)}
-          emptyLabel="No hay paridades disponibles para armar el ranking."
+          emptyLabel="Las estimaciones con supuestos pendientes quedan fuera del ranking. Podés consultarlas en la tabla."
         />
         <RankingCard
-          title="Mas operadas"
-          description="Top instrumentos por cantidad de operaciones, con VN como referencia."
+          title="Más operadas · dato recibido"
+          description="Cantidad de operaciones informada por la fuente."
           rows={rankings.mostActiveRows}
           renderValue={(row) => `${formatNumber(row.operations)} ops`}
           emptyLabel="No hay datos de operaciones disponibles."
@@ -368,11 +376,12 @@ export default function Home({ marketModel, dolarMEP, filter = '', searchValue =
           <div className="space-y-1">
             <div className="text-sm font-semibold text-terminal-text">Claves de lectura</div>
             <div className="text-xs text-terminal-muted/80">
-              <span className="font-medium text-terminal-text">Cada U$S {formatNumber(investmentBase)}</span> muestra cuantos nominales compras hoy y cuanto cobrarias en el proximo cupon, en la proxima amortizacion y en el proximo cobro total.
+              <span className="font-medium text-terminal-text">Cada U$S {formatNumber(investmentBase)}</span> estima nominales y cobros con el precio observado asumido por 100 VN originales, sin gastos. Los pagos requieren un cronograma utilizable.
             </div>
             <div className="text-xs text-terminal-muted/80">
               <span className="font-medium text-terminal-text">Comprando en $</span> divide la cotizacion en pesos por el dolar MEP y deja visible el precio implicito en dolares para compararlo contra la especie en U$S.
             </div>
+            <div className="text-xs text-terminal-muted/80"><span className="font-medium text-terminal-text">≈ TIR indicativa</span> usa supuestos pendientes de validar. Abrí la ficha para ver el estado del contrato, la cotización, el calendario y las entradas del cálculo.</div>
             {coverageNotes.length > 0 && (
               <div className="text-xs text-terminal-muted/60">
                 Faltantes detectados: {coverageNotes.join(' · ')}.
@@ -475,12 +484,12 @@ export default function Home({ marketModel, dolarMEP, filter = '', searchValue =
                 ['frequency', 'Pagos/Año', 'hidden md:table-cell'],
                 ['maturityDate', 'Venc.', 'hidden lg:table-cell'],
                 ['daysToMaturity', 'Días Venc.', ''],
-                ['nextCouponDate', 'Próx. Pago', 'hidden lg:table-cell'],
-                ['daysToCoupon', 'Días Pago', ''],
+                ['nextCouponDate', 'Pago estim.', 'hidden lg:table-cell'],
+                ['daysToCoupon', 'Días estim.', ''],
                 ['priceUsd', 'Precio U$S', ''],
                 ['priceArs', 'Precio $', 'hidden sm:table-cell'],
                 ['impliedUsdFromPesos', 'MEP Impl.', 'hidden xl:table-cell'],
-                ['ytm', 'TIR', ''],
+                ['ytm', 'TIR TEA', ''],
                 ['paridad', 'Paridad', ''],
                 ['currentYield', 'Yield', 'hidden md:table-cell'],
                 ['residualValue', 'Valor Res.', ''],
@@ -549,7 +558,7 @@ export default function Home({ marketModel, dolarMEP, filter = '', searchValue =
       </section>
 
       <Sheet open={!!selectedBond} onOpenChange={(open) => !open && setSelectedTicker(null)}>
-        <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto border-terminal-border bg-terminal-panel p-0">
+        <SheetContent side="right" className="w-full sm:max-w-xl overflow-y-auto border-terminal-border bg-terminal-panel p-0">
           <SheetHeader className="sticky top-0 z-10 border-b border-terminal-border bg-terminal-panel px-6 py-4">
             <SheetTitle className="font-mono text-xl font-bold text-terminal-text">
               {selectedBond?.symbol}
@@ -566,6 +575,9 @@ export default function Home({ marketModel, dolarMEP, filter = '', searchValue =
                   prospecto={selectedBond.prospecto}
                   metrics={selectedBond.metrics}
                   dolarMEP={dolarMEP}
+                  quality={selectedBond.quality}
+                  calculationSnapshot={selectedBond.calculationSnapshot}
+                  contract={selectedBond.contract}
                 />
               </Suspense>
             )}

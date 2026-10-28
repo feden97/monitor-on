@@ -5,6 +5,7 @@ import {
   analyzeBond,
   calcDays360EU,
   calcMacaulayDuration,
+  calcAccruedInterest,
   calcYTM,
   daysBetween,
   formatLocalDate,
@@ -116,6 +117,7 @@ test('financial solvers reject invalid prices and non-discountable flows', () =>
 test('bond analysis preserves clean price, accrued interest and technical value conventions', () => {
   const metrics = analyzeBond(100, {
     coupon_rate: 8,
+    maturity_date: '2027-01-02',
     dayConvention: 360,
     frequency: 2,
     cashflows: [
@@ -134,9 +136,26 @@ test('bond analysis preserves clean price, accrued interest and technical value 
 })
 
 test('valid schedules with no remaining payments are distinguished from missing data', () => {
-  const prospecto = { cashflows: [{ date: '2025-01-02', amortization_pct: 100, interest_pct: 4 }] }
+  const prospecto = { maturity_date: '2025-01-02', cashflows: [{ date: '2025-01-02', amortization_pct: 100, interest_pct: 4 }] }
   assert.deepEqual(analyzeBond(100, prospecto, '2026-01-02'), { isMatured: true })
   assert.equal(analyzeBond(100, { cashflows: [] }, '2026-01-02'), null)
+})
+
+test('an exhausted schedule cannot declare a future contractual maturity expired', () => {
+  assert.equal(analyzeBond(100, prospectos.CP39D, '2026-10-28'), null)
+  assert.equal(analyzeBond(100, prospectos.CS47D, '2026-10-28'), null)
+})
+
+test('unknown accrual history stays absent while future-price yield remains indicative', () => {
+  const result = analyzeBond(100, { maturity_date: '2027-07-17', coupon_rate: 8, frequency: 2,
+    dayConvention: 360, cashflows: [
+      { date: '2027-01-17', interest_pct: 4, amortization_pct: 0 },
+      { date: '2027-07-17', interest_pct: 4, amortization_pct: 100 },
+    ] }, '2026-10-28')
+  assert.ok(result.ytm > 0)
+  assert.equal(result.accrued, null)
+  assert.equal(result.cleanPrice, null)
+  assert.equal(result.paridad, null)
 })
 
 test('the shipped prospectus data never emits NaN or infinity in numeric metrics', () => {
@@ -148,4 +167,16 @@ test('the shipped prospectus data never emits NaN or infinity in numeric metrics
       if (typeof value === 'number') assert.ok(Number.isFinite(value), `${symbol}.${key}`)
     }
   }
+})
+
+test('accrual coupon boundaries use civil dates when 30E/360 assigns equal counts', () => {
+  const prospecto = { coupon_rate: 8, frequency: 2, dayConvention: 360, emission_date: '2025-07-30',
+    maturity_date: '2027-01-30', cashflows: [
+      { date: '2026-07-30', interest_pct: 4, amortization_pct: 0 },
+      { date: '2026-01-30', interest_pct: 4, amortization_pct: 0 },
+      { date: '2027-01-30', interest_pct: 4, amortization_pct: 100 },
+    ] }
+  const flows = processCashflows(prospecto.cashflows, '2026-01-31', 360)
+  assert.equal(flows[0].rawDate, '2026-01-30')
+  closeTo(calcAccruedInterest(flows, prospecto, '2026-01-31'), 0)
 })

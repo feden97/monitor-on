@@ -1,0 +1,323 @@
+{
+  "format": "monitor-on-calculation/v1",
+  "id": "fnv1a32-61d425c1",
+  "identifierAlgorithm": "FNV-1a-32; not a digital signature",
+  "symbol": "YM34D",
+  "engineVersion": "fixed-income-2.0.0",
+  "contractVersion": "1.0.0",
+  "scenario": "hold-to-maturity",
+  "settlementDate": "2026-10-28",
+  "dayCount": "30E/360",
+  "yieldBasis": "effective-annual",
+  "nominalFrequency": 2,
+  "evaluatedAt": "2026-10-27T20:39:58.490Z",
+  "price": {
+    "value": 109.05,
+    "currency": "USD",
+    "nominalBasis": "unknown",
+    "type": "dirty-assumed",
+    "observedPriceType": "unknown",
+    "marketTimestamp": null,
+    "receivedAt": "2026-10-27T20:40:08.500Z",
+    "source": "data912",
+    "settlementTerm": null
+  },
+  "rawCashflows": [
+    {
+      "date": "2026-04-01",
+      "amortization_pct": 0,
+      "interest_pct": 0
+    },
+    {
+      "date": "2025-01-17",
+      "amortization_pct": 0,
+      "interest_pct": 0
+    },
+    {
+      "date": "2025-07-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2026-01-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2026-07-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2027-01-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2027-07-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2028-01-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2028-07-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2029-01-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2029-07-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2030-01-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2030-07-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2031-01-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2031-07-17",
+      "amortization_pct": 0,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2032-01-17",
+      "amortization_pct": 30,
+      "interest_pct": 4.125
+    },
+    {
+      "date": "2032-07-17",
+      "amortization_pct": 0,
+      "interest_pct": 2.8875
+    },
+    {
+      "date": "2033-01-17",
+      "amortization_pct": 30,
+      "interest_pct": 2.8875
+    },
+    {
+      "date": "2033-07-17",
+      "amortization_pct": 0,
+      "interest_pct": 1.65
+    },
+    {
+      "date": "2034-01-17",
+      "amortization_pct": 40,
+      "interest_pct": 1.65
+    }
+  ],
+  "couponRate": 8.25,
+  "issueDate": "2025-01-17",
+  "maturityDate": "2034-01-17",
+  "assumptions": [
+    "Escenario contractual hasta vencimiento, sin rescate, incumplimiento, gastos ni impuestos.",
+    "Descuento con fechas teóricas; fechas hábiles mostradas con el calendario cargado y cobertura explícita.",
+    "Importes por VN original 100; la base de la cotización requiere confirmación independiente.",
+    "La cotización se trata como precio sucio para esta estimación; el proveedor no lo ha confirmado.",
+    "360 selecciona 30E/360 del modelo; la familia contractual 30/360 por sí sola no certifica esta variante.",
+    "Liquidación estimada por la regla T+1 calendario ajustada; plazo de mercado no confirmado."
+  ],
+  "cashflows": [
+    {
+      "date": "2027-01-17",
+      "adjustedDate": "2027-01-18",
+      "yearFraction": 0.21944444444444444,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2027-07-17",
+      "adjustedDate": "2027-07-19",
+      "yearFraction": 0.7194444444444444,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2028-01-17",
+      "adjustedDate": "2028-01-17",
+      "yearFraction": 1.2194444444444446,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2028-07-17",
+      "adjustedDate": "2028-07-17",
+      "yearFraction": 1.7194444444444446,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2029-01-17",
+      "adjustedDate": "2029-01-17",
+      "yearFraction": 2.2194444444444446,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2029-07-17",
+      "adjustedDate": "2029-07-17",
+      "yearFraction": 2.7194444444444446,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2030-01-17",
+      "adjustedDate": "2030-01-17",
+      "yearFraction": 3.2194444444444446,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2030-07-17",
+      "adjustedDate": "2030-07-17",
+      "yearFraction": 3.7194444444444446,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2031-01-17",
+      "adjustedDate": "2031-01-17",
+      "yearFraction": 4.219444444444444,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2031-07-17",
+      "adjustedDate": "2031-07-17",
+      "yearFraction": 4.719444444444444,
+      "interest": 4.125,
+      "principal": 0,
+      "total": 4.125
+    },
+    {
+      "date": "2032-01-17",
+      "adjustedDate": "2032-01-19",
+      "yearFraction": 5.219444444444444,
+      "interest": 4.125,
+      "principal": 30,
+      "total": 34.125
+    },
+    {
+      "date": "2032-07-17",
+      "adjustedDate": "2032-07-19",
+      "yearFraction": 5.719444444444444,
+      "interest": 2.8875,
+      "principal": 0,
+      "total": 2.8875
+    },
+    {
+      "date": "2033-01-17",
+      "adjustedDate": "2033-01-17",
+      "yearFraction": 6.219444444444444,
+      "interest": 2.8875,
+      "principal": 30,
+      "total": 32.8875
+    },
+    {
+      "date": "2033-07-17",
+      "adjustedDate": "2033-07-18",
+      "yearFraction": 6.719444444444444,
+      "interest": 1.65,
+      "principal": 0,
+      "total": 1.65
+    },
+    {
+      "date": "2034-01-17",
+      "adjustedDate": "2034-01-17",
+      "yearFraction": 7.219444444444444,
+      "interest": 1.65,
+      "principal": 40,
+      "total": 41.65
+    }
+  ],
+  "sensitivityBases": {
+    "duration": "Macaulay, years",
+    "modDuration": "nominal-annual",
+    "effectiveModDuration": "effective-annual",
+    "convexity": "effective-annual P″/P",
+    "nominalConvexity": "nominal-annual P″/P"
+  },
+  "outputs": {
+    "isMatured": false,
+    "dirtyPrice": 109.05,
+    "cleanPrice": 106.73541666666667,
+    "accrued": 2.314583333333333,
+    "techValue": 102.31458333333333,
+    "paridad": 106.58304656797866,
+    "ytm": 7.02852143901775,
+    "tna": 6.909179534420609,
+    "currentYield": 7.729393164561904,
+    "duration": 4.979531984211248,
+    "modDuration": 4.813253810600386,
+    "effectiveModDuration": 4.652528052579391,
+    "convexity": 29.873023083243176,
+    "nominalConvexity": 29.646390888841943
+  },
+  "quality": {
+    "contract": {
+      "status": "reviewed-original",
+      "label": "Emisión original revisada",
+      "reasons": [
+        "Coincide con los documentos de emisión; eventos posteriores y cotizaciones tienen revisión independiente."
+      ]
+    },
+    "schedule": {
+      "status": "complete",
+      "label": "Estructura completa",
+      "reasons": [
+        "Capital y horizonte coherentes con el catálogo; no certifica el contrato ni eventos posteriores."
+      ]
+    },
+    "market": {
+      "status": "unknown-time",
+      "label": "Hora de mercado desconocida",
+      "reasons": [
+        "La hora de consulta no acredita la hora del último negocio."
+      ]
+    },
+    "calendar": {
+      "status": "out-of-coverage",
+      "label": "Calendario sin cobertura",
+      "reasons": [
+        "Último feriado cargado: 2026-01-01. El ajuste hábil es provisional."
+      ]
+    },
+    "calculation": {
+      "status": "indicative",
+      "label": "Cálculo indicativo",
+      "reasons": [
+        "Falta revisar eventos posteriores, calendario, convención de rendimiento y relación entre especie e instrumento.",
+        "Estimación con el cronograma cargado, precio tratado como sucio y fechas teóricas; no habilita un ranking verificado."
+      ]
+    },
+    "canCalculate": true,
+    "rankingEligible": false
+  }
+}

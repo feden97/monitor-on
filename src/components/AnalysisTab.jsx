@@ -2,6 +2,7 @@ import { Fragment, lazy, Suspense, useMemo, useState } from 'react'
 import { ArrowUpDown, ChevronDown, ChevronRight, Search } from 'lucide-react'
 import { compareBondValues } from '../utils/bondModel.js'
 import { formatPct, formatTime } from '../utils/formatters'
+import { CompactQuality } from './QualityStatus'
 
 const BondDetailPanel = lazy(() => import('./BondDetailPanel'))
 
@@ -108,7 +109,7 @@ export default function AnalysisTab({ marketModel, loading, error, dolarMEP, las
           )}
           {lastUpdated && (
             <div className="rounded-lg border border-terminal-border bg-terminal-surface px-3 py-1.5 shadow-sm">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-terminal-muted">Mercado</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-terminal-muted">Última consulta</span>
               <div className="text-sm font-mono font-bold tabular-nums text-terminal-text">{formatTime(lastUpdated, false)}</div>
             </div>
           )}
@@ -148,17 +149,20 @@ export default function AnalysisTab({ marketModel, loading, error, dolarMEP, las
                     onClick={() => toggleExpand(row.symbol)}
                   >
                     <td className="px-4 py-3 text-center">
+                      <button type="button" onClick={(event) => { event.stopPropagation(); toggleExpand(row.symbol) }} aria-expanded={isExpanded} aria-label={`${isExpanded ? 'Cerrar' : 'Abrir'} ficha de ${row.symbol}`} className="rounded p-1 focus-visible:outline-2 focus-visible:outline-terminal-accent">
                       {isExpanded ? (
                         <ChevronDown size={14} className="text-terminal-accent" />
                       ) : (
                         <ChevronRight size={14} className="text-terminal-muted" />
                       )}
+                      </button>
                     </td>
                     <td className="px-4 py-3">
                       <span className="ticker-badge rounded px-2 py-0.5 text-[11px] font-bold">{row.symbol}</span>
                     </td>
-                    <td className="max-w-[180px] truncate px-4 py-3 font-medium text-terminal-text" title={prospecto?.name}>
-                      {prospecto?.name || <span className="text-terminal-muted opacity-50">—</span>}
+                    <td className="min-w-[240px] max-w-[360px] px-4 py-3 font-medium text-terminal-text" title={prospecto?.name}>
+                      <div className="truncate">{prospecto?.name || <span className="text-terminal-muted opacity-50">—</span>}</div>
+                      <CompactQuality quality={row.quality} />
                     </td>
                     <td className="px-4 py-3 text-center font-mono">
                       {dias != null ? (
@@ -183,7 +187,7 @@ export default function AnalysisTab({ marketModel, loading, error, dolarMEP, las
                       ) : '—'}
                     </td>
                     <td className="px-4 py-3 text-center font-mono font-bold tabular-nums text-terminal-accent">
-                      {prospecto?.coupon_rate ? `${prospecto.coupon_rate}%` : '—'}
+                      {prospecto?.coupon_rate != null ? `${prospecto.coupon_rate}%` : '—'}
                     </td>
                     <td className="px-4 py-3 text-center">
                       {prospecto?.currency_type ? (
@@ -200,7 +204,7 @@ export default function AnalysisTab({ marketModel, loading, error, dolarMEP, las
                     <tr>
                       <td colSpan={columns.length} className="bg-terminal-bg/50 p-0">
                         <Suspense fallback={<div className="p-6 text-center text-sm text-terminal-muted">Cargando detalle...</div>}>
-                          <BondDetailPanel bond={row.quote} prospecto={prospecto} metrics={row.metrics} dolarMEP={dolarMEP} />
+                          <BondDetailPanel bond={row.quote} prospecto={prospecto} metrics={row.metrics} dolarMEP={dolarMEP} quality={row.quality} calculationSnapshot={row.calculationSnapshot} contract={row.contract} />
                         </Suspense>
                       </td>
                     </tr>

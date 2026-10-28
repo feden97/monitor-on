@@ -1,4 +1,7 @@
 import holidays from '../data/holidays.json' with { type: 'json' }
+import { assessSchedule } from './bondQuality.js'
+import { effectiveToNominal, riskMeasures, yieldFromPrice } from './fixedIncomeMath.js'
+import { dayCountDays, DAY_COUNT_CONVENTIONS, yearFraction } from './dayCount.js'
 
 // Load holidays into a Set for O(1) lookups
 const holidaySet = new Set(holidays)
@@ -76,19 +79,15 @@ export function daysBetween(d1, d2) {
  * Assumes 30 days per month exactly.
  */
 export function calcDays360EU(d1, d2) {
-  let day1 = d1.getDate()
-  const m1 = d1.getMonth() + 1
-  const y1 = d1.getFullYear()
+  const first = formatLocalDate(d1)
+  const second = formatLocalDate(d2)
+  return first <= second ? dayCountDays(first, second, '30E/360') : -dayCountDays(second, first, '30E/360')
+}
 
-  let day2 = d2.getDate()
-  const m2 = d2.getMonth() + 1
-  const y2 = d2.getFullYear()
-
-  // European rule: If 31st, change to 30th
-  if (day1 === 31) day1 = 30
-  if (day2 === 31) day2 = 30
-
-  return (y2 - y1) * 360 + (m2 - m1) * 30 + (day2 - day1)
+/** Numeric catalog values retain their prior meaning as explicit assumptions. */
+export function resolveDayCount(value) {
+  const id = value === 360 ? '30E/360' : value === 365 ? 'ACT/365F' : value
+  return DAY_COUNT_CONVENTIONS.some(item => item.id === id && !item.requiresEndOfMonth) ? id : null
 }
 
 // ── Cashflow Processing ─────────────────────────────────────────────
@@ -102,7 +101,8 @@ export function calcDays360EU(d1, d2) {
  * @param {number} dayConvention - 360 or 365
  */
 export function processCashflows(rawCashflows, settlementDate = new Date(), dayConvention = 360) {
-  if (!Array.isArray(rawCashflows) || !Number.isFinite(dayConvention) || dayConvention <= 0) return []
+  const convention = resolveDayCount(dayConvention)
+  if (!Array.isArray(rawCashflows) || !convention) return []
 
   // Ensure settlement is at midnight local
   const sDate = parseLocalDate(settlementDate)
@@ -116,16 +116,21 @@ export function processCashflows(rawCashflows, settlementDate = new Date(), dayC
     || !Number.isFinite(cf?.interest_pct) || cf.interest_pct < 0)) return []
 
   return datedFlows.map(({ cf, rawDateObj }) => {
-    const rawDateStr = cf.date
+    const rawDateStr = formatLocalDate(rawDateObj)
     const bizDate = getNextBusinessDay(rawDateStr)
 
     // Elapsed days against business date (for UI + Payment scheduling)
     const daysFromSettlementBiz = daysBetween(sDate, bizDate)
 
     // Elapsed days against theoretical raw date (for purely financial accrual/YTM math)
-    const daysFromSettlementRaw = dayConvention === 360
-      ? calcDays360EU(sDate, rawDateObj)
-      : daysBetween(sDate, rawDateObj)
+    const settlementKey = formatLocalDate(sDate)
+    const before = rawDateStr < settlementKey
+    const first = before ? rawDateStr : settlementKey
+    const second = before ? settlementKey : rawDateStr
+    // Historical signs are for sorting/filtering only. Future discount times
+    // always use the convention in the correct chronological direction.
+    const daysFromSettlementRaw = dayCountDays(first, second, convention) * (before ? -1 : 1)
+    const t = yearFraction(first, second, convention) * (before ? -1 : 1)
 
     return {
       rawDate: rawDateStr,
@@ -134,12 +139,12 @@ export function processCashflows(rawCashflows, settlementDate = new Date(), dayC
       bizDate,
       days: daysFromSettlementBiz, // used for filtering "future" flows in UI
       rawDays: daysFromSettlementRaw, // used for financial math
-      t: daysFromSettlementRaw / dayConvention,
+      t,
       amortAmt: cf.amortization_pct,
       intAmt: cf.interest_pct,
       totalAmt: cf.amortization_pct + cf.interest_pct
     }
-  }).sort((a, b) => a.rawDays - b.rawDays)
+  }).sort((a, b) => a.rawDate.localeCompare(b.rawDate))
 }
 
 // ── Financial Metrics ───────────────────────────────────────────────
@@ -149,18 +154,19 @@ export function processCashflows(rawCashflows, settlementDate = new Date(), dayC
  * Based on the prior coupon and the next coupon.
  */
 export function calcAccruedInterest(processedFlows, prospecto, settlementDate) {
-  const nextFlows = processedFlows.filter(f => f.rawDays >= 0 && f.totalAmt > 0)
-  if (nextFlows.length === 0) return 0
-
   const sDate = parseLocalDate(settlementDate)
-  if (!sDate) return 0
+  if (!sDate) return null
+  const settlementKey = formatLocalDate(sDate)
+  const nextFlows = processedFlows.filter(f => f.rawDate >= settlementKey && f.totalAmt > 0)
+  if (nextFlows.length === 0) return null
 
   // Use the theoretical raw dates to find the exact accrual boundaries
-  const pastFlows = processedFlows.filter(f => f.rawDays < 0 && f.totalAmt > 0)
+  const pastFlows = processedFlows.filter(f => f.rawDate < settlementKey && f.totalAmt > 0)
 
   // Get Annual Rate and Convention from Prospecto
-  const annualRate = prospecto?.coupon_rate || 0
-  const convention = prospecto?.dayConvention || 365
+  const annualRate = prospecto?.coupon_rate
+  const convention = resolveDayCount(prospecto?.accrualDayCount ?? prospecto?.dayConvention)
+  if (!Number.isFinite(annualRate) || annualRate < 0 || !convention) return null
 
   // Calculate Current Residual Value before this upcoming payment
   const residualValuePct = nextFlows.reduce((sum, f) => sum + f.amortAmt, 0) / 100
@@ -173,18 +179,17 @@ export function calcAccruedInterest(processedFlows, prospecto, settlementDate) {
     lastDateObj = parseLocalDate(prospecto.emission_date)
   }
 
-  // If no last date is known, we fall back to assuming 0 accrued or we infer it
-  if (!lastDateObj) return 0
+  // Missing accrual boundaries are unknown, never a fabricated zero.
+  if (!lastDateObj) return annualRate === 0 ? 0 : null
 
   // Calculate days passed strictly between theoretical unadjusted dates
-  const daysAccrued = convention === 360
-    ? calcDays360EU(lastDateObj, sDate)
-    : daysBetween(lastDateObj, sDate)
+  if (lastDateObj > sDate) return null
+  const fractionAccrued = yearFraction(formatLocalDate(lastDateObj), formatLocalDate(sDate), convention)
 
   // Formula B: (Tasa Anual% / Convención) * DiasTranscurridos * ValorResidual
   // Como 'annualRate' está en formato entero (ej. 7, no 0.07), ya representa $ por cada 100 nominales.
   // Valor residual va de 0 a 1.
-  const accrued = (annualRate / convention) * daysAccrued * residualValuePct
+  const accrued = annualRate * fractionAccrued * residualValuePct
 
   return accrued > 0 ? accrued : 0
 }
@@ -194,6 +199,7 @@ export function calcAccruedInterest(processedFlows, prospecto, settlementDate) {
  * Sum of all FUTURE amortization + accrued interest
  */
 export function calcTechnicalValue(processedFlows, accruedInterest) {
+  if (!Number.isFinite(accruedInterest)) return null
   const futureAmort = processedFlows.reduce((sum, f) => sum + (f.days >= 0 ? f.amortAmt : 0), 0)
 
   return futureAmort + accruedInterest
@@ -203,62 +209,31 @@ export function calcTechnicalValue(processedFlows, accruedInterest) {
  * YTM (TIR) via Newton-Raphson with a bracketed fallback.
  * Annualized Yield to Maturity
  */
-export function calcYTM(price, processedFlows, maxIter = 100, tol = 1e-7) {
+export function calcYTM(price, processedFlows, maxIter = 200, tol = 1e-10) {
   if (!Number.isFinite(price) || price <= 0 || !Array.isArray(processedFlows)
-    || !Number.isFinite(maxIter) || maxIter <= 0 || !Number.isFinite(tol) || tol <= 0) return null
-  const futureFlows = processedFlows.filter(f => f.days > 0
-    && Number.isFinite(f.totalAmt) && f.totalAmt > 0 && Number.isFinite(f.t) && f.t > 0)
-  if (futureFlows.length === 0) return null
-
-  // Positive future payments have a monotonic PV curve for yields above -100%.
-  // Keep Newton steps inside this interval so fractional powers stay real.
-  const presentValue = yieldRate => futureFlows.reduce(
-    (sum, f) => sum + f.totalAmt / Math.pow(1 + yieldRate, f.t), 0)
-  let lower = -1 + Number.EPSILON
-  let upper = 1
-  if (presentValue(lower) < price) return null
-  while (presentValue(upper) > price && upper < Number.MAX_VALUE / 2) {
-    upper = upper * 2 + 1
-  }
-  if (presentValue(upper) > price) return null
-  let ytm = 0.05 // 5% guess
-
-  for (let i = 0; i < maxIter; i++) {
-    let pv = 0
-    let dpv = 0
-    for (const f of futureFlows) {
-      const disc = Math.pow(1 + ytm, f.t)
-      pv += f.totalAmt / disc
-      dpv -= (f.t * f.totalAmt) / (disc * (1 + ytm))
-    }
-
-    const diff = pv - price
-    if (Math.abs(diff) < tol) return ytm
-    if (diff > 0) lower = ytm
-    else upper = ytm
-    const next = ytm - diff / dpv
-    ytm = Number.isFinite(next) && next > lower && next < upper
-      ? next
-      : lower + (upper - lower) / 2
-  }
-  return null
+    || !Number.isSafeInteger(maxIter) || maxIter <= 0 || !Number.isFinite(tol) || tol <= 0) return null
+  const future = processedFlows.filter(f => f.days > 0 && Number.isFinite(f.totalAmt)
+    && f.totalAmt > 0 && Number.isFinite(f.t) && f.t > 0)
+    .map(f => ({ time: f.t, amount: f.totalAmt }))
+  if (!future.length) return null
+  try {
+    return yieldFromPrice(future, price, {
+      basis: 'effective-annual', maxIterations: maxIter, relativeTolerance: tol / price,
+    })
+  } catch { return null }
 }
 
-/**
- * Macaulay Duration (in years)
- */
+/** Macaulay duration; canonical math shared with the independent laboratory. */
 export function calcMacaulayDuration(price, processedFlows, ytm) {
-  const futureFlows = processedFlows.filter(f => f.days > 0 && f.totalAmt > 0 && f.t > 0)
-  if (futureFlows.length === 0 || !Number.isFinite(price) || price <= 0
+  if (!Array.isArray(processedFlows) || !Number.isFinite(price) || price <= 0
     || !Number.isFinite(ytm) || ytm <= -1) return null
-
-  let weightedSum = 0
-  for (const f of futureFlows) {
-    const pv = f.totalAmt / Math.pow(1 + ytm, f.t)
-    weightedSum += f.t * pv
-  }
-  const duration = weightedSum / price
-  return Number.isFinite(duration) ? duration : null
+  const future = processedFlows.filter(f => f.days > 0 && f.totalAmt > 0 && f.t > 0)
+    .map(f => ({ time: f.t, amount: f.totalAmt }))
+  if (!future.length) return null
+  try {
+    const risk = riskMeasures(future, ytm, { basis: 'effective-annual' })
+    return risk.macaulayDuration * risk.price / price
+  } catch { return null }
 }
 
 // ── Main Engine Wrapper ──────────────────────────────────────────────
@@ -267,65 +242,57 @@ export function calcMacaulayDuration(price, processedFlows, ytm) {
  * Computes all bond metrics in one pass
  */
 export function analyzeBond(dirtyPrice, prospecto, settlementDate = new Date()) {
-  const rawCashflows = prospecto?.cashflows || prospecto?.cash_flows || []
-  if (!Number.isFinite(dirtyPrice) || dirtyPrice <= 0
-    || !Array.isArray(rawCashflows) || rawCashflows.length === 0) return null
-
-  // Process timeline passing the convention if it exists (defaults to 365 for YTM math)
-  const convention = prospecto?.dayConvention || 365
+  if (!Number.isFinite(dirtyPrice) || dirtyPrice <= 0) return null
+  const schedule = assessSchedule(prospecto, settlementDate)
+  if (schedule.status === 'matured') return { isMatured: true }
+  if (schedule.status !== 'complete') return null
+  const rawCashflows = prospecto?.cashflows ?? prospecto?.cash_flows
+  // 360 retains the legacy 30E/360 assumption, now exposed in every snapshot.
+  // Unknown day count does not silently become ACT/365.
+  const convention = resolveDayCount(prospecto?.discountDayCount ?? prospecto?.dayConvention)
+  if (!convention) return null
   const processed = processCashflows(rawCashflows, settlementDate, convention)
-  if (processed.length === 0) return null
-
-  // Future flows (unpaid) to show in the UI (filtered by business days)
+  if (!processed.length) return null
   const futureFlows = processed.filter(f => f.days >= 0 && f.totalAmt > 0)
+  // Entitlement on payment date and rolled-over unsettled payments need explicit
+  // contract rules. Do not omit a t<=0 economic payment and still quote a yield.
+  if (!futureFlows.length || futureFlows.some(f => f.t <= 0)) return null
 
-  if (futureFlows.length === 0) return { isMatured: true }
-
-  // 1. Accrued Interest using strict Formula B logic
   const accrued = calcAccruedInterest(processed, prospecto, settlementDate)
-  const cleanPrice = dirtyPrice - accrued
-
+  const cleanPrice = accrued == null ? null : dirtyPrice - accrued
   const techValue = calcTechnicalValue(processed, accrued)
-  const paridad = techValue > 0 ? (dirtyPrice / techValue) : null
-
-  // Current Yield: Next 365 Days of coupons / Clean Price
-  // Or simpler: annual coupon rate (sum of interest over 1 year) / clean
+  const paridad = techValue > 0 ? dirtyPrice / techValue : null
   const oneYearFromNow = parseLocalDate(settlementDate)
   oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1)
-  const annualInterest = processed
-    .filter(f => f.days > 0 && f.bizDate <= oneYearFromNow)
+  const annualInterest = processed.filter(f => f.days > 0 && f.bizDate <= oneYearFromNow)
     .reduce((sum, f) => sum + f.intAmt, 0)
-
   const currentYield = cleanPrice > 0 ? annualInterest / cleanPrice : null
-
   const ytmDecimal = calcYTM(dirtyPrice, processed)
-  const duration = calcMacaulayDuration(dirtyPrice, processed, ytmDecimal)
-
-  // Transform TEA (ytmDecimal) into TNA (APR) to calculate Institutional Modified Duration
-  const frequency = Number.isFinite(prospecto?.frequency) && prospecto.frequency > 0
-    ? prospecto.frequency : 2
+  const explicitFlows = futureFlows.map(f => ({ time: f.t, amount: f.totalAmt }))
+  const frequency = prospecto?.frequency ?? prospecto?.couponsPerYear
   let tnaDecimal = null
-  let modDuration = null
-
+  let risk = null
+  let nominalRisk = null
   if (ytmDecimal != null) {
-    tnaDecimal = (Math.pow(1 + ytmDecimal, 1 / frequency) - 1) * frequency
-    if (duration != null) {
-      modDuration = duration / (1 + (tnaDecimal / frequency))
-    }
+    try {
+      risk = riskMeasures(explicitFlows, ytmDecimal, { basis: 'effective-annual' })
+      if (Number.isSafeInteger(frequency) && frequency > 0) {
+        tnaDecimal = effectiveToNominal(ytmDecimal, frequency)
+        nominalRisk = riskMeasures(explicitFlows, tnaDecimal, { basis: 'nominal', frequency })
+      }
+    } catch { /* Numeric domain failures remain absent, never NaN. */ }
   }
-
   return {
-    isMatured: false,
-    dirtyPrice,
-    cleanPrice,
-    accrued,
-    techValue,
-    paridad: paridad != null ? paridad * 100 : null,
-    ytm: ytmDecimal != null ? ytmDecimal * 100 : null,
-    tna: tnaDecimal != null ? tnaDecimal * 100 : null, // The institutional APR yield
-    currentYield: currentYield != null ? currentYield * 100 : null,
-    duration,
-    modDuration,
-    futureFlows
+    isMatured: false, dirtyPrice, cleanPrice, accrued, techValue,
+    paridad: paridad == null ? null : paridad * 100,
+    ytm: ytmDecimal == null ? null : ytmDecimal * 100,
+    tna: tnaDecimal == null ? null : tnaDecimal * 100,
+    currentYield: currentYield == null ? null : currentYield * 100,
+    duration: risk?.macaulayDuration ?? null,
+    modDuration: nominalRisk?.modifiedDuration ?? null,
+    effectiveModDuration: risk?.modifiedDuration ?? null,
+    convexity: risk?.convexity ?? null,
+    nominalConvexity: nominalRisk?.convexity ?? null,
+    futureFlows,
   }
 }

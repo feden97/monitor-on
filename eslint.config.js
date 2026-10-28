@@ -29,6 +29,7 @@ export default [
         clearInterval: 'readonly',
         AbortController: 'readonly',
         URL: 'readonly',
+        Blob: 'readonly',
         caches: 'readonly',
         Response: 'readonly',
         Request: 'readonly',

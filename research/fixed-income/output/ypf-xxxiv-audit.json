@@ -1,0 +1,41 @@
+{
+  "reviewDate": "2026-10-27",
+  "scope": "Original issuance conditions and no-call theoretical cashflow amounts. Not a certification of current outstanding amount, all subsequent events, payment calendars or current market yield.",
+  "documents": [
+    {
+      "file": "ypf-clase-xxxiv-aviso-resultados-2025.pdf",
+      "sha256": "623158038c028f8eb9c4392e7bd608ba8f621d75e3fccdd5f4bf5cb1f1ec700f",
+      "status": "matches_archived_snapshot"
+    },
+    {
+      "file": "ypf-clase-xxxiv-aviso-suscripcion-2025.pdf",
+      "sha256": "b9ab05c2ae2ce59c56c984fb5ad074142c15e9a2fd02bbcd2fe6b1c2e0f04471",
+      "status": "matches_archived_snapshot"
+    },
+    {
+      "file": "ypf-clase-xxxiv-suplemento-2025.pdf",
+      "sha256": "6eaa2ed3fc139ab05713b8ca164fe2b6e6041300201ab81b051dd609be215cce",
+      "status": "matches_archived_snapshot"
+    }
+  ],
+  "terms": {
+    "coupon": 0.0825,
+    "frequency": 2,
+    "maturity": "2034-01-17",
+    "isinRegS": "USP989MJBY67"
+  },
+  "paymentCount": 18,
+  "totalPrincipal": 100,
+  "catalogComparison": {
+    "ticker": "YM34D",
+    "comparedStoredFlows": 20,
+    "ignoredZeroMarkers": [
+      "2026-04-01",
+      "2025-01-17"
+    ],
+    "differences": [],
+    "originalDatesAbsentFromCatalog": [],
+    "scope": "Stored payment amounts vs original no-call contract. Missing historical rows require context; no current-yield adjudication."
+  },
+  "currentYieldAudit": "not_performed_no_synchronized_normalized_quotes"
+}

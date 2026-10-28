@@ -1,0 +1,58 @@
+{
+  "id": "US-NY-FED",
+  "version": "2026.10.27-1",
+  "name": "Federal Reserve Bank of New York",
+  "timeZone": "America/New_York",
+  "coverage": { "from": "2026-01-01", "to": "2027-12-31" },
+  "reviewedAt": "2026-10-27",
+  "reviewStatus": "official-schedule-reviewed",
+  "weekendDays": [0, 6],
+  "notes": [
+    "Calendario de operación publicado por Federal Reserve Bank of New York para 2026 y 2027.",
+    "Un feriado en domingo se observa el lunes siguiente. Si cae en sábado, los Federal Reserve Banks abren el viernes anterior: no trasladar el calendario de empleados federales/Board of Governors.",
+    "No es un calendario NYSE ni certifica por sí solo qué bancos comerciales exige un contrato o qué mercados liquidan.",
+    "Las fechas previstas pueden cambiar por cierres extraordinarios futuros; esta versión refleja las fuentes consultadas al 27/10/2026."
+  ],
+  "sources": [
+    {
+      "id": "ny-fed-schedule",
+      "title": "Holiday Schedule · Federal Reserve Bank of New York",
+      "url": "https://www.newyorkfed.org/aboutthefed/holiday_schedule.html",
+      "retrievedDate": "2026-10-27",
+      "locator": "Columnas 2026 y 2027; nota de cierre observado el 05/07/2027"
+    },
+    {
+      "id": "fed-k8",
+      "title": "Holidays Observed - K.8",
+      "url": "https://www.federalreserve.gov/aboutthefed/k8.htm",
+      "publishedDate": "2026-07-08",
+      "retrievedDate": "2026-10-27",
+      "locator": "Columnas 2026/2027 y notas de feriados en sábado y domingo"
+    }
+  ],
+  "holidays": [
+    { "date": "2026-01-01", "name": "New Year's Day", "sourceIds": ["ny-fed-schedule"] },
+    { "date": "2026-01-19", "name": "Martin Luther King Jr. Day", "sourceIds": ["ny-fed-schedule"] },
+    { "date": "2026-02-16", "name": "Washington's Birthday", "sourceIds": ["ny-fed-schedule"] },
+    { "date": "2026-05-25", "name": "Memorial Day", "sourceIds": ["ny-fed-schedule"] },
+    { "date": "2026-06-19", "name": "Juneteenth", "sourceIds": ["ny-fed-schedule"] },
+    { "date": "2026-07-04", "name": "Independence Day", "sourceIds": ["ny-fed-schedule", "fed-k8"] },
+    { "date": "2026-09-07", "name": "Labor Day", "sourceIds": ["ny-fed-schedule"] },
+    { "date": "2026-10-12", "name": "Columbus Day", "sourceIds": ["ny-fed-schedule"] },
+    { "date": "2026-11-11", "name": "Veterans Day", "sourceIds": ["ny-fed-schedule"] },
+    { "date": "2026-11-26", "name": "Thanksgiving Day", "sourceIds": ["ny-fed-schedule"] },
+    { "date": "2026-12-25", "name": "Christmas Day", "sourceIds": ["ny-fed-schedule"] },
+    { "date": "2027-01-01", "name": "New Year's Day", "sourceIds": ["ny-fed-schedule"] },
+    { "date": "2027-01-18", "name": "Martin Luther King Jr. Day", "sourceIds": ["ny-fed-schedule"] },
+    { "date": "2027-02-15", "name": "Washington's Birthday", "sourceIds": ["ny-fed-schedule"] },
+    { "date": "2027-05-31", "name": "Memorial Day", "sourceIds": ["ny-fed-schedule"] },
+    { "date": "2027-06-19", "name": "Juneteenth", "sourceIds": ["ny-fed-schedule", "fed-k8"] },
+    { "date": "2027-07-04", "name": "Independence Day", "sourceIds": ["ny-fed-schedule"] },
+    { "date": "2027-07-05", "name": "Independence Day observed", "sourceIds": ["ny-fed-schedule", "fed-k8"] },
+    { "date": "2027-09-06", "name": "Labor Day", "sourceIds": ["ny-fed-schedule"] },
+    { "date": "2027-10-11", "name": "Columbus Day", "sourceIds": ["ny-fed-schedule"] },
+    { "date": "2027-11-11", "name": "Veterans Day", "sourceIds": ["ny-fed-schedule"] },
+    { "date": "2027-11-25", "name": "Thanksgiving Day", "sourceIds": ["ny-fed-schedule"] },
+    { "date": "2027-12-25", "name": "Christmas Day", "sourceIds": ["ny-fed-schedule", "fed-k8"] }
+  ]
+}

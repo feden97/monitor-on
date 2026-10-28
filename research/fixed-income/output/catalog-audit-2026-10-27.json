@@ -1,0 +1,2654 @@
+{
+  "as_of": "2026-10-27",
+  "scope": "Structural review of stored schedules; not verification against contracts or market prices.",
+  "instrument_count": 243,
+  "duplicate_top_level_keys": [
+    {
+      "key": "YM34D",
+      "overwritten_fields": [
+        "amortSchedule",
+        "callable",
+        "couponDates",
+        "couponsPerYear"
+      ]
+    },
+    {
+      "key": "YM39D",
+      "overwritten_fields": [
+        "amortSchedule",
+        "callable",
+        "couponDates",
+        "couponsPerYear"
+      ]
+    },
+    {
+      "key": "YMCID",
+      "overwritten_fields": [
+        "amortSchedule",
+        "callable",
+        "couponDates",
+        "couponsPerYear"
+      ]
+    },
+    {
+      "key": "YMCJD",
+      "overwritten_fields": [
+        "amortSchedule",
+        "callable",
+        "couponDates",
+        "couponsPerYear"
+      ]
+    },
+    {
+      "key": "CS51D",
+      "overwritten_fields": [
+        "amortSchedule",
+        "amort_type",
+        "couponDates",
+        "coupon_rate",
+        "couponsPerYear",
+        "currency_type",
+        "frequency",
+        "law",
+        "maturity_date",
+        "min_investment",
+        "name",
+        "rating",
+        "ticker_o"
+      ]
+    }
+  ],
+  "issue_counts": {
+    "empty_schedule": 34,
+    "future_maturity_but_no_future_flows": 3,
+    "last_payment_differs_from_maturity": 15,
+    "missing_or_invalid_maturity": 88,
+    "no_documentary_provenance": 243,
+    "no_principal_in_schedule": 2,
+    "principal_total_requires_review": 4
+  },
+  "interpretation": "Partial historical schedules can have principal below 100 legitimately. Review against issue date, outstanding principal and primary documents before correcting.",
+  "instruments": [
+    {
+      "ticker": "YM34D",
+      "maturity": "2034-01-17",
+      "flow_count": 20,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2034-01-17",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YM39D",
+      "maturity": "2030-07-22",
+      "flow_count": 12,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2030-07-22",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YMCID",
+      "maturity": "2029-06-30",
+      "flow_count": 19,
+      "scheduled_principal_per_100_original": 99.96,
+      "last_payment": "2029-06-30",
+      "issues": [
+        "principal_total_requires_review",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YMCJD",
+      "maturity": "2033-09-30",
+      "flow_count": 27,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2033-09-30",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YMCXO",
+      "maturity": "2031-09-11",
+      "flow_count": 2,
+      "scheduled_principal_per_100_original": 0,
+      "last_payment": "2026-09-11",
+      "issues": [
+        "principal_total_requires_review",
+        "no_principal_in_schedule",
+        "last_payment_differs_from_maturity",
+        "future_maturity_but_no_future_flows",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CS51D",
+      "maturity": null,
+      "flow_count": 4,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-01-20",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "DNC9D",
+      "maturity": "2027-05-30",
+      "flow_count": 3,
+      "scheduled_principal_per_100_original": 100,
+      "last_payment": "2027-05-30",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CP39D",
+      "maturity": "2028-03-31",
+      "flow_count": 2,
+      "scheduled_principal_per_100_original": 0,
+      "last_payment": "2026-09-30",
+      "issues": [
+        "principal_total_requires_review",
+        "no_principal_in_schedule",
+        "last_payment_differs_from_maturity",
+        "future_maturity_but_no_future_flows",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "BF40D",
+      "maturity": "2027-08-27",
+      "flow_count": 3,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-08-27",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CS47D",
+      "maturity": "2027-11-15",
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-11-15",
+      "issues": [
+        "last_payment_differs_from_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CS48D",
+      "maturity": "2028-07-11",
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-07-11",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "GN49D",
+      "maturity": "2033-12-02",
+      "flow_count": 18,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2033-11-25",
+      "issues": [
+        "last_payment_differs_from_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "LMS7D",
+      "maturity": "2028-10-12",
+      "flow_count": 21,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-10-12",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MR39D",
+      "maturity": "2031-11-01",
+      "flow_count": 16,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2031-11-01",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "ARC1D",
+      "maturity": "2031-08-01",
+      "flow_count": 41,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2031-08-01",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "BACGD",
+      "maturity": "2029-06-23",
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2029-06-25",
+      "issues": [
+        "last_payment_differs_from_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "BACHD",
+      "maturity": "2031-01-28",
+      "flow_count": 12,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2031-01-28",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "BVCOD",
+      "maturity": "2026-07-15",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "BYCHD",
+      "maturity": "2028-10-10",
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-10-10",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CAC5D",
+      "maturity": "2028-08-25",
+      "flow_count": 12,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-08-25",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CACDD",
+      "maturity": "2029-06-04",
+      "flow_count": 9,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2029-06-04",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CIC8D",
+      "maturity": "2028-11-12",
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-11-12",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CIC9D",
+      "maturity": "2027-05-21",
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-05-21",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CICAD",
+      "maturity": "2028-06-03",
+      "flow_count": 7,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-06-03",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CICBD",
+      "maturity": "2029-02-09",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CLI1D",
+      "maturity": "2034-12-10",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CLSID",
+      "maturity": "2027-07-25",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CP37D",
+      "maturity": "2027-03-10",
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-03-10",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CP38D",
+      "maturity": "2030-11-28",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CP40D",
+      "maturity": "2028-03-09",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CRCJD",
+      "maturity": "2028-05-16",
+      "flow_count": 18,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-05-16",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CS44D",
+      "maturity": "2027-01-17",
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-01-17",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CS45D",
+      "maturity": "2026-08-22",
+      "flow_count": 7,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-08-22",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CS49D",
+      "maturity": "2027-09-02",
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-09-02",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CS50D",
+      "maturity": "2029-03-10",
+      "flow_count": 9,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2029-03-10",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "DEC2D",
+      "maturity": "2027-02-24",
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-02-24",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "DNC3D",
+      "maturity": "2026-11-22",
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-11-22",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "DNC5D",
+      "maturity": "2028-08-05",
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-08-05",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "DNC7D",
+      "maturity": "2030-10-24",
+      "flow_count": 14,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2030-10-24",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "EAC3D",
+      "maturity": "2028-12-20",
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-12-20",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "FO4AD",
+      "maturity": "2027-07-20",
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-07-20",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "GN47D",
+      "maturity": "2028-10-17",
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-10-17",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "GN48D",
+      "maturity": "2028-03-05",
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-03-05",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "GNCXD",
+      "maturity": "2027-09-02",
+      "flow_count": 14,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-09-02",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "GYC4D",
+      "maturity": "2027-10-30",
+      "flow_count": 13,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-10-30",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "GYC5D",
+      "maturity": "2027-09-05",
+      "flow_count": 9,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-09-05",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "HJCGD",
+      "maturity": "2028-10-21",
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-10-21",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "HJCHD",
+      "maturity": "2028-01-17",
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-01-17",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "HJCID",
+      "maturity": "2027-05-26",
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-05-26",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "HJCKD",
+      "maturity": "2029-01-16",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "IRCFD",
+      "maturity": "2028-06-22",
+      "flow_count": 14,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-06-22",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "IRCJD",
+      "maturity": "2027-02-28",
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-02-28",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "IRCOD",
+      "maturity": "2029-10-23",
+      "flow_count": 12,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2029-10-23",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "IRCPD",
+      "maturity": "2035-03-31",
+      "flow_count": 22,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2035-03-31",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "JNC6D",
+      "maturity": "2027-10-03",
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-10-04",
+      "issues": [
+        "last_payment_differs_from_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "LDCGD",
+      "maturity": "2027-10-04",
+      "flow_count": 13,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-10-04",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "LECED",
+      "maturity": "2026-08-14",
+      "flow_count": 7,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-08-14",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "LECGD",
+      "maturity": "2027-08-28",
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-08-28",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "LIC6D",
+      "maturity": "2026-07-02",
+      "flow_count": 9,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-07-02",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "LMS8D",
+      "maturity": "2027-09-21",
+      "flow_count": 15,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-09-21",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "LMS9D",
+      "maturity": "2026-06-13",
+      "flow_count": 9,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-06-13",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "LOC4D",
+      "maturity": "2026-05-02",
+      "flow_count": 7,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-05-02",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "LOC5D",
+      "maturity": "2027-07-24",
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-07-22",
+      "issues": [
+        "last_payment_differs_from_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "LOC6D",
+      "maturity": "2029-01-23",
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2029-01-23",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "LR7BD",
+      "maturity": "2026-12-10",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "LUC5D",
+      "maturity": "2029-02-26",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MCC1D",
+      "maturity": "2029-03-10",
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2029-03-06",
+      "issues": [
+        "last_payment_differs_from_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MGCMD",
+      "maturity": "2031-09-10",
+      "flow_count": 16,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2031-09-10",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MGCOD",
+      "maturity": "2034-12-16",
+      "flow_count": 22,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2034-12-16",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MGCRD",
+      "maturity": "2037-11-14",
+      "flow_count": 26,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2037-11-14",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MIC4D",
+      "maturity": "2027-07-29",
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-07-29",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MJC1D",
+      "maturity": "2027-02-19",
+      "flow_count": 4,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-02-19",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MR35D",
+      "maturity": "2027-09-01",
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-08-28",
+      "issues": [
+        "last_payment_differs_from_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MR40D",
+      "maturity": "2031-11-01",
+      "flow_count": 16,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2031-11-01",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MRCAD",
+      "maturity": "2027-12-01",
+      "flow_count": 14,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-12-01",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MRCQD",
+      "maturity": "2026-04-18",
+      "flow_count": 7,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-04-18",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MRCYD",
+      "maturity": "2026-05-30",
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-05-30",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MSSED",
+      "maturity": "2026-07-17",
+      "flow_count": 5,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-07-17",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MSSFD",
+      "maturity": "2027-07-23",
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-07-23",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MSSGD",
+      "maturity": "2029-04-16",
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2029-04-16",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MTCGD",
+      "maturity": "2026-06-30",
+      "flow_count": 22,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-06-30",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "NPCCD",
+      "maturity": "2029-08-25",
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2029-08-25",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "OLC6D",
+      "maturity": "2029-06-05",
+      "flow_count": 9,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2029-06-05",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "OLC7D",
+      "maturity": "2030-02-23",
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2030-02-23",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "OT41D",
+      "maturity": "2028-01-17",
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-01-17",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "OT42D",
+      "maturity": "2030-01-17",
+      "flow_count": 20,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2030-01-17",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "OTS2D",
+      "maturity": "2027-04-24",
+      "flow_count": 12,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-04-24",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "OTS3D",
+      "maturity": "2028-11-01",
+      "flow_count": 18,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-11-01",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "OTS6D",
+      "maturity": "2029-07-29",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "OZC3D",
+      "maturity": "2027-11-29",
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-11-29",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PECAD",
+      "maturity": "2027-02-28",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PECBD",
+      "maturity": "2028-02-29",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PECGD",
+      "maturity": "2027-10-28",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PLC1D",
+      "maturity": "2028-01-27",
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-01-27",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PLC2D",
+      "maturity": "2030-01-27",
+      "flow_count": 12,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2030-01-27",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PLC3D",
+      "maturity": "2028-04-30",
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-04-30",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PLC4D",
+      "maturity": "2032-05-30",
+      "flow_count": 16,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2032-05-30",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PLC5D",
+      "maturity": "2031-05-18",
+      "flow_count": 13,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2031-05-18",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PLC6D",
+      "maturity": "2029-02-27",
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2029-02-27",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PN35D",
+      "maturity": "2029-09-27",
+      "flow_count": 12,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2029-09-27",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PN36D",
+      "maturity": "2031-11-13",
+      "flow_count": 16,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2031-11-13",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PN38D",
+      "maturity": "2027-08-11",
+      "flow_count": 7,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-08-11",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PN41D",
+      "maturity": "2029-08-27",
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2029-08-27",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PN43D",
+      "maturity": "2037-01-15",
+      "flow_count": 24,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2037-01-12",
+      "issues": [
+        "last_payment_differs_from_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PNDCD",
+      "maturity": "2027-04-30",
+      "flow_count": 13,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-04-30",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PNXCD",
+      "maturity": "2032-04-30",
+      "flow_count": 18,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2032-04-30",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PQCSD",
+      "maturity": "2031-02-17",
+      "flow_count": 14,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2031-02-17",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PQCTD",
+      "maturity": "2028-07-21",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PUC2D",
+      "maturity": "2027-08-28",
+      "flow_count": 7,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-08-28",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "RAC4D",
+      "maturity": "2027-05-11",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "RAC5D",
+      "maturity": "2030-04-24",
+      "flow_count": 16,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2030-04-24",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "RAC6D",
+      "maturity": "2026-04-11",
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-04-11",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "RC1CD",
+      "maturity": "2033-07-31",
+      "flow_count": 18,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2033-07-31",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "RCCRD",
+      "maturity": "2027-05-09",
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-05-09",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "RUCDD",
+      "maturity": "2030-12-05",
+      "flow_count": 14,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2030-12-05",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "RUCED",
+      "maturity": "2027-10-30",
+      "flow_count": 9,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-10-30",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "RZ9BD",
+      "maturity": "2026-06-28",
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-06-28",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "RZABD",
+      "maturity": "2027-11-28",
+      "flow_count": 14,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-11-28",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "SBC1D",
+      "maturity": "2027-09-05",
+      "flow_count": 9,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-09-05",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "SBC2D",
+      "maturity": "2029-01-16",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "SNABD",
+      "maturity": "2029-07-14",
+      "flow_count": 9,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-07-29",
+      "issues": [
+        "last_payment_differs_from_maturity",
+        "future_maturity_but_no_future_flows",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "SNEBD",
+      "maturity": "2029-07-14",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "SNSBD",
+      "maturity": "2026-10-14",
+      "flow_count": 9,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-10-14",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "SNSDD",
+      "maturity": "2027-02-06",
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-02-06",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "TLC1D",
+      "maturity": "2026-07-18",
+      "flow_count": 13,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-07-18",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "TLCMD",
+      "maturity": "2031-07-18",
+      "flow_count": 16,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2031-07-18",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "TLCOD",
+      "maturity": "2028-11-28",
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-11-28",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "TLCPD",
+      "maturity": "2033-05-28",
+      "flow_count": 18,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2033-05-27",
+      "issues": [
+        "last_payment_differs_from_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "TLCTD",
+      "maturity": "2036-01-20",
+      "flow_count": 22,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2036-01-20",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "TLCUD",
+      "maturity": "2029-03-05",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "TSC3D",
+      "maturity": "2031-07-24",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "TSC4D",
+      "maturity": "2035-11-20",
+      "flow_count": 22,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2035-11-20",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "TTC7D",
+      "maturity": "2026-04-22",
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "TTC9D",
+      "maturity": "2029-10-24",
+      "flow_count": 12,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2029-10-24",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "TTCAD",
+      "maturity": "2033-01-22",
+      "flow_count": 18,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2033-01-22",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "TTCDD",
+      "maturity": "2030-11-03",
+      "flow_count": 12,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2030-11-04",
+      "issues": [
+        "last_payment_differs_from_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "VBC1D",
+      "maturity": "2027-03-11",
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-03-11",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "VSCOD",
+      "maturity": "2027-03-06",
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-03-06",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "VSCPD",
+      "maturity": "2029-05-03",
+      "flow_count": 12,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2029-05-03",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "VSCRD",
+      "maturity": "2031-10-10",
+      "flow_count": 16,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2031-10-10",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "VSCTD",
+      "maturity": "2035-12-10",
+      "flow_count": 24,
+      "scheduled_principal_per_100_original": 101.0,
+      "last_payment": "2035-12-10",
+      "issues": [
+        "principal_total_requires_review",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "VSCVD",
+      "maturity": "2033-06-10",
+      "flow_count": 18,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2033-06-10",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "XMC1D",
+      "maturity": "2027-11-11",
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-11-11",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YFCGD",
+      "maturity": "2027-02-27",
+      "flow_count": 12,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-02-27",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YFCJD",
+      "maturity": "2032-10-16",
+      "flow_count": 18,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2032-10-16",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YFCLD",
+      "maturity": "2029-11-22",
+      "flow_count": 16,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2029-11-22",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YFCMD",
+      "maturity": "2027-05-20",
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-05-20",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YFCOD",
+      "maturity": "2028-12-15",
+      "flow_count": 12,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-12-15",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YM35D",
+      "maturity": "2027-02-27",
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-02-27",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YM37D",
+      "maturity": "2027-05-07",
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-05-07",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YM40D",
+      "maturity": "2028-08-28",
+      "flow_count": 14,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-08-28",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YM42D",
+      "maturity": "2029-03-02",
+      "flow_count": 9,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2029-06-02",
+      "issues": [
+        "last_payment_differs_from_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YMCVD",
+      "maturity": "2026-05-27",
+      "flow_count": 9,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-05-28",
+      "issues": [
+        "last_payment_differs_from_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YMCXD",
+      "maturity": "2031-09-11",
+      "flow_count": 16,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2031-09-11",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YMCZD",
+      "maturity": "2028-10-10",
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-10-10",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "ZZC1D",
+      "maturity": "2027-02-21",
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-02-21",
+      "issues": [
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "BA7DD",
+      "maturity": null,
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "missing_or_invalid_maturity",
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "BC33D",
+      "maturity": null,
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "missing_or_invalid_maturity",
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "BNA6D",
+      "maturity": null,
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "missing_or_invalid_maturity",
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CO26D",
+      "maturity": null,
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "missing_or_invalid_maturity",
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CO32D",
+      "maturity": null,
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "missing_or_invalid_maturity",
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "NDT5D",
+      "maturity": null,
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "missing_or_invalid_maturity",
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PM29D",
+      "maturity": null,
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "missing_or_invalid_maturity",
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "S24DD",
+      "maturity": null,
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "missing_or_invalid_maturity",
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "SFD4D",
+      "maturity": null,
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "missing_or_invalid_maturity",
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "AERAO",
+      "maturity": null,
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "missing_or_invalid_maturity",
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "BACAO",
+      "maturity": null,
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "missing_or_invalid_maturity",
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "BYC2P",
+      "maturity": null,
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "missing_or_invalid_maturity",
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MGC1O",
+      "maturity": null,
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "missing_or_invalid_maturity",
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "TSC2O",
+      "maturity": null,
+      "flow_count": 0,
+      "scheduled_principal_per_100_original": null,
+      "last_payment": null,
+      "issues": [
+        "missing_or_invalid_maturity",
+        "empty_schedule",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CS38D",
+      "maturity": null,
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-03-03",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MRCLD",
+      "maturity": null,
+      "flow_count": 7,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2025-07-27",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MRCOD",
+      "maturity": null,
+      "flow_count": 7,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-01-20",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "BOL1D",
+      "maturity": null,
+      "flow_count": 7,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-03-07",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "LOC3D",
+      "maturity": null,
+      "flow_count": 7,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-03-11",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "LECBD",
+      "maturity": null,
+      "flow_count": 7,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-03-21",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "VSCND",
+      "maturity": null,
+      "flow_count": 7,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-06-05",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YMCUD",
+      "maturity": null,
+      "flow_count": 16,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2031-01-17",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CP34D",
+      "maturity": null,
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-02-23",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PNWCD",
+      "maturity": null,
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-03-02",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "GN43D",
+      "maturity": null,
+      "flow_count": 13,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-03-08",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MRCUD",
+      "maturity": null,
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-03-08",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "RUCAD",
+      "maturity": null,
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-03-12",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "LRS5D",
+      "maturity": null,
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-03-08",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MGCLD",
+      "maturity": null,
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-03-26",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CAC8D",
+      "maturity": null,
+      "flow_count": 11,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-06-29",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "HJCBD",
+      "maturity": null,
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-05-30",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "IRCLD",
+      "maturity": null,
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-06-10",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YFCID",
+      "maturity": null,
+      "flow_count": 11,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-06-13",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CRCLD",
+      "maturity": null,
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-02-08",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PN34D",
+      "maturity": null,
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-09-27",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MGCND",
+      "maturity": null,
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-10-04",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "JNC5D",
+      "maturity": null,
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-10-09",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YMCYD",
+      "maturity": null,
+      "flow_count": 16,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-10-10",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CP36D",
+      "maturity": null,
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-10-10",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "HJCFD",
+      "maturity": null,
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-10-21",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "IRCND",
+      "maturity": null,
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-10-23",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PQCRD",
+      "maturity": null,
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-10-22",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "TTC8D",
+      "maturity": null,
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-10-24",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CWC6D",
+      "maturity": null,
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-10-30",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "DRFBD",
+      "maturity": null,
+      "flow_count": 12,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-05-08",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "CIC7D",
+      "maturity": null,
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-11-12",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "LECKD",
+      "maturity": null,
+      "flow_count": 16,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2031-11-01",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PN37D",
+      "maturity": null,
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-11-13",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "RAC7D",
+      "maturity": null,
+      "flow_count": 18,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2032-12-11",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YFCKD",
+      "maturity": null,
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-11-22",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PZCGD",
+      "maturity": null,
+      "flow_count": 15,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-06-04",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "SIC1D",
+      "maturity": null,
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-12-09",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MU31D",
+      "maturity": null,
+      "flow_count": 5,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-06-19",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MU32D",
+      "maturity": null,
+      "flow_count": 7,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-06-19",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "AERBD",
+      "maturity": null,
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-12-15",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PHC3D",
+      "maturity": null,
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-01-16",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "FPC1D",
+      "maturity": null,
+      "flow_count": 14,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-02-10",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "VA1AD",
+      "maturity": null,
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-09-18",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "BF35D",
+      "maturity": null,
+      "flow_count": 4,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-06-03",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "ZPC2D",
+      "maturity": null,
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-06-02",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "OLC5D",
+      "maturity": null,
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-06-12",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "TLCQD",
+      "maturity": null,
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-07-02",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "EMC1D",
+      "maturity": null,
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-07-04",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "HVS1D",
+      "maturity": null,
+      "flow_count": 14,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-07-08",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PFC2D",
+      "maturity": null,
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-07-14",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YM38D",
+      "maturity": null,
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-07-22",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "HJCJD",
+      "maturity": null,
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-07-25",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MGCQD",
+      "maturity": null,
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2028-08-06",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "BYCVD",
+      "maturity": null,
+      "flow_count": 4,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-08-31",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "BF37D",
+      "maturity": null,
+      "flow_count": 4,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-08-24",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "T652D",
+      "maturity": null,
+      "flow_count": 5,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-05-28",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "ZPC3D",
+      "maturity": null,
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-09-03",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "RC2CD",
+      "maturity": null,
+      "flow_count": 4,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-10-06",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "YM41D",
+      "maturity": null,
+      "flow_count": 7,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-01-08",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "PN42D",
+      "maturity": null,
+      "flow_count": 5,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-04-20",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "VAC3P",
+      "maturity": null,
+      "flow_count": 10,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-10-24",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "OTS5D",
+      "maturity": null,
+      "flow_count": 4,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-10-23",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "VSCWD",
+      "maturity": null,
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-04-15",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "MIC3D",
+      "maturity": null,
+      "flow_count": 6,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-11-11",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "AFCID",
+      "maturity": null,
+      "flow_count": 4,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-11-09",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "BGC4D",
+      "maturity": null,
+      "flow_count": 4,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-11-13",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "BF39D",
+      "maturity": null,
+      "flow_count": 4,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-12-05",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "BPCUD",
+      "maturity": null,
+      "flow_count": 4,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2026-12-04",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "AFCJD",
+      "maturity": null,
+      "flow_count": 4,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-02-06",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "AFCKD",
+      "maturity": null,
+      "flow_count": 8,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2029-02-06",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "AFCLD",
+      "maturity": null,
+      "flow_count": 5,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-08-06",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    },
+    {
+      "ticker": "HBCFD",
+      "maturity": null,
+      "flow_count": 4,
+      "scheduled_principal_per_100_original": 100.0,
+      "last_payment": "2027-02-23",
+      "issues": [
+        "missing_or_invalid_maturity",
+        "no_documentary_provenance"
+      ]
+    }
+  ],
+  "calendar": {
+    "last_loaded_holiday": "2026-01-01",
+    "coverage_past_as_of": false,
+    "note": "Last entry does not certify calendar completeness or other financial centers."
+  }
+}

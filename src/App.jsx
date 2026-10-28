@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { Activity, Bell, LineChart, Menu, Moon, RefreshCw, Search, Sun, X } from 'lucide-react'
+import { Activity, Bell, FileCheck2, LineChart, Menu, Moon, RefreshCw, Search, Sun, X } from 'lucide-react'
 import Home from './components/Home'
 import ErrorBanner from './components/ErrorBanner'
 import { useBondsData } from './hooks/useBondsData'
@@ -9,6 +9,7 @@ import { useBondMarketModel } from './hooks/useBondMarketModel'
 import { formatTime } from './utils/formatters'
 
 const AnalysisTab = lazy(() => import('./components/AnalysisTab'))
+const BondDetailPanel = lazy(() => import('./components/BondDetailPanel'))
 
 function applyThemeWithoutMotion(isDark) {
   const style = document.createElement('style')
@@ -26,6 +27,7 @@ function applyThemeWithoutMotion(isDark) {
 const TABS = [
   { id: 'home', label: 'Inicio', icon: Activity },
   { id: 'analysis', label: 'Analisis', icon: LineChart },
+  { id: 'audited-case', label: 'Caso YM34D', icon: FileCheck2 },
 ]
 
 function SidebarNav({ activeTab, onTabClick, coverageSummary, isDark, onThemeToggle }) {
@@ -79,9 +81,9 @@ function SidebarNav({ activeTab, onTabClick, coverageSummary, isDark, onThemeTog
       <div className="space-y-0.5 border-t border-terminal-border p-2">
         {coverageSummary && (
           <div className="flex items-center gap-2 px-3 py-1.5">
-            <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-up" />
+            <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-terminal-muted" />
             <span className="font-mono text-[10px] text-terminal-muted">
-              {coverageSummary.availableChecks}/{coverageSummary.totalChecks} chequeados
+              {coverageSummary.availableChecks}/{coverageSummary.totalChecks} campos presentes
             </span>
           </div>
         )}
@@ -127,7 +129,7 @@ export default function App() {
   useEffect(() => {
     document.title = activeTab === 'analysis'
       ? 'ONs Terminal | Analisis'
-      : 'ONs Terminal | Dashboard'
+      : activeTab === 'audited-case' ? 'ONs Terminal | Caso YM34D' : 'ONs Terminal | Dashboard'
   }, [activeTab])
 
   useEffect(() => {
@@ -141,7 +143,7 @@ export default function App() {
 
   const hasData = data.length > 0
 
-  const marketModel = useBondMarketModel(data)
+  const marketModel = useBondMarketModel(data, { receivedAt: lastUpdated, fetchError: error })
   const coverageSummary = marketModel.coverageSummary
 
   async function handleRefresh() {
@@ -235,8 +237,8 @@ export default function App() {
               </span>
             </div>
             <div className="metric-chip border-l border-terminal-border/50 pl-4 pr-4">
-              <span className="metric-chip__label">Cobertura</span>
-              <span className="metric-chip__value text-up">
+              <span className="metric-chip__label" title="Presencia de campos; no certifica exactitud contractual">Campos presentes</span>
+              <span className="metric-chip__value">
                 {coverageSummary ? `${coverageSummary.score}%` : '--'}
               </span>
             </div>
@@ -246,7 +248,7 @@ export default function App() {
             onClick={handleRefresh}
             disabled={isRefreshing}
             className="ml-auto flex items-center gap-1.5 rounded-lg bg-terminal-surface/40 px-3 py-1.5 text-xs font-medium text-terminal-muted hover:bg-terminal-surface hover:text-terminal-text disabled:cursor-not-allowed disabled:opacity-50 xl:ml-3"
-            title="Actualizar datos"
+            title="Consultar proveedores; la hora de consulta no certifica la hora del último negocio"
           >
             <RefreshCw
               size={12}
@@ -256,7 +258,7 @@ export default function App() {
               {isRefreshing
                 ? 'Actualizando...'
                 : lastUpdated
-                  ? formatTime(lastUpdated)
+                  ? `Consulta ${formatTime(lastUpdated)}`
                   : 'Actualizar'}
             </span>
           </button>
@@ -267,7 +269,7 @@ export default function App() {
             {error && !hasData && <ErrorBanner message={error} onRetry={handleRefresh} />}
             {error && hasData && (
               <div className="mb-4 rounded-lg border border-terminal-border bg-terminal-surface/60 px-4 py-2 text-xs text-terminal-muted">
-                Se mantuvieron los ultimos datos validos mientras se reintenta la actualizacion.
+                Se conserva la última respuesta disponible mientras se reintenta la consulta. La hora del último negocio se evalúa por separado.
               </div>
             )}
 
@@ -300,6 +302,23 @@ export default function App() {
                   onFilterChange={setSearchQuery}
                 />
               </Suspense>
+            )}
+            {activeTab === 'audited-case' && marketModel.auditedReference && (
+              <section className="mx-auto max-w-3xl space-y-4">
+                <div>
+                  <h1 className="font-mono text-xl font-semibold">YM34D · Caso documentado</h1>
+                  <p className="mt-1 text-xs text-terminal-muted">Emisión original de YPF Clase XXXIV. La evidencia está disponible aunque falle la consulta de mercado.</p>
+                </div>
+                <Suspense fallback={<div className="py-8 text-sm text-terminal-muted">Cargando ficha...</div>}>
+                  <BondDetailPanel bond={marketModel.auditedReference.quote}
+                    prospecto={marketModel.auditedReference.prospecto}
+                    metrics={marketModel.auditedReference.metrics}
+                    quality={marketModel.auditedReference.quality}
+                    contract={marketModel.auditedReference.contract}
+                    calculationSnapshot={marketModel.auditedReference.calculationSnapshot}
+                    dolarMEP={mep} />
+                </Suspense>
+              </section>
             )}
           </div>
         </main>

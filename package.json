@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "test": "node --test tests/*.test.js",
+    "test": "node --test tests/*.test.js research/fixed-income/*.test.mjs",
+    "test:inprocess": "node --test --test-isolation=none tests/*.test.js research/fixed-income/*.test.mjs",
+    "catalog:check": "node scripts/catalog-source.mjs",
+    "replay": "node scripts/replay-calculation.mjs",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
